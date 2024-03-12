@@ -1,3 +1,5 @@
+import moment from "moment/moment.js";
+
 const chartRefresh = (dataList, data, xIndex) => {
     dataList.push(data);
     if (dataList.length === xIndex){
@@ -19,8 +21,40 @@ const timeHandle = (time) =>{
 }
 
 
+function generateRandomArray(fixedLength) {
+    const array = [];
+    let consecutiveZeros = 0;
+    for (let i = 0; i < fixedLength; i++) {
+        const randomValue = Math.random();
+        if (randomValue <= 0.7) {
+            array.push(0);
+            consecutiveZeros++;
+        } else {
+            array.push(Math.floor(Math.random() * 100) + 1);
+            consecutiveZeros = 0;
+        }
+        if (consecutiveZeros >= 10) {
+            consecutiveZeros = 0;
+            i -= 9;
+        }
+    }
+    return array;
+}
+
+function generateRandomDatesArray(length) {
+    const array = [];
+    for (let i = 0; i < length; i++) {
+        // 生成一个随机的日期
+        const randomDate = moment().add(Math.floor(Math.random() * 365), 'days');
+        array.push(randomDate.toString());
+    }
+    return array;
+}
+
 
 export  {
     chartRefresh,
-    timeHandle
+    timeHandle,
+    generateRandomArray,
+    generateRandomDatesArray
 }
