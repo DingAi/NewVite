@@ -22,6 +22,10 @@ const switch_drawer = ()=>{
             <el-row>
                 <el-menu default-active="/workplace/master-1/slave-1-1" :router="true" default-openeds="1">
                     <el-menu-item index="/workplace/master-1/slave-1-1" @click="switch_drawer">
+                        <el-icon><Histogram /></el-icon>
+                        <span>总站概览</span>
+                    </el-menu-item>
+                    <el-menu-item index="/workplace/master-1/slave-1-1" @click="switch_drawer">
                         <el-icon><Platform /></el-icon>
                         <span>从站 01</span>
                     </el-menu-item>

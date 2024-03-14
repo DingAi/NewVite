@@ -21,6 +21,19 @@ const timeHandle = (time) =>{
 }
 
 
+function generateData() {
+    let data = [];
+    for (let i = 0; i < 10; i++) {
+        let group = [];
+        group.push({name:'风扇', value: Math.random() < 0.5});
+        group.push({name:'盖子', value: Math.random() < 0.5});
+        group.push({name:'电磁阀', value: Math.random() < 0.5});
+        group.push({name:'Other', value: Math.random() < 0.5});
+        data.push(group);
+    }
+    return data;
+}
+
 function generateRandomArray(fixedLength) {
     const array = [];
     let consecutiveZeros = 0;
@@ -55,6 +68,7 @@ function generateRandomDatesArray(length) {
 export  {
     chartRefresh,
     timeHandle,
+    generateData,
     generateRandomArray,
     generateRandomDatesArray
 }

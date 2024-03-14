@@ -1,8 +1,8 @@
 <script setup>
-import {ref, reactive, watch, onMounted,h} from 'vue';
+import {ref, reactive, watch, onMounted, h} from 'vue';
 import {stations, sensors} from "@/assets/js/stations-data.js"
 import axios from "axios";
-import { ElNotification } from 'element-plus'
+import {ElNotification} from 'element-plus'
 import HistoryChart from "@/components/echarts/HistoryChart.vue";
 
 
@@ -30,15 +30,8 @@ const getSlaves = (masterNum) => {
     }
 }
 
-// const getMasters = () =>{
-//     axios.get('master_table').then(response => {
-//         masterStations.value = response.data
-//     })
-// }
-// getMasters();
-
 const sendData = (slaveList, sensorsList, time) => {
-    if (sensorsList && sensorsList && time){
+    if (sensorsList && sensorsList && time) {
         let dataList = [];
         for (let slave of slaveList) {
             for (let sensor of sensorsList) {
@@ -46,10 +39,10 @@ const sendData = (slaveList, sensorsList, time) => {
             }
         }
         let masterStr = masterValue.value.toString()
-        axios.post('xu/range_query', {'masterNum': masterStr,'sensorNum': dataList, 'time': time})
-            .then(response=>{
+        axios.post('xu/range_query', {'masterNum': masterStr, 'sensorNum': dataList, 'time': time})
+            .then(response => {
                 allData.value = response.data;
-                if (allData.lenght != 0){
+                if (allData.lenght != 0) {
                     ElNotification({
                         title: 'Success',
                         message: '数据查询成功！',
@@ -57,7 +50,7 @@ const sendData = (slaveList, sensorsList, time) => {
                     })
                 }
             })
-    }else {
+    } else {
         ElNotification({
             title: 'Warning',
             message: '请选择完整数据！',
@@ -66,7 +59,7 @@ const sendData = (slaveList, sensorsList, time) => {
     }
 }
 
-onMounted(()=>{
+onMounted(() => {
 
 })
 
@@ -118,16 +111,14 @@ onMounted(() => {
                         </el-select>
                     </div>
                     <div class="m-4 select" style="width: 400px">
-                        <div class="block">
-                            <span class="demonstration">时间范围</span>
-                            <el-date-picker
-                                    v-model="timeStr"
-                                    type="datetimerange"
-                                    value-format="YYYY-MM-DD HH:mm:ss"
-                                    start-placeholder="开始时间"
-                                    end-placeholder="结束时间"
-                            />
-                        </div>
+                        <span class="demonstration">时间范围</span>
+                        <el-date-picker
+                                v-model="timeStr"
+                                type="datetimerange"
+                                value-format="YYYY-MM-DD HH:mm:ss"
+                                start-placeholder="开始时间"
+                                end-placeholder="结束时间"
+                        />
                     </div>
                     <div class="m-4 buttons">
                         <el-button type="primary" @click="sendData(slaveValue, sensorValue, timeStr)">确认</el-button>
@@ -140,13 +131,13 @@ onMounted(() => {
     <el-row :gutter="20" class="history-chart">
         <el-col :span="24" class="p-2">
             <div class="base-div">
-<!--                <h1>数据图表</h1>-->
-<!--                <h1>{{ masterValue }}</h1>-->
-<!--                <h1>{{ slaveStations }}</h1>-->
-<!--                <h1>{{ slaveValue }}</h1>-->
+                <!--                <h1>数据图表</h1>-->
+                <!--                <h1>{{ masterValue }}</h1>-->
+                <!--                <h1>{{ slaveStations }}</h1>-->
+                <!--                <h1>{{ slaveValue }}</h1>-->
                 <h1>{{ sensorValue }}</h1>
-<!--                <h1>{{timeStr}}</h1>-->
-                <h1>{{allData}}</h1>
+                <!--                <h1>{{timeStr}}</h1>-->
+                <h1>{{ allData }}</h1>
                 <HistoryChart :historyData="allData" :tabs="sensorValue"/>
             </div>
         </el-col>
@@ -161,7 +152,7 @@ onMounted(() => {
   margin-bottom: 20px;
 }
 
-.select{
+.select {
   height: auto;
   width: 100%;
 

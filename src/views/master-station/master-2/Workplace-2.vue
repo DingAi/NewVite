@@ -20,12 +20,16 @@ const switch_drawer = ()=>{
         </el-affix>
         <el-drawer v-model="drawer" :with-header="false" :direction="'ltr'" :size="180">
             <el-row>
-                <el-menu default-active="/workplace/master-2/slave-2-1" :router="true">
-                    <el-menu-item index="/workplace/master-2/slave-2-1" @click="switch_drawer">
+                <el-menu default-active="/workplace/workplace-2/master-2" :router="true">
+                    <el-menu-item index="/workplace/workplace-2/master-2" @click="switch_drawer">
+                        <el-icon><Platform /></el-icon>
+                        <span>主站概览</span>
+                    </el-menu-item>
+                    <el-menu-item index="/workplace/workplace-2/slave-2-1" @click="switch_drawer">
                         <el-icon><Platform /></el-icon>
                         <span>从站 01</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/master-2/slave-2-2" @click="switch_drawer">
+                    <el-menu-item index="/workplace/workplace-2/slave-2-2" @click="switch_drawer">
                         <el-icon><Platform /></el-icon>
                         <span>从站 02</span>
                     </el-menu-item>

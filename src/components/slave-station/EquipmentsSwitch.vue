@@ -27,8 +27,8 @@ const props = defineProps({
                     <span v-else class="badge rounded-pill bg-secondary">关闭</span>
                 </td>
                 <td>
-                    <button class="btn btn-dark rounded-pill" v-if="item[0]">Close</button>
-                    <button class="btn btn-primary rounded-pill" v-else>Enter</button>
+                    <el-button type="default" round v-if="item[0]"> Close </el-button>
+                    <el-button type="primary" round v-else> Enter </el-button>
                 </td>
             </tr>
             </tbody>

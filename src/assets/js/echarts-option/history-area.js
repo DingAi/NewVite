@@ -21,13 +21,16 @@ const historyAreaOption = {
     },
     dataZoom: [
         {
-            start: 0,
-            end: 5,
+            show: true,
+            start: 30,
+            end: 70,
         },
         {
-            start: 0,
-            end: 5,
-        },
+            // show: true,
+            type: 'inside',
+            start: 30,
+            end: 70,
+        }
     ],
     series: []
 };

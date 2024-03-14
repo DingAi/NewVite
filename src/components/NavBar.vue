@@ -18,11 +18,11 @@ const userStore = useUserStore()
       <el-sub-menu>
           <template #title>工作台</template>
           <el-menu-item index="/workplace/workplace-1/slave-1-1">主站 01</el-menu-item>
-          <el-menu-item index="/workplace/workplace-2/slave-2-1">主站 02</el-menu-item>
+          <el-menu-item index="/workplace/workplace-2/master-2">主站 02</el-menu-item>
           <el-menu-item index="/workplace/workplace-3/slave-3-1" disabled>主站 03</el-menu-item>
       </el-sub-menu>
       <el-menu-item index="/history">历史</el-menu-item>
-      <el-menu-item index="/alarm" disabled>数据分析</el-menu-item>
+      <el-menu-item index="/analysis">数据分析</el-menu-item>
     <div class="flex-grow"/>
       <el-menu-item index="/login">{{ userStore.user }}</el-menu-item>
       <el-avatar> user </el-avatar>

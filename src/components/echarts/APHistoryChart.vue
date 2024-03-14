@@ -19,10 +19,10 @@ let timeList = generateRandomDatesArray(300);
 
 function refresh(option, dom){
     option.series[0].data = upApList;
-    option.series[1].data = downApList;
-    option.xAxis[0].data = timeList
-    option.xAxis[1].data = timeList
-    dom.setOption(option)
+    option.series[1].data = downApList;;
+    option.xAxis[0].data = timeList;
+    option.xAxis[1].data = timeList;
+    dom.setOption(option);
 }
 
 

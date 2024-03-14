@@ -45,13 +45,13 @@ import SoilSensors from "@/components/slave-station/SoilSensors.vue";
 import {timeHandle} from "@/util/chart-refresh.js";
 import axios from "axios";
 
-const page_name = ref('Master 01 : Slave01')
-const slave_num = 'master1/slave1'
-const use_switch = useEquipmentStore()
-const switchData = use_switch.getSwitchData()
-let sensorData = reactive({})
-const soilData = reactive({})
-let lineData = ref([])
+const page_name = ref('Master 01 : Slave01');
+const slave_num = 'master1/slave1';
+const use_switch = useEquipmentStore();
+const switchData = use_switch.getSwitchData();
+let sensorData = reactive({});
+const soilData = reactive({});
+let lineData = ref([]);
 
 const refresh = async () => {
     try {
@@ -86,7 +86,7 @@ const refresh = async () => {
 
 onMounted(() =>{
     setInterval(() => {
-        refresh()
+        refresh();
     }, 2000);
 });
 </script>
