@@ -1,53 +1,21 @@
 <template>
-    <el-row>
-        <el-menu
-                default-active="2"
-                :collapse="isCollapse"
-                class="aside"
-        >
-            <el-sub-menu index="1">
-                <template #title>
-                    <el-icon>
-                        <location/>
-                    </el-icon>
-                    <span>Navigator One</span>
-                </template>
-                <el-menu-item-group>
-                    <template #title><span>Group One</span></template>
-                    <el-menu-item index="1-1">item one</el-menu-item>
-                    <el-menu-item index="1-2">item two</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="Group Two">
-                    <el-menu-item index="1-3">item three</el-menu-item>
-                </el-menu-item-group>
-                <el-sub-menu index="1-4">
-                    <template #title><span>item four</span></template>
-                    <el-menu-item index="1-4-1">item one</el-menu-item>
-                </el-sub-menu>
-            </el-sub-menu>
-            <el-menu-item index="2">
-                <el-icon>
-                    <icon-menu/>
-                </el-icon>
-                <template #title>Slave 01</template>
-            </el-menu-item>
-            <el-menu-item index="3" disabled>
-                <el-icon>
-                    <document/>
-                </el-icon>
-                <template #title>Slave 02</template>
-            </el-menu-item>
-            <el-menu-item index="4">
-                <el-icon>
-                    <setting/>
-                </el-icon>
-                <template #title>Slave 03r</template>
-            </el-menu-item>
-            <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-                <el-radio-button :label="false">expand</el-radio-button>
-                <el-radio-button :label="true">collapse</el-radio-button>
-            </el-radio-group>
-        </el-menu>
+    <el-row class="full">
+        <el-col>
+            <el-menu default-active="2">
+                <el-menu-item index="/workplace/workplace-2/master-2">
+                    <el-icon><Platform /></el-icon>
+                    <span>主站</span>
+                </el-menu-item>
+                <el-menu-item index="3" disabled>
+                    <el-icon><Operation /></el-icon>
+                    <span>从站 01</span>
+                </el-menu-item>
+                <el-menu-item index="4">
+                    <el-icon><Operation /></el-icon>
+                    <span>从站 02</span>
+                </el-menu-item>
+            </el-menu>
+        </el-col>
     </el-row>
 </template>
 
@@ -64,7 +32,5 @@ const isCollapse = ref(true)
 </script>
 
 <style scoped>
-.aside {
-    height: 100vh;
-}
+
 </style>

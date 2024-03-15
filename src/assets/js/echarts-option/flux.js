@@ -1,7 +1,6 @@
 const fluxOption = {
     title: {
         text: 'Flux History',
-        left: 'center'
     },
     xAxis: {
         type: 'category',
@@ -31,12 +30,14 @@ const fluxOption = {
     series: [
         {
             data: [],
+            name: 'EC',
             type: 'line',
             smooth: false,  //曲线平滑
             areaStyle: {}
         },
         {
             data: [],
+            name: 'EW',
             type: 'line',
             smooth: false,  //曲线平滑
             areaStyle: {}

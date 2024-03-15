@@ -31,6 +31,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/xu/, '')
       },
+      '/shuangchan': {
+        target: 'http://192.168.30.100:9006/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/xu/, '')
+      },
     }
   },
   resolve: {

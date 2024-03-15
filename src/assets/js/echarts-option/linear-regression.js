@@ -216,10 +216,9 @@ const linearRegressionOption = {
     ],
     title: {
         text: 'Linear Regression',
-        left: 'center'
     },
     legend: {
-        bottom: 5
+
     },
     tooltip: {
         trigger: 'axis',

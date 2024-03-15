@@ -15,7 +15,7 @@ onMounted(() => {
 
 <template>
     <el-row :gutter="20" class="analysis-div-1">
-        <el-col :span="24" class="p-2">
+        <el-col :span="24" class="p-2" style="max-height: 100%">
             <div class="base-div items">
                 <div class="item">
                     <div class="text-center" style="width: 240px">
@@ -48,7 +48,6 @@ onMounted(() => {
             </div>
         </el-col>
     </el-row>
-
     <el-row :gutter="20" class="analysis-div-2">
         <el-col :span="24" class="p-2" style="max-height: 100%">
             <div class="base-div">

@@ -3,7 +3,8 @@
         <el-row :gutter="20" class="base-row">
             <el-col :span="18" :xs="24" class="line-div p-2">
                 <div class="base-div">
-                    <LineChart :CO2="sensorData['carbon_dioxide']" :time="sensorData['time']" :pageName="page_name" :linesData="sensorData"/>
+                    <LineChart :CO2="sensorData['carbon_dioxide']" :time="sensorData['time']" :pageName="page_name"
+                               :linesData="sensorData"/>
                 </div>
             </el-col>
             <el-col :span="6" :xs="24" class="p-2">
@@ -16,12 +17,15 @@
             <el-col :span="12" :xs="24" class="area-div p-2">
                 <!--                这里的area-div类要写在外侧-->
                 <div class="base-div">
-                    <AreaChart :illumination="sensorData['illumination']" :time="sensorData['time']" :pageName="page_name"/>
+                    <AreaChart :illumination="sensorData['illumination']" :time="sensorData['time']"
+                               :pageName="page_name"/>
                 </div>
             </el-col>
             <el-col :span="6" :xs="24" class="gauge-div p-2">
                 <div class="base-div">
-                    <GaugeChart :ap="{'uap':sensorData['up_atmospheric_pressure'], 'dap':sensorData['down_atmospheric_pressure']}" :time="sensorData['timest']"/>
+                    <GaugeChart
+                            :ap="{'uap':sensorData['up_atmospheric_pressure'], 'dap':sensorData['down_atmospheric_pressure']}"
+                            :time="sensorData['timest']"/>
                 </div>
             </el-col>
             <el-col :span="6" :xs="24" class="p-2">
@@ -36,14 +40,15 @@
 <script setup>
 import LineChart from "@/components/echarts/LineChart.vue";
 import {onMounted, reactive, ref} from "vue";
-import { useEquipmentStore } from "@/store/equipments.js";
+import {useEquipmentStore} from "@/store/equipments.js";
 import GaugeChart from "@/components/echarts/GaugeChart.vue";
-import { getSensorData, getSoilData } from '@/apis/master-api.js'
+import {getSensorData, getSoilData} from '@/apis/master-api.js'
 import AreaChart from "@/components/echarts/AreaChart.vue";
 import EquipmentsSwitch from "@/components/slave-station/EquipmentsSwitch.vue";
 import SoilSensors from "@/components/slave-station/SoilSensors.vue";
 import {timeHandle} from "@/util/chart-refresh.js";
 import axios from "axios";
+import Sidebar from "@/components/Sidebar.vue";
 
 const page_name = ref('Master 01 : Slave01')
 const slave_num = 'master2/slave1'
@@ -84,7 +89,7 @@ const refresh = async () => {
     }
 }
 
-onMounted(() =>{
+onMounted(() => {
     setInterval(() => {
         refresh()
     }, 2000);

@@ -13,7 +13,7 @@ const switch_drawer = ()=>{
 
 <template>
     <div class="full z-0">
-        <el-affix :offset="0" class="z-1 drawer-button">
+        <el-affix :offset="0" class="z-1 drawer-button hidden-lg-and-up">
             <el-button type="primary" @click="drawer = true">
                 <el-icon><Expand /></el-icon>
             </el-button>
@@ -40,8 +40,30 @@ const switch_drawer = ()=>{
                 </el-menu>
             </el-row>
         </el-drawer>
-        <el-row class="full">
-            <router-view/>
+        <el-row class="full p-2">
+            <el-col :span="4" class="hidden-sm-and-down">
+                <el-menu default-active="/workplace/workplace-2/master-2" :router="true">
+                    <el-menu-item index="/workplace/workplace-2/master-2" @click="switch_drawer">
+                        <el-icon><Platform /></el-icon>
+                        <span>主站概览</span>
+                    </el-menu-item>
+                    <el-menu-item index="/workplace/workplace-2/slave-2-1" @click="switch_drawer">
+                        <el-icon><Operation /></el-icon>
+                        <span>从站 01</span>
+                    </el-menu-item>
+                    <el-menu-item index="/workplace/workplace-2/slave-2-2" @click="switch_drawer">
+                        <el-icon><Operation /></el-icon>
+                        <span>从站 02</span>
+                    </el-menu-item>
+                    <el-menu-item index="4" disabled>
+                        <el-icon><Operation /></el-icon>
+                        <span>从站 03</span>
+                    </el-menu-item>
+                </el-menu>
+            </el-col>
+            <el-col :span="20">
+                <router-view/>
+            </el-col>
         </el-row>
     </div>
 </template>
@@ -49,7 +71,7 @@ const switch_drawer = ()=>{
 <style scoped>
 .drawer-button{
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 10px;
+    top: 10px;
 }
 </style>
