@@ -4,7 +4,7 @@ import LinearRegressionChart from "@/components/echarts/LinearRegressionChart.vu
 import FluxHistoryChart from "@/components/echarts/FluxHistoryChart.vue";
 // import MathJax from 'mathjax'
 let boxVolume = ref(0)
-let templist = ref([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24])
+let templist = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24])
 
 onMounted(() => {
 
@@ -35,7 +35,7 @@ onMounted(() => {
                 </div>
                 <div class="item">
                     <div class="text-center">
-                        <p>时间范围选择</p>
+                        <p>日期范围选择</p>
                         <el-date-picker
                                 v-model="timeStr"
                                 type="datetimerange"
@@ -57,7 +57,7 @@ onMounted(() => {
                             <el-timeline>
                                 <el-timeline-item v-for="item in templist" center timestamp="2018/4/12" placement="top">
                                     <el-card>
-                                        <el-text type="success">{{item}}</el-text>
+                                        <el-text type="success">{{ item }}</el-text>
                                         <h4>K: 1.3 AH:123 EC:656 EW:979</h4>
                                         <p>2018/4/12 20:46</p>
                                     </el-card>
@@ -123,5 +123,25 @@ onMounted(() => {
 <style lang="less" scoped>
 @import "@/assets/css/master-style";
 @import "@/assets/css/anlysis-style";
+
+
+.el-date-range-picker .el-picker-panel__body {
+  @media (max-width: 768px) {
+    width: 323px !important;
+  }
+}
+
+.el-date-range-picker__editors-wrap {
+  @media (max-width: 768px) {
+    display: flex !important;
+  }
+}
+
+.el-date-range-picker__content {
+  @media (max-width: 768px) {
+    width: 100% !important;
+  }
+}
+
 
 </style>

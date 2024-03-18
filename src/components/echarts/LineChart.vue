@@ -65,7 +65,6 @@ onMounted(() => {
         () => props.linesData.carbon_dioxide,
         () => {
             if (props.linesData.carbon_dioxide) {
-                console.log(props.linesData.carbon_dioxide);
                 moreDataRefresh(dom, option, [props.linesData.carbon_dioxide, props.linesData.in_temperature, props.linesData.ex_temperature, props.linesData.in_humidity, props.linesData.ex_humidity], props.linesData.time)
             }
         }

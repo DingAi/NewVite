@@ -56,14 +56,14 @@ const apHistoryOption = {
             type: 'category',
             show: true,
             boundaryGap: false,
-            axisLine: { onZero: true },
+            axisLine: {onZero: true},
             data: []
         },
         {
             gridIndex: 1,
             type: 'category',
             boundaryGap: false,
-            axisLine: { onZero: true },
+            axisLine: {onZero: true},
             data: [],
             position: 'top'
         }
@@ -83,7 +83,8 @@ const apHistoryOption = {
             name: '正气压',
             type: 'line',
             symbolSize: 8,
-            data: []
+            data: [],
+            areaStyle: {}
         },
         {
             name: '负气压',
@@ -91,7 +92,8 @@ const apHistoryOption = {
             xAxisIndex: 1,
             yAxisIndex: 1,
             symbolSize: 8,
-            data: []
+            data: [],
+            areaStyle: {}
         }
     ]
 };

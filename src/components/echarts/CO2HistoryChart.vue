@@ -18,7 +18,7 @@ function refresh(dom){
     for (let i=0; i<10; i++){
         let dataList = generateRandomArray(300);
         let timeList = generateRandomDatesArray(300);
-        let newData = {name: '', type: 'line', symbol: 'none', data: [], areaStyle: {}};
+        let newData = {name: '', type: 'line', symbol: 'none', data: []};
         let name = '从站 '+ i + ' CO2';
         nameList.push(name)
         newData.name = name
@@ -26,7 +26,6 @@ function refresh(dom){
         option.xAxis.data = timeList;
         option.series.push(newData)
     }
-    console.log(option)
     option.legend.data = nameList;
     dom.setOption(option)
 }

@@ -1,11 +1,5 @@
 //在移动端的高度变量
-@media-h-300:300px;
-@media-h-400:400px;
 @media-h-500:500px;
-@media-h-600:600px;
-@media-h-800:800px;
-@media-h-1000:1000px;
-@media-h-1200:1200px;
 
 //桌面端的高度变量
 @desktop-h-50:50%;
@@ -110,5 +104,19 @@ main{
 
   @media (min-width: 768px) {
     height: 80%;  // 在电脑端的属性
+  }
+}
+
+.hidden-on-desktop {
+  /*在电脑端隐藏*/
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+.hidden-on-mobile {
+  /*在手机端隐藏*/
+  @media (max-width: 769px) {
+    display: none;
   }
 }

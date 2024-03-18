@@ -14,8 +14,8 @@ const timeSetList = ref(timeSetNameList);
 </script>
 
 <template>
-    <el-row class="full div-1-h z-0">
-        <el-col :span="18" :xs="24" class="data-div div-2-h">
+    <el-row class="z-0 full">
+        <el-col :span="18" :xs="24" class="full">
             <el-row class="equipment-page-h-20 p-2" id="master-div-1">
                 <div class="base-div items">
                     <div class="item">
@@ -56,18 +56,18 @@ const timeSetList = ref(timeSetNameList);
                 </div>
             </el-row>
             <el-row class="equipment-page-h-80 p-2" id="master-div-2 ">
-                <div class="base-div items">
-                    <div class="item">
+                <div class="base-div chart-container">
+                    <div class="left">
                         <CO2HistoryChart/>
                     </div>
-                    <div class="item">
+                    <div class="right">
                         <APHistoryChart/>
                     </div>
                 </div>
             </el-row>
         </el-col>
         <el-col :span="6" :xs="24" class="p-2" id="switch">
-            <div class="base-div">
+            <div class="base-div" style="max-height: 100%">
                 <div class="switch-group-container">
                     <!--                    自动模式-->
                     <div class="switch_group re-text" v-for="(group, index) in switchData" v-if="isAuto">

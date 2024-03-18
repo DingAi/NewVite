@@ -26,7 +26,6 @@ const historyAreaOption = {
             end: 70,
         },
         {
-            // show: true,
             type: 'inside',
             start: 30,
             end: 70,

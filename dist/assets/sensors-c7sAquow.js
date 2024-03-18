@@ -1,1 +1,0 @@
-import{v as t,i as a,m as o}from"./index-WgEexaTX.js";const i=t("equipment",()=>{let e=a({});return{sensorData:e,getSensorsData:async s=>{try{e=(await o.get("api/"+s)).data}catch(r){console.error(r)}return e}}});export{i as u};

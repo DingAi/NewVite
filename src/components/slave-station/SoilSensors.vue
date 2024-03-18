@@ -4,19 +4,30 @@ import {ref} from "vue";
 const props = defineProps({
     soil_data: Object,
 });
-let sensorName = ref(['体积含水量','土壤温度','土壤介电常数'])
+let sensorName = ref(['VWC', 'ST', 'SDC'])
+let chineseName = ref(['体积含水量', '土壤温度', '土壤介电常数'])
 </script>
 
 <template>
     <table class="table table-borderless full re-text">
         <thead>
         <tr>
-            <th scope="col">土壤层</th>
+            <th scope="col">Layer</th>
             <th scope="col">
-                {{ sensorName[0] }}
+                <el-tooltip content="体积含水量" placement="top">
+                    {{ sensorName[0] }}
+                </el-tooltip>
             </th>
-            <th scope="col">{{ sensorName[1] }}</th>
-            <th scope="col">{{ sensorName[2] }}</th>
+            <th scope="col">
+                <el-tooltip content="土壤温度" placement="top">
+                    {{ sensorName[1] }}
+                </el-tooltip>
+            </th>
+            <th scope="col">
+                <el-tooltip content="土壤介电常数" placement="top">
+                    {{ sensorName[2] }}
+                </el-tooltip>
+            </th>
         </tr>
         </thead>
         <tbody>

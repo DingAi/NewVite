@@ -13,23 +13,23 @@ const switch_drawer = ()=>{
 
 <template>
     <div class="full z-0">
-        <el-affix :offset="0" class="z-1 drawer-button hidden-lg-and-up">
+        <el-affix :offset="0" class="z-1 drawer-button hidden-on-desktop">
             <el-button type="primary" @click="drawer = true">
                 <el-icon><Expand /></el-icon>
             </el-button>
         </el-affix>
         <el-drawer v-model="drawer" :with-header="false" :direction="'ltr'" :size="180">
             <el-row>
-                <el-menu default-active="/workplace/workplace-2/master-2" :router="true">
-                    <el-menu-item index="/workplace/workplace-2/master-2" @click="switch_drawer">
+                <el-menu default-active="/workplace/workplace-1/master-2" :router="true">
+                    <el-menu-item index="/workplace/workplace-1/master-2" @click="switch_drawer">
                         <el-icon><Platform /></el-icon>
                         <span>主站概览</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-2/slave-2-1" @click="switch_drawer">
+                    <el-menu-item index="/workplace/workplace-1/slave-2-1" @click="switch_drawer">
                         <el-icon><Platform /></el-icon>
                         <span>从站 01</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-2/slave-2-2" @click="switch_drawer">
+                    <el-menu-item index="/workplace/workplace-1/slave-2-2" @click="switch_drawer">
                         <el-icon><Platform /></el-icon>
                         <span>从站 02</span>
                     </el-menu-item>
@@ -40,8 +40,8 @@ const switch_drawer = ()=>{
                 </el-menu>
             </el-row>
         </el-drawer>
-        <el-row class="full p-2">
-            <el-col :span="4" class="hidden-sm-and-down">
+        <el-row class="full" :gutter="10">
+            <el-col :span="3" :xs="0" class="hidden-on-mobile p-2">
                 <el-menu default-active="/workplace/workplace-2/master-2" :router="true">
                     <el-menu-item index="/workplace/workplace-2/master-2" @click="switch_drawer">
                         <el-icon><Platform /></el-icon>
@@ -61,7 +61,7 @@ const switch_drawer = ()=>{
                     </el-menu-item>
                 </el-menu>
             </el-col>
-            <el-col :span="20">
+            <el-col :span="21" :xs="24" class="full">
                 <router-view/>
             </el-col>
         </el-row>
@@ -74,4 +74,6 @@ const switch_drawer = ()=>{
     right: 10px;
     top: 10px;
 }
+
+
 </style>

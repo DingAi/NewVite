@@ -2,7 +2,7 @@
 import * as echarts from 'echarts';
 import {onMounted} from "vue";
 
-onMounted(()=>{
+onMounted(() => {
     let chartDom = document.getElementById('home');
     let myChart = echarts.init(chartDom);
     window.addEventListener('resize', function () {
@@ -65,13 +65,20 @@ option = {
 </script>
 
 <template>
-<div class="full" id="home">
-<!--  <h1>-->
-<!--    主页面正在施工-->
-<!--  </h1>-->
-</div>
+    <div class="full" id="home">
+        <!--  <h1>-->
+        <!--    主页面正在施工-->
+        <!--  </h1>-->
+    </div>
 </template>
 
 <style scoped>
+#home{
+    /*在手机端的属性*/
+    @media (max-width: 769px) {
+        width: 100%;
+        height: 600px;
+    }
+}
 
 </style>
