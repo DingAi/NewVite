@@ -1,6 +1,7 @@
 const fluxOption = {
     title: {
-        text: 'Flux History',
+        text: '通量历史记录',
+        left: 'center'
     },
     xAxis: {
         type: 'category',
@@ -9,7 +10,7 @@ const fluxOption = {
         data: []
     },
     legend: {
-        data: ['EC', 'EW'],
+        top: '7%'
     },
     yAxis: {
         type: 'value'

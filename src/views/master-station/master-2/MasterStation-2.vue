@@ -3,7 +3,7 @@ import {reactive, ref} from "vue";
 import APHistoryChart from "@/components/echarts/APHistoryChart.vue";
 import CO2HistoryChart from "@/components/echarts/CO2HistoryChart.vue";
 import {timeSetNameList} from "@/assets/js/used-json.js";
-import {generateData} from "@/util/chart-refresh.js";
+import {generateData} from "@/util/data-generator.js";
 
 
 let switchData = reactive(generateData());

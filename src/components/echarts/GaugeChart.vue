@@ -1,7 +1,7 @@
 <script setup>
 
 import {setGaugeData} from "@/assets/js/echarts-option/gauge.js";
-import {IdInitEcharts, setSeriesData} from "@/assets/js/echarts-option/echarts-package.js";
+import {IdInitEcharts} from "@/assets/js/echarts-option/echarts-package.js";
 import {onMounted, watch} from "vue";
 
 const props = defineProps({
@@ -15,6 +15,7 @@ const refresh = (uap,dap,dom) => {
 
 onMounted(() => {
     let dom = IdInitEcharts('gauge-dom');
+    console.log(props.ap)
     window.addEventListener('resize', function () {
         dom.resize();
     });
@@ -23,9 +24,10 @@ onMounted(() => {
     watch(
         () => props.ap.dap,
         () => {
-            if (props.ap.uap & props.ap.dap) {
-                refresh(props.ap.uap, props.ap.dap, dom)
-            }
+            // if (props.ap.uap & props.ap.dap) {
+                refresh(props.ap.uap, props.ap.dap, dom);
+                console.log(props.ap.dap)
+            // }
         }
     )
 })

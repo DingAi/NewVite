@@ -3,7 +3,7 @@
 import {onMounted, ref, watch, watchEffect} from "vue";
 import {IdInitEcharts, setOptionXAxis, setSeriesData, setTitle} from "@/assets/js/echarts-option/echarts-package.js";
 import {areaOption} from "@/assets/js/echarts-option/area.js";
-import {chartRefresh} from "@/util/chart-refresh.js";
+import {dataGenerator} from "@/util/data-generator.js";
 
 const props = defineProps({
     illumination: Number,
@@ -16,8 +16,8 @@ let data_list = new Array()
 let time_list = new Array()
 
 const refresh = (dom, option ,data, time) => {
-    data_list = chartRefresh(data_list,data,20)
-    time_list = chartRefresh(time_list,time,20)
+    data_list = dataGenerator(data_list,data,20)
+    time_list = dataGenerator(time_list,time,20)
     setSeriesData(option, data_list)
     option = setOptionXAxis(option, time_list)
     dom.setOption(option)

@@ -2,12 +2,13 @@ const co2Option = {
     tooltip: {
         trigger: 'axis',
     },
-    // title: {
-    //     left: 'center',
-    //     text: 'Large Area Chart'
-    // },
+    title: {
+        left: 'center',
+        text: '二氧化碳24小时历史'
+    },
     legend: {
         data: [],
+        top: '5%'
     },
     toolbox: {
         feature: {

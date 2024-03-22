@@ -33,23 +33,23 @@ let chineseName = ref(['体积含水量', '土壤温度', '土壤介电常数'])
         <tbody>
         <tr v-for="(item, index) in soil_data" :key="item">
             <th scope="row">
-                    <span class="badge rounded-pill bg-dark">
+                    <span class="badge bg-dark">
                         {{ index }}
                     </span>
             </th>
             <td>
-                    <span class="badge rounded-pill bg-warning">
-                        {{ item.sensor01 }}
+                    <span class="badge bg-warning">
+                        {{ item.sensor03 }}%
                     </span>
             </td>
             <td>
-                    <span class="badge rounded-pill bg-warning">
-                        {{ item.sensor01 }}
+                    <span class="badge bg-warning">
+                        {{ item.sensor02 }}℃
                     </span>
             </td>
             <td>
-                    <span class="badge rounded-pill bg-warning">
-                        {{ item.sensor01 }}
+                    <span class="badge bg-warning">
+                        {{ item.sensor01 }}μs
                     </span>
             </td>
         </tr>

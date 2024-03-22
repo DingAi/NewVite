@@ -1,6 +1,12 @@
 //此处写的是一些公用的方法，比如调用Echarts的图表样式可以写在这里
 import * as echarts from 'echarts';
 import 'echarts/theme/roma.js'
+import 'echarts/theme/forest.js'
+import 'echarts/theme/infographic.js'
+import 'echarts/theme/inspired.js'
+import 'echarts/theme/london.js'
+import 'echarts/theme/vintage.js'
+import 'echarts/theme/macarons.js'
 
 const IdInitEcharts = (id) => {
     let theDiv = document.getElementById(id);
@@ -9,7 +15,7 @@ const IdInitEcharts = (id) => {
 }
 
 export const refInitEcharts = (ref,) => {
-    let dom = echarts.init(ref, 'macarons');
+    let dom = echarts.init(ref, 'roma');
     return dom;
 }
 

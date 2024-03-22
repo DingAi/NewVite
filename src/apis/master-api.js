@@ -5,29 +5,65 @@ import {reactive} from "vue";
 const userStore = useUserStore()
 let token = userStore.token
 
-const getSensorData = (slave_num) => {
-    let url = '/xu/' + slave_num;
+const getSensorData = (slaveNum) => {
+    let url = 'xu/real_time_data';
     return axios({
         url: url,
-        method: 'get'
+        method: 'post',
+        data: {
+            slave_num: slaveNum,
+            ids: [1, 2, 3, 4]
+        },
     })
 }
-const getSoilData = () => {
-    let url = 'xu/soilSensors'
+
+//获取一个站点的传感器数据
+//slave_num为从站编号
+const getSoilData = (slaveNum) => {
+    let url = 'xu/soil'
     return axios({
         url: url,
-        method: 'get'
+        method: 'post',
+        data: {
+            slave_num: slaveNum,
+        },
     })
 }
-const getChartData = () => {
+
+const getAPData = () => {
+    let url = 'xu/air_pressure'
     return axios({
-        url: '/api/chart',
+        url: url,
         method: 'get'
     })
 }
 
-export  {
+const getAPHistory = () => {
+    let url = 'xu/xxx'
+    return axios({
+        url: url,
+        method: 'get'
+    })
+}
+
+const getCO2History = (masterName, sensorNum, timeRange) => {
+    let url = 'xu/co2_history'
+    return axios({
+        url: url,
+        method: 'post',
+        data: {
+            masterNum: masterName,
+            sensorNum: sensorNum,
+            time: timeRange
+        }
+    })
+}
+
+
+export {
     getSensorData,
-    getChartData,
-    getSoilData
+    getCO2History,
+    getAPHistory,
+    getSoilData,
+    getAPData
 }

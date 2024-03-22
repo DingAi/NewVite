@@ -2,6 +2,10 @@ const areaOption = {
      tooltip: {
          trigger: 'axis'
      },
+    title: {
+        text: '光照数据',
+        left: 'center'
+    },
      toolbox: {
         show: true,
         feature: {

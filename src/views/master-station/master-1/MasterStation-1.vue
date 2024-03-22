@@ -1,15 +1,34 @@
 <script setup>
-import {reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import APHistoryChart from "@/components/echarts/APHistoryChart.vue";
 import CO2HistoryChart from "@/components/echarts/CO2HistoryChart.vue";
 import {timeSetNameList} from "@/assets/js/used-json.js";
-import {generateData} from "@/util/chart-refresh.js";
+import {generateData, get24HTimeRange} from "@/util/data-generator.js";
+import axios from "axios";
 
 
 let switchData = reactive(generateData());
 let isAuto = ref(true);
 let openPopup = ref(false);
-const timeSetList = ref(timeSetNameList);
+let co2Data = ref([]);
+
+const timeRange = get24HTimeRange();
+
+const refreshCO2History = async () => {
+    try {
+        axios.post('xu/range_query', {'masterNum': 'master01', 'sensorNum': ['co211', 'co212'], 'time': timeRange})
+            .then(response => {
+                co2Data.value = response.data;
+                console.log(co2Data)
+            })
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+onMounted(() => {
+    refreshCO2History();
+})
 
 </script>
 
@@ -19,9 +38,18 @@ const timeSetList = ref(timeSetNameList);
             <el-row class="equipment-page-h-20 p-2" id="master-div-1">
                 <div class="base-div items">
                     <div class="item">
-                        <el-switch v-model="isAuto" class="ml-2" inline-prompt size="large"
-                                   style="--el-switch-on-color: #13ce66; --el-switch-off-color: #3ef3e7"
-                                   active-text="自动模式" inactive-text="手动模式"/>
+                        <div class="text-center">
+                            <p>站点电量</p>
+                            <el-progress :text-inside="true" :stroke-width="26" :percentage="70"/>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="text-center">
+                            <p>模式切换</p>
+                            <el-switch v-model="isAuto" class="ml-2" inline-prompt size="large"
+                                       style="--el-switch-on-color: #13ce66; --el-switch-off-color: #f6c72b"
+                                       active-text="自动模式" inactive-text="手动模式"/>
+                        </div>
                     </div>
                     <div class="item">
                         <el-statistic title="正在运行的子站" :value="268500"/>
@@ -58,7 +86,7 @@ const timeSetList = ref(timeSetNameList);
             <el-row class="equipment-page-h-80 p-2" id="master-div-2 ">
                 <div class="base-div chart-container">
                     <div class="left p-2">
-                        <CO2HistoryChart/>
+                        <CO2HistoryChart :co2Data="co2Data.value"/>
                     </div>
                     <div class="right p-2">
                         <APHistoryChart/>
@@ -73,14 +101,14 @@ const timeSetList = ref(timeSetNameList);
                     <div class="switch_group re-text" v-for="(group, index) in switchData" v-if="isAuto">
                         <div class="station-name  text-center p-2">
                             <el-text class="mx-1 text-primary" type="primary" size="large">
-                                {{ 'Slave Station : ' }}{{ index + 1 }}
+                                Slave Station : {{ index + 1 }}
                             </el-text>
                         </div>
                         <div class="switchs">
                             <div class="switch text-center" v-for="(item, key) in group" :key="key">
                                 <p class="text-color-1">{{ item.name }}</p>
-                                <span v-if="item.value" class="badge rounded-pill open-color-auto">Opening</span>
-                                <span v-else class="badge rounded-pill close-color-auto">Closed</span>
+                                <span v-if="item.value" class="badge open-color-auto">closed</span>
+                                <span v-else class="badge close-color-auto">opening</span>
                             </div>
                         </div>
                     </div>
@@ -88,8 +116,8 @@ const timeSetList = ref(timeSetNameList);
                     <!--                    手动模式-->
                     <div class="switch_group re-text" v-for="(group, index) in switchData" v-else>
                         <div class="station-name  text-center p-2">
-                            <el-text  class="mx-1 text-primary" type="primary" size="large">
-                                {{ 'Slave Station : ' }}{{ index + 1 }}
+                            <el-text class="mx-1 text-primary" type="primary" size="large">
+                                Slave Station : {{ index + 1 }}
                             </el-text>
                         </div>
                         <div class="switchs text-center">
@@ -109,12 +137,13 @@ const timeSetList = ref(timeSetNameList);
 <style lang="less" scoped>
 @import "@/assets/css/master-style";
 
-.text-color-1{
-    color: #babbbc;
-    font-size: 1rem;
+.text-color-1 {
+  color: #8e8e8f;
+  font-size: 1rem;
 }
-.text-color-2{
-    font-size: 1rem;
+
+.text-color-2 {
+  font-size: 1rem;
 }
 
 </style>

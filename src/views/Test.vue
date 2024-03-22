@@ -1,20 +1,16 @@
 <script setup>
-import { ApiClient } from '@/assets/js/js-sdk/ApiClient.js'
-import { ref, onMounted } from 'vue'
+import {ref} from "vue";
+import {getCO2History} from "@/apis/master-api.js";
+import {get24HTimeRange} from "@/util/data-generator.js";
 
-const getApiData = new ApiClient()
-getApiData.basePath = 'http://192.168.30.100:9006'
-getApiData.setAccessToken("f2b59ccee90b45de91cfe45efa25d5e2")
-
-const text = ref('')
-
-onMounted(async () => {
-    text.value = await getApiData.getVariantRealtimeValueList(["1"])
-})
+const timeRange = get24HTimeRange();
+const resData = ref(getCO2History('master01', ['co211'], timeRange));
+console.log(resData)
+const text = ref(resData.data);
 </script>
 
 <template>
-    <h1>{{text}}</h1>
+    <h1>{{ text.value }}</h1>
 </template>
 
 <style>

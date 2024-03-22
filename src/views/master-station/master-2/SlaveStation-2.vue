@@ -42,7 +42,7 @@ import { getSensorData, getSoilData } from '@/apis/master-api.js'
 import AreaChart from "@/components/echarts/AreaChart.vue";
 import EquipmentsSwitch from "@/components/slave-station/EquipmentsSwitch.vue";
 import SoilSensors from "@/components/slave-station/SoilSensors.vue";
-import {timeHandle} from "@/util/chart-refresh.js";
+import {timeHandle} from "@/util/data-generator.js";
 import axios from "axios";
 
 const page_name = ref('Master 01 : Slave01')

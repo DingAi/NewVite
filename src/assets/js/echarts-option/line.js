@@ -3,7 +3,8 @@ let lineOption = {
         trigger: 'axis'
     },
     title: {
-        text: 'Title'
+        text: 'Title',
+        left: 'center'
     },
     toolbox: {
         show: true,

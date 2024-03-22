@@ -24,8 +24,9 @@ const userStore = useUserStore()
       <el-menu-item index="/history">历史</el-menu-item>
       <el-menu-item index="/analysis">数据分析</el-menu-item>
     <div class="flex-grow"/>
-      <el-menu-item index="/login">{{ userStore.user }}</el-menu-item>
-      <el-avatar> user </el-avatar>
+      <el-menu-item index="/login">
+          <el-avatar> {{ userStore.user }} </el-avatar>
+      </el-menu-item>
       <el-menu-item v-if="!userStore.isAuthenticated" index="/login">Login</el-menu-item>
       <el-menu-item v-if="userStore.isAuthenticated"><el-button @click="userStore.logout()">Logout</el-button></el-menu-item>
   </el-menu>

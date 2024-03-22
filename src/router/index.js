@@ -53,6 +53,37 @@ const routes = [
                         component: () => import('../views/master-station/master-1/SlaveStation-2.vue'),
                     },
                     {
+                        path: 'slave-1-3',
+                        name: 'SlaveStation-1-3',
+                        component: () => import('../views/master-station/master-1/SlaveStation-3.vue'),
+                    },
+                    {
+                        path: 'slave-1-4',
+                        name: 'SlaveStation-1-4',
+                        component: () => import('../views/master-station/master-1/SlaveStation-4.vue'),
+                    },
+                    {
+                        path: 'slave-1-5',
+                        name: 'SlaveStation-1-5',
+                        component: () => import('../views/master-station/master-1/SlaveStation-5.vue'),
+                    },
+                    {
+                        path: 'slave-1-6',
+                        name: 'SlaveStation-1-6',
+                        component: () => import('../views/master-station/master-1/SlaveStation-6.vue'),
+                    },
+                    {
+                        path: 'slave-1-7',
+                        name: 'SlaveStation-1-7',
+                        component: () => import('../views/master-station/master-1/SlaveStation-7.vue'),
+                    },
+                    {
+                        path: 'slave-1-8',
+                        name: 'SlaveStation-1-8',
+                        component: () => import('../views/master-station/master-1/SlaveStation-8.vue'),
+                    },
+
+                    {
                         path: 'master-1',
                         name: 'MasterStation-1',
                         component: () => import('../views/master-station/master-1/MasterStation-1.vue'),
@@ -74,6 +105,7 @@ const routes = [
                         name: 'SlaveStation-2-2',
                         component: () => import('../views/master-station/master-2/SlaveStation-2.vue'),
                     },
+
                     {
                         path: 'master-2',
                         name: 'MasterStation-2',

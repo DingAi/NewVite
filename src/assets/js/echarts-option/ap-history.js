@@ -1,7 +1,8 @@
 const apHistoryOption = {
-    // title: {
-    //     text: '气压数据24小时历史',
-    // },
+    title: {
+        text: '气压数据24小时历史',
+        left: 'center',
+    },
     tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -9,6 +10,7 @@ const apHistoryOption = {
         }
     },
     legend: {
+        top: '4%',
         data: ['正气压', '负气压'],
     },
     toolbox: {

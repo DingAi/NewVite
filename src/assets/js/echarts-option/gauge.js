@@ -60,8 +60,10 @@ let gaugeOption = {
                 color: '#fff',
                 backgroundColor: 'inherit',
                 borderRadius: 3,
-                formatter: '{value}%'
-            }
+                formatter: '{value}Pa'
+            },
+            min: -300,
+            max: 300,
         }
     ]
 };

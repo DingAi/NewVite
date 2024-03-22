@@ -11,7 +11,7 @@ const useEquipmentStore = defineStore('equipment', () => {
     })
 
     const getSwitchData = () => {
-        axios.get('xu/items').then(response => {
+        axios.get('api/items').then(response => {
             switchData.lid = response.data['lid'];
             switchData.radiotube = response.data['radiotube'];
             switchData.fan = response.data['fan'];

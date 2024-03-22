@@ -42,33 +42,31 @@ import { getSensorData, getSoilData } from '@/apis/master-api.js'
 import AreaChart from "@/components/echarts/AreaChart.vue";
 import EquipmentsSwitch from "@/components/slave-station/EquipmentsSwitch.vue";
 import SoilSensors from "@/components/slave-station/SoilSensors.vue";
-import {timeHandle} from "@/util/chart-refresh.js";
+import {timeHandle} from "@/util/data-generator.js";
 
-const page_name = ref('Master 01 : Slave01')
-const slave_num = 'master1/slave2'
-const use_switch = useEquipmentStore()
-const switchData = use_switch.getSwitchData()
-let sensorData = reactive({})
-const soilData = reactive({})
-let lineData = ref([])
+const page_name = ref('Master 01 : Slave01');
+const slave_num = 2;
+const use_switch = useEquipmentStore();
+const switchData = use_switch.getSwitchData();
+let sensorData = reactive({});
+const soilData = reactive({});
 
 const refresh = async () => {
     try {
         const response = await getSensorData(slave_num);
-        // sensorData = response.data
         sensorData.in_temperature = response.data['inTemperature'];
         sensorData.ex_temperature = response.data['exTemperature'];
         sensorData.in_humidity = response.data['inHumidity'];
         sensorData.ex_humidity = response.data['exHumidity'];
         sensorData.illumination = response.data['illumination'];
-        sensorData.carbon_dioxide = response.data['CO2'];
-        sensorData.up_atmospheric_pressure = response.data['UAP'];
-        sensorData.down_atmospheric_pressure = response.data['DAP'];
-        sensorData.time = timeHandle(response.data['timest']);
+        // sensorData.carbon_dioxide = response.data['CO2'];
+        // sensorData.up_atmospheric_pressure = response.data['UAP'];
+        // sensorData.down_atmospheric_pressure = response.data['DAP'];
+        sensorData.time = timeHandle(response.data['time']);
+
     } catch (error) {
         console.error(error);
     }
-
 
     try {
         const response = await getSoilData();
@@ -84,8 +82,8 @@ const refresh = async () => {
 
 onMounted(() =>{
     setInterval(() => {
-        refresh()
-    }, 2000);
+        refresh();
+    }, 5000);
 });
 </script>
 

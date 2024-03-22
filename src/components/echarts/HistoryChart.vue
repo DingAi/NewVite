@@ -1,46 +1,51 @@
 <template>
-<div class="full" id="history-line"></div>
+    <div class="full" id="history-line"></div>
 </template>
 
 <script setup>
 import {historyAreaOption} from '@/assets/js/echarts-option/history-area.js'
 import {onMounted, watch} from "vue";
 import {IdInitEcharts} from "@/assets/js/echarts-option/echarts-package.js";
-import {translate} from '@/assets/js/stations-data.js'
+import {trsnslateSlave, translate} from '@/assets/js/stations-data.js'
+import {timeHandle} from "@/util/data-generator.js";
 
 const props = defineProps({
     historyData: Array,
-    tabs: Array
+    stations: Array,
+    sensors: Array
 })
 
-let option = historyAreaOption;
-let nameList = [];
-let num = 0;
+let historyLineOption = historyAreaOption;
 
-
-const refresh = (dom, option, historyData, tablist) => {
+const refresh = (dom, option, historyData, slaveList, sensorsList) => {
     option.series = [];
-    for(let sensor of historyData){
+    option.xAxis.data = [];
+    let sensorNameIndex = 0;
+    let slaveNameIndex = 0;
+    for (let sensor of historyData) {
         let newData = {name: '', type: 'line', symbol: 'none', data: []};
         let dataList = new Array();
         let timeList = new Array();
-        let tablength = tablist.length;
-        let name = translate[tablist[num]];
-        if (num+1 == tablength){
-            num = 0;
-        }else {
-            num++;
+
+        let slaveName = trsnslateSlave[slaveList[slaveNameIndex]]
+        let sensorName = translate[sensorsList[sensorNameIndex]];
+        if (sensorNameIndex + 1 == sensorsList.length) {
+            sensorNameIndex = 0;
+            slaveNameIndex++;
+        } else {
+            sensorNameIndex++;
         }
-        newData.name = name
-        for(let item of sensor){
-            dataList.push(item[name]);
-            timeList.push(item['timest']);
+        for (let item of sensor) {
+            dataList.push(item[sensorName]);
+            timeList.push(timeHandle(item['timest']));
         }
+        newData.name = slaveName + sensorName;
         newData.data = dataList;
         option.series.push(newData);
         option.xAxis.data = timeList;
     }
-    dom.setOption(option);
+
+    option && dom.setOption(option, true);
 }
 
 onMounted(() => {
@@ -54,9 +59,7 @@ onMounted(() => {
         () => props.historyData,
         () => {
             if (props.historyData) {
-                refresh(dom, option, props.historyData, props.tabs);
-                console.log(props.tabs);
-                console.log(props.historyData.length);
+                refresh(dom, historyLineOption, props.historyData, props.stations, props.sensors);
             }
         },
         {deep: true}

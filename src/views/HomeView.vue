@@ -21,7 +21,8 @@ option = {
                 left: 'center',
                 top: 'center',
                 style: {
-                    text: 'Home page is building',
+                    // text: 'Home page is building',
+                    text: '春眠不觉晓',
                     fontSize: 80,
                     fontWeight: 'bold',
                     lineDash: [0, 200],

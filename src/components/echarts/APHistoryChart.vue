@@ -9,7 +9,7 @@
 import {onMounted, watch} from "vue";
 import {IdInitEcharts} from "@/assets/js/echarts-option/echarts-package.js";
 import {apHistoryOption} from "@/assets/js/echarts-option/ap-history.js";
-import {generateRandomArray, generateRandomDatesArray} from '@/util/chart-refresh.js'
+import {generateRandomArray, generateRandomDatesArray} from '@/util/data-generator.js'
 
 let option = apHistoryOption;
 

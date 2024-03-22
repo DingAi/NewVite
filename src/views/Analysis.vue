@@ -2,7 +2,8 @@
 import {ref, watch, onMounted} from 'vue';
 import LinearRegressionChart from "@/components/echarts/LinearRegressionChart.vue";
 import FluxHistoryChart from "@/components/echarts/FluxHistoryChart.vue";
-// import MathJax from 'mathjax'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+
 let boxVolume = ref(0)
 let templist = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24])
 
@@ -37,6 +38,7 @@ onMounted(() => {
                     <div class="text-center">
                         <p>日期范围选择</p>
                         <el-date-picker
+                                style="width:320px"
                                 v-model="timeStr"
                                 type="datetimerange"
                                 value-format="YYYY-MM-DD HH:mm:ss"
@@ -57,9 +59,26 @@ onMounted(() => {
                             <el-timeline>
                                 <el-timeline-item v-for="item in templist" center timestamp="2018/4/12" placement="top">
                                     <el-card>
-                                        <el-text type="success">{{ item }}</el-text>
-                                        <h4>K: 1.3 AH:123 EC:656 EW:979</h4>
+                                        <el-text type="success">INDEX：{{ item }}</el-text>
+                                        <h4>
+                                            <el-text>K: 1.3</el-text>
+                                            <span class="badge open-color-auto m-1 bg-primary">K: 1.3</span>
+                                            <span class="badge open-color-auto m-1 bg-secondary">AH:123</span>
+                                            <span class="badge open-color-auto m-1 bg-secondary">EC:656</span>
+                                            <span class="badge open-color-auto m-1 bg-secondary">EW:979</span>
+                                        </h4>
                                         <p>2018/4/12 20:46</p>
+                                        <el-collapse accordion>
+                                            <el-collapse-item>
+                                                <template #title>
+                                                    气象站数据数据
+                                                </template>
+                                                <div>
+                                                    <p>平均净辐射</p>
+                                                    <p>平均开启温湿度</p>
+                                                </div>
+                                            </el-collapse-item>
+                                        </el-collapse>
                                     </el-card>
                                 </el-timeline-item>
                             </el-timeline>
@@ -125,23 +144,23 @@ onMounted(() => {
 @import "@/assets/css/anlysis-style";
 
 
-.el-date-range-picker .el-picker-panel__body {
-  @media (max-width: 768px) {
-    width: 323px !important;
-  }
-}
-
-.el-date-range-picker__editors-wrap {
-  @media (max-width: 768px) {
-    display: flex !important;
-  }
-}
-
-.el-date-range-picker__content {
-  @media (max-width: 768px) {
-    width: 100% !important;
-  }
-}
+//.el-date-range-picker .el-picker-panel__body {
+//  @media (max-width: 768px) {
+//    width: 323px !important;
+//  }
+//}
+//
+//.el-date-range-picker__editors-wrap {
+//  @media (max-width: 768px) {
+//    display: flex !important;
+//  }
+//}
+//
+//.el-date-range-picker__content {
+//  @media (max-width: 768px) {
+//    width: 100% !important;
+//  }
+//}
 
 
 </style>

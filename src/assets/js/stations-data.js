@@ -33,16 +33,20 @@ const translate= {
     'co2': 'CO2',
     'ill': 'illumination',
 }
-// upAtmosphericPressure: {
-//     value: '正气压',
-//     label: '正气压'
-// },
-// downAtmosphericPressure: {
-//     value: '负气压',
-//     label: '负气压'
-// }
+
+const trsnslateSlave = {
+    "11": "s1 - ",
+    "12": "s2 - ",
+    "13": "s3 - ",
+    "14": "s4 - ",
+    "15": "s5 - ",
+    "16": "s6 - ",
+    "17": "s7 - ",
+    "18": "s8 - ",
+}
+
 const stations = {
-    "master1": [
+    "master01": [
         {"value": "11", "label": "从站 01"},
         {"value": "12", "label": "从站 02"},
         {"value": "13", "label": "从站 03"},
@@ -52,7 +56,7 @@ const stations = {
         {"value": "17", "label": "从站 07"},
         {"value": "18", "label": "从站 08"}
     ],
-    "master2": [
+    "master02": [
         {"value": "21", "label": "从站 01"},
         {"value": "22", "label": "从站 02"},
         {"value": "23", "label": "从站 03"},
@@ -69,5 +73,6 @@ const stations = {
 export {
     stations,
     sensors,
-    translate
+    translate,
+    trsnslateSlave
 }

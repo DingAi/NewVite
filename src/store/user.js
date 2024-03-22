@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
+import { ElNotification } from 'element-plus'
 
 export const useUserStore = defineStore('user', () => {
     const isAuthenticated = ref(false);
@@ -17,17 +18,24 @@ export const useUserStore = defineStore('user', () => {
         axios.post('api/user/dl', {credentials}).then(response => {
             isAuthenticated.value = response.data.isAuthenticated;
             if (isAuthenticated.value) {
-                alert('登录成功');
+                ElNotification({
+                    title: 'Success',
+                    message: '登录成功！',
+                    type: 'success',
+                })
                 user.value = credentials.value.username
                 token.value = response.data.token;
                 console.log(token.value)
                 router.push('/home');
             } else {
-                alert('登录失败');
+                ElNotification({
+                    title: 'Error',
+                    message: '登录失败！',
+                    type: 'error',
+                })
             }
         }).catch(error => {
             console.error(error);
-            alert('登录请求失败');
         });
     };
 

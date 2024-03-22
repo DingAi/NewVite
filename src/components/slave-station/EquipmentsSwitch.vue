@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted } from 'vue';
 
 const props = defineProps({
     equipments: Object,
@@ -23,12 +22,12 @@ const props = defineProps({
                     <span class="">{{ item[1] }}</span>
                 </td>
                 <td>
-                    <span v-if="item[0]" class="badge rounded-pill bg-primary">开启</span>
-                    <span v-else class="badge rounded-pill bg-secondary">关闭</span>
+                    <span v-if="item[0]" class="badge bg-primary">开启</span>
+                    <span v-else class="badge bg-secondary">关闭</span>
                 </td>
                 <td>
-                    <el-button type="default" round v-if="item[0]"> Close </el-button>
-                    <el-button type="primary" round v-else> Enter </el-button>
+                    <el-button type="default" v-if="item[0]"> Close </el-button>
+                    <el-button type="primary" v-else> Enter </el-button>
                 </td>
             </tr>
             </tbody>

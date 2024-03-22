@@ -4,7 +4,7 @@ const historyAreaOption = {
     },
     title: {
         left: 'center',
-        text: 'Large Area Chart'
+        text: '历史图像'
     },
     toolbox: {
         feature: {

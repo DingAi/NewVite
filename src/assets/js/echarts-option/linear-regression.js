@@ -1,3 +1,5 @@
+
+
 const data = [
     [0.067732, 3.176513],
     [0.42781, 3.816464],
@@ -201,24 +203,26 @@ const data = [
     [0.116163, 3.129283]
 ];
 
+
+// let theRegression = ecStat.regression("linear", data, 1);
+
 const linearRegressionOption = {
     dataset: [
         {
             source: data
         },
-        // {
-        //     transform: {
-        //         type: 'ecStat:regression'
-        //         // 'linear' by default.
-        //         // config: { method: 'linear', formulaOn: 'end'}
-        //     }
-        // }
+        {
+            transform: {
+                type: 'ecStat:regression',
+            }
+        }
     ],
     title: {
-        text: 'Linear Regression',
+        text: '线性回归数据',
+        left: 'center'
     },
     legend: {
-
+        top:'7%'
     },
     tooltip: {
         trigger: 'axis',
@@ -264,9 +268,9 @@ const linearRegressionOption = {
             datasetIndex: 1,
             symbolSize: 0.1,
             symbol: 'circle',
-            label: { show: true, fontSize: 16 },
-            labelLayout: { dx: -20 },
-            encode: { label: 2, tooltip: 1 }
+            label: {show: true, fontSize: 16},
+            labelLayout: {dx: -20},
+            encode: {label: 2, tooltip: 1}
         }
     ]
 };
