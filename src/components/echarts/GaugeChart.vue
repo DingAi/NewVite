@@ -1,7 +1,7 @@
 <script setup>
 
 import {setGaugeData} from "@/assets/js/echarts-option/gauge.js";
-import {IdInitEcharts} from "@/assets/js/echarts-option/echarts-package.js";
+import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {onMounted, watch} from "vue";
 
 const props = defineProps({

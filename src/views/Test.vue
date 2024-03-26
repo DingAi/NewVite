@@ -1,26 +1,98 @@
 <script setup>
-import {ref } from "vue";
-let data = ref([]);
+import * as echarts from 'echarts';
+import {onMounted} from "vue";
+import ecStat from 'echarts-stat';
+import {linearRegressionOption, regressionData} from "@/assets/js/echarts-option/linear-regression.js";
 
-// 定义三个一维数组
-const array1 = [1, 2, 3];
-const array2 = [4, 5, 6];
-const array3 = [7, 8, 9];
+let data1 = [
+  [1, 2],
+  [2, 3],
+  [3, 5],
+  [4, 4],
+  [5, 6],
+  [6, 8]
+];
+// let data3 = regressionData;
 
-// 将三个一维数组转换为一个二维数组
-const twoDimArray = [array1, array2, array3].reduce(
-    (acc, curr) => curr.map((item, i) => [...(acc[i] || []), item]),
-    []
-);
+let data2 = [
+  [1, 1],
+  [2, 3],
+  [3, 4],
+  [4, 5],
+  [5, 4],
+  [6, 7]
+];
 
-console.log(twoDimArray);
+const result1 = ecStat.regression('linear', data1);
+const result2 = ecStat.regression('linear', data2);
 
+const option = {
+  title: {
+    text: 'Linear Regression Analysis with ecStat'
+  },
+  xAxis: {
+    type: 'category',
+    // data: ['A', 'B', 'C', 'D', 'E', 'F']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [{
+    name: 'Data 1',
+    type: 'scatter',
+    data: data1
+  }, {
+    name: 'Data 2',
+    type: 'scatter',
+    data: data2
+  }, {
+    name: 'Linear Regression 1',
+    type: 'line',
+    data: result1.points,
+    markPoint: {
+      data: [
+        {coord: result1.parameter.start},
+        {coord: result1.parameter.end}
+      ]
+    }
+  }, {
+    name: 'Linear Regression 2',
+    type: 'line',
+    data: result2.points,
+    markPoint: {
+      data: [
+        {coord: result2.parameter.start},
+        {coord: result2.parameter.end}
+      ]
+    }
+  }]
+};
+
+onMounted(() => {
+  let chartDom = document.getElementById('test');
+  echarts.registerTransform(ecStat.transform.regression);
+  let dom = echarts.init(chartDom);
+  window.addEventListener('resize', function () {
+    dom.resize();
+  });
+  dom.setOption(option)
+})
 
 </script>
 
 <template>
-  <h1>{{ result }}</h1>
-  <TestUnit :data="data.value" />
+  <div class="full" id="test">
+
+  </div>
 </template>
 
-<style></style>
+<style scoped>
+#test {
+  /*在手机端的属性*/
+  @media (max-width: 769px) {
+    width: 100%;
+    height: 600px;
+  }
+}
+
+</style>

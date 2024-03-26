@@ -56,20 +56,17 @@ onMounted(()=>{
                     </div>
                     <div class="item">
                         <div class="text-center">
-                            <h4>正在运行的子站</h4>
-                            <el-statistic :value="runningStationNum"/>
+                            <el-statistic title="正在运行的从站" :value="runningStationNum"/>
                         </div>
                     </div>
                     <div class="item">
                         <div class="text-center">
-                            <h4>运行步骤</h4>
-                            <el-statistic :value="stationRunStep"/>
+                            <el-statistic title="运行步骤" :value="stationRunStep"/>
                         </div>
                     </div>
                     <div class="item">
                         <div class="text-center">
-                            <h4>气泵状态</h4>
-                            <el-statistic :value="airPumpStatus"/>
+                            <el-statistic title="气泵状态" :value="airPumpStatus"/>
                         </div>
                     </div>
                     <div class="item">

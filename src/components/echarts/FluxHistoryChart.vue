@@ -6,7 +6,7 @@
 
 <script setup>
 import {onMounted, watch} from "vue";
-import {IdInitEcharts} from "@/assets/js/echarts-option/echarts-package.js";
+import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {fluxOption} from "@/assets/js/echarts-option/flux.js";
 import {generateRandomArray, generateRandomDatesArray} from "@/util/data-generator.js";
 

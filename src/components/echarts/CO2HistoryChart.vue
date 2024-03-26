@@ -6,7 +6,7 @@
 
 <script setup>
 import {onMounted, ref} from "vue";
-import {IdInitEcharts} from "@/assets/js/echarts-option/echarts-package.js";
+import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {co2Option} from "@/assets/js/echarts-option/co2s.js";
 import {get12HTimeRange, timeHandle} from "@/util/data-generator.js";
 import axios from "axios";
@@ -56,6 +56,7 @@ function refresh(dom, co2Data) {
         option.series.push(newSeriesItem)
     }
     option.legend.data = nameList;
+    dom.showLoading();
     dom.setOption(option)
 }
 

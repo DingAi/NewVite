@@ -11,9 +11,7 @@ onMounted(() => {
     myChart.setOption(option)
 })
 
-let option;
-
-option = {
+let option = {
     graphic: {
         elements: [
             {

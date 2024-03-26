@@ -1,6 +1,7 @@
 const apHistoryOption = {
     title: {
-        text: '气压数据12小时历史',
+        text: '气压数据',
+        subtext: '12小时历史',
         left: 'center',
     },
     tooltip: {
@@ -10,7 +11,7 @@ const apHistoryOption = {
         }
     },
     legend: {
-        top: '4%',
+        top: '7%',
         data: ['正气压', '负气压'],
     },
     toolbox: {

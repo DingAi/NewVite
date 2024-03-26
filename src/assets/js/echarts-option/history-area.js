@@ -7,9 +7,11 @@ const historyAreaOption = {
         text: '历史图像'
     },
     toolbox: {
+        show: true,
         feature: {
+            dataView: { readOnly: true },
+            magicType: { type: ['line', 'bar'] },
             restore: {},
-            saveAsImage: {}
         }
     },
     xAxis: {

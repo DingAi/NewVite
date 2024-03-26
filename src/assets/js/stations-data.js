@@ -99,11 +99,47 @@ const masterStations = [
 
 const shortcuts = [
     {
-        text: '24小时',
+        text: '3 小时',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 3)
+            return [start, end]
+        },
+    },
+    {
+        text: '6 小时',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 6)
+            return [start, end]
+        },
+    },
+    {
+        text: '12 小时',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 12)
+            return [start, end]
+        },
+    },
+    {
+        text: '24 小时',
         value: () => {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24)
+            return [start, end]
+        },
+    },
+    {
+        text: '三天',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 3)
             return [start, end]
         },
     },
@@ -131,6 +167,24 @@ const shortcuts = [
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            return [start, end]
+        },
+    },
+    {
+        text: '六个月',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
+            return [start, end]
+        },
+    },
+    {
+        text: '一年',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 365)
             return [start, end]
         },
     },

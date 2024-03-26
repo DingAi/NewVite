@@ -8,7 +8,7 @@ import {
     IdInitEcharts,
     setOptionXAxis,
     setSeriesData, setTitle
-} from '@/assets/js/echarts-option/echarts-package.js';
+} from '@/assets/js/echarts-package.js';
 import {linesOption} from '@/assets/js/echarts-option/lines.js';
 import {onMounted, ref, watch} from "vue";
 import {dataGenerator} from "@/util/data-generator.js";

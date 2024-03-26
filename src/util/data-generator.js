@@ -89,6 +89,18 @@ function get12HTimeRange() {
     return timeRange
 }
 
+// 生成线性回归数据
+function generateLinearData(numPoints, slope, intercept, noiseLevel) {
+    let data = [];
+    for (let i = 0; i < numPoints; i++) {
+        let x = i;
+        let noise = noiseLevel * (Math.random() - 0.5);
+        let y = slope * x + intercept + noise;
+        data.push({ x: x, y: y });
+    }
+    return data;
+}
+
 
 export {
     dataGenerator,
@@ -99,4 +111,5 @@ export {
     generateRandomDatesArray,
     get24HTimeRange,
     get12HTimeRange,
+    generateLinearData,
 }

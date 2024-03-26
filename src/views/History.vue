@@ -1,5 +1,5 @@
 <script setup>
-import {ref, reactive, watch, onMounted, h} from 'vue';
+import {ref, reactive, watch, onMounted} from 'vue';
 import {stations, sensors, shortcuts} from "@/assets/js/stations-data.js"
 import axios from "axios";
 import {ElNotification} from 'element-plus'
@@ -13,7 +13,7 @@ const masterStations = reactive([
 ]);
 
 
-const masterValue = ref('')
+const masterValue = ref('主站 01')
 const slaveValue = ref([])
 const sensorValue = ref('')
 const sensorsList = reactive(sensors)
@@ -86,7 +86,7 @@ onMounted(() => {
                 <div class="item">
                     <div class="text-center" style="width: 200px">
                         <p>主站选择</p>
-                        <el-select v-model="masterValue" placeholder="Select" default-first-option=true>
+                        <el-select v-model="masterValue" placeholder="Select" default-first-option>
                             <el-option label="主站 01" value="master01"/>
                             <el-option label="主站 01" value="master01" disabled/>
                             <el-option label="主站 01" value="master01" disabled/>
@@ -126,8 +126,7 @@ onMounted(() => {
                 </div>
                 <div class="item">
                     <div class="buttons text-center" style="width: 200px">
-                        <el-button type="primary" plain @click="sendData(slaveValue, sensorValue, timeStr)">获取数据
-                        </el-button>
+                        <el-button type="primary" plain @click="sendData(slaveValue, sensorValue, timeStr)">生成图表</el-button>
                         <el-button type="primary" plain>数据下载</el-button>
                     </div>
                 </div>

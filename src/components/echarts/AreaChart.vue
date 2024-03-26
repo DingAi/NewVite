@@ -1,7 +1,7 @@
 <script setup>
 
 import {onMounted, ref, watch, watchEffect} from "vue";
-import {IdInitEcharts, setOptionXAxis, setSeriesData, setTitle} from "@/assets/js/echarts-option/echarts-package.js";
+import {IdInitEcharts, setOptionXAxis, setSeriesData, setTitle} from "@/assets/js/echarts-package.js";
 import {areaOption} from "@/assets/js/echarts-option/area.js";
 import {dataGenerator} from "@/util/data-generator.js";
 

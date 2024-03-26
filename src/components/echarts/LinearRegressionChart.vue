@@ -4,7 +4,7 @@
 
 <script setup>
 import {onMounted, watch} from "vue";
-import {IdInitEcharts} from "@/assets/js/echarts-option/echarts-package.js";
+import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {linearRegressionOption} from "@/assets/js/echarts-option/linear-regression.js";
 import * as echarts from 'echarts';
 import ecStat from 'echarts-stat';
