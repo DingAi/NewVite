@@ -44,12 +44,13 @@ const refresh = (dom, option, historyData, slaveList, sensorsList) => {
     option.series.push(newData);
     option.xAxis.data = timeList;
   }
-  option && dom.setOption(option, true);
+  dom.setOption(option, true);
+  dom.hideLoading();
 }
 
 onMounted(() => {
   let dom = IdInitEcharts('history-line');
-
+  dom.showLoading();
   window.addEventListener('resize', function () {
     dom.resize();
   });
@@ -58,6 +59,7 @@ onMounted(() => {
       () => props.historyData,
       () => {
         if (props.historyData) {
+
           refresh(dom, historyLineOption, props.historyData, props.stations, props.sensors);
         }
       },

@@ -42,7 +42,6 @@ function refresh(dom, apData, option) {
   option.xAxis[1].data = timeList;
   option.series[0].data = uapDataList;
   option.series[1].data = dapDataList;
-  dom.showLoading();
   dom.setOption(option);
   dom.hideLoading();
 }
@@ -50,7 +49,8 @@ function refresh(dom, apData, option) {
 
 onMounted(() => {
   let dom = IdInitEcharts('ap-history');
-  refreshAPHistory(dom, option)
+  dom.showLoading();
+  refreshAPHistory(dom, option);
   window.addEventListener('resize', function () {
     dom.resize();
   });

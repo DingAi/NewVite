@@ -19,7 +19,7 @@ const option = {
             height: 80
           },
           style: {
-            fill: 'rgba(69,146,241,0.79)'
+            fill: '#4c5d85'
           },
           keyframeAnimation: {
             duration: 1000,

@@ -56,13 +56,14 @@ function refresh(dom, co2Data) {
         option.series.push(newSeriesItem)
     }
     option.legend.data = nameList;
-    dom.showLoading();
     dom.setOption(option)
+    dom.hideLoading();
 }
 
 onMounted(() => {
     let dom = IdInitEcharts('co2-dom');
     refreshCO2History(dom)
+    dom.showLoading();
     window.addEventListener('resize', function () {
         dom.resize();
     });
