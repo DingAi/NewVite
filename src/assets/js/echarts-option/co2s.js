@@ -4,7 +4,7 @@ const co2Option = {
     },
     title: {
         left: 'center',
-        text: '二氧化碳24小时历史'
+        text: '二氧化碳12小时历史'
     },
     legend: {
         data: [],
@@ -21,17 +21,17 @@ const co2Option = {
     },
     yAxis: {
         type: 'value',
-        boundaryGap: [0, '100%']
+        boundaryGap: [0, '100%'],
     },
     dataZoom: [
         {
             type: 'inside',
-            start: 0,
-            end: 10
+            start: 30,
+            end: 70,
         },
         {
-            start: 0,
-            end: 10
+            start: 30,
+            end: 70,
         }
     ],
     series: []

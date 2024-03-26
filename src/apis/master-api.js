@@ -1,12 +1,11 @@
 import axios from "axios";
-import {useUserStore} from "@/store/user.js";
-import {reactive} from "vue";
+// import {useUserStore} from "@/store/user.js";
 
-const userStore = useUserStore()
-let token = userStore.token
+// const userStore = useUserStore()
+// let token = userStore.token
 
 const getSensorData = (slaveNum) => {
-    let url = 'xu/real_time_data';
+    let url = 'online/real_time_data';
     return axios({
         url: url,
         method: 'post',
@@ -20,7 +19,7 @@ const getSensorData = (slaveNum) => {
 //获取一个站点的传感器数据
 //slave_num为从站编号
 const getSoilData = (slaveNum) => {
-    let url = 'xu/soil'
+    let url = 'online/soil'
     return axios({
         url: url,
         method: 'post',
@@ -31,15 +30,23 @@ const getSoilData = (slaveNum) => {
 }
 
 const getAPData = () => {
-    let url = 'xu/air_pressure'
+    let url = 'online/air_pressure'
     return axios({
         url: url,
         method: 'get'
     })
 }
 
-const getAPHistory = () => {
-    let url = 'xu/xxx'
+const getStationStatus = () => {
+    let url = 'online/equipment'
+    return axios({
+        url: url,
+        method: 'get'
+    })
+}
+
+const getAnalysisData = () => {
+    let url = 'xu/data_analysis'
     return axios({
         url: url,
         method: 'get'
@@ -47,7 +54,7 @@ const getAPHistory = () => {
 }
 
 const getCO2History = (masterName, sensorNum, timeRange) => {
-    let url = 'xu/co2_history'
+    let url = 'online/co2_history'
     return axios({
         url: url,
         method: 'post',
@@ -60,10 +67,13 @@ const getCO2History = (masterName, sensorNum, timeRange) => {
 }
 
 
+
+
 export {
     getSensorData,
     getCO2History,
-    getAPHistory,
+    getAnalysisData,
+    getStationStatus,
     getSoilData,
     getAPData
 }

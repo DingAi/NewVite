@@ -3,33 +3,36 @@ import {onMounted, reactive, ref} from "vue";
 import APHistoryChart from "@/components/echarts/APHistoryChart.vue";
 import CO2HistoryChart from "@/components/echarts/CO2HistoryChart.vue";
 import {timeSetNameList} from "@/assets/js/used-json.js";
-import {generateData, get24HTimeRange} from "@/util/data-generator.js";
+import {generateData} from "@/util/data-generator.js";
+import {getStationStatus} from "@/apis/master-api.js";
+import {trsnslateStationRunStep} from "@/assets/js/stations-data.js";
 import axios from "axios";
 
 
 let switchData = reactive(generateData());
 let isAuto = ref(true);
 let openPopup = ref(false);
-let co2Data = ref([]);
 
-const timeRange = get24HTimeRange();
+let stationRunStep = ref(0)
+let airPumpStatus = ref(0)
+let runningStationNum = ref(0)
 
-const refreshCO2History = async () => {
-    try {
-        axios.post('xu/range_query', {'masterNum': 'master01', 'sensorNum': ['co211', 'co212'], 'time': timeRange})
-            .then(response => {
-                co2Data.value = response.data;
-                console.log(co2Data)
-            })
-    } catch (error) {
-        console.error(error);
-    }
+const switchReserve = (switchValue) =>{
+    switchValue = !switchValue;
 }
 
-onMounted(() => {
-    refreshCO2History();
+onMounted(()=>{
+    axios.get('online/equipment').then(response =>{
+        stationRunStep.value = trsnslateStationRunStep[response.data['step']];
+        // airPumpStatus.value = response.data['air'];
+        if(response.data['air']){
+            airPumpStatus.value = '开启';
+        }else {
+            airPumpStatus.value = '关闭';
+        }
+        runningStationNum.value = '从站：0' + response.data['box'];
+    })
 })
-
 </script>
 
 <template>
@@ -39,26 +42,35 @@ onMounted(() => {
                 <div class="base-div items">
                     <div class="item">
                         <div class="text-center">
-                            <p>站点电量</p>
+                            <h4>站点电量</h4>
                             <el-progress :text-inside="true" :stroke-width="26" :percentage="70"/>
                         </div>
                     </div>
                     <div class="item">
                         <div class="text-center">
-                            <p>模式切换</p>
+                            <h4>模式切换</h4>
                             <el-switch v-model="isAuto" class="ml-2" inline-prompt size="large"
                                        style="--el-switch-on-color: #13ce66; --el-switch-off-color: #f6c72b"
                                        active-text="自动模式" inactive-text="手动模式"/>
                         </div>
                     </div>
                     <div class="item">
-                        <el-statistic title="正在运行的子站" :value="268500"/>
+                        <div class="text-center">
+                            <h4>正在运行的子站</h4>
+                            <el-statistic :value="runningStationNum"/>
+                        </div>
                     </div>
                     <div class="item">
-                        <el-statistic title="运行步骤" :value="268500"/>
+                        <div class="text-center">
+                            <h4>运行步骤</h4>
+                            <el-statistic :value="stationRunStep"/>
+                        </div>
                     </div>
                     <div class="item">
-                        <el-statistic title="气泵状态" :value="268500"/>
+                        <div class="text-center">
+                            <h4>气泵状态</h4>
+                            <el-statistic :value="airPumpStatus"/>
+                        </div>
                     </div>
                     <div class="item">
                         <el-button @click="openPopup = true" round>时间设置</el-button>
@@ -86,7 +98,7 @@ onMounted(() => {
             <el-row class="equipment-page-h-80 p-2" id="master-div-2 ">
                 <div class="base-div chart-container">
                     <div class="left p-2">
-                        <CO2HistoryChart :co2Data="co2Data.value"/>
+                        <CO2HistoryChart/>
                     </div>
                     <div class="right p-2">
                         <APHistoryChart/>
@@ -123,8 +135,8 @@ onMounted(() => {
                         <div class="switchs text-center">
                             <div class="switch" v-for="item in group">
                                 <p class="text-color-2">{{ item.name }}</p>
-                                <el-button size="small" type="default" round v-if="item.value"> Close</el-button>
-                                <el-button size="small" type="primary" round v-else> Enter</el-button>
+                                <el-button size="small" type="default" round v-if="item.value" @click="switchReserve(item.value)">Close</el-button>
+                                <el-button size="small" type="primary" round v-else @click="switchReserve(item.value)">Open</el-button>
                             </div>
                         </div>
                     </div>

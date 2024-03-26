@@ -42,7 +42,7 @@ import {getAPData, getSensorData, getSoilData} from '@/apis/master-api.js'
 import AreaChart from "@/components/echarts/AreaChart.vue";
 import EquipmentsSwitch from "@/components/slave-station/EquipmentsSwitch.vue";
 import SoilSensors from "@/components/slave-station/SoilSensors.vue";
-import {timeHandle} from "@/util/data-generator.js";
+import {tiemstampHandle, timeHandle} from "@/util/data-generator.js";
 
 const page_name = ref('Master 01 : Slave01');
 const slave_num = 1;
@@ -63,14 +63,14 @@ const refresh = async () => {
         // sensorData.carbon_dioxide = response.data['CO2'];
         // sensorData.up_atmospheric_pressure = response.data['UAP'];
         // sensorData.down_atmospheric_pressure = response.data['DAP'];
-        sensorData.time = timeHandle(response.data['time']);
+        sensorData.time = tiemstampHandle(response.data['time']);
 
     } catch (error) {
         console.error(error);
     }
 
     try {
-        const response = await getSoilData(1);
+        const response = await getSoilData(slave_num);
         soilData.layer1 = response.data['layer01'];
         soilData.layer2 = response.data['layer02'];
         soilData.layer3 = response.data['layer03'];
@@ -84,11 +84,12 @@ const refresh = async () => {
         const response = await getAPData();
         apData.uap = response.data['UAP']
         apData.dap = response.data['DAP']
-        console.log(apData)
     } catch (error) {
         console.error(error);
     }
 }
+
+refresh();
 
 onMounted(() =>{
     setInterval(() => {

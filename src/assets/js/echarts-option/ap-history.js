@@ -1,6 +1,6 @@
 const apHistoryOption = {
     title: {
-        text: '气压数据24小时历史',
+        text: '气压数据12小时历史',
         left: 'center',
     },
     tooltip: {
@@ -91,10 +91,10 @@ const apHistoryOption = {
         {
             name: '负气压',
             type: 'line',
+            data: [],
             xAxisIndex: 1,
             yAxisIndex: 1,
             symbolSize: 8,
-            data: [],
             areaStyle: {}
         }
     ]

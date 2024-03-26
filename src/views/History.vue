@@ -1,10 +1,9 @@
 <script setup>
 import {ref, reactive, watch, onMounted, h} from 'vue';
-import {stations, sensors} from "@/assets/js/stations-data.js"
+import {stations, sensors, shortcuts} from "@/assets/js/stations-data.js"
 import axios from "axios";
 import {ElNotification} from 'element-plus'
 import HistoryChart from "@/components/echarts/HistoryChart.vue";
-
 
 const timeStr = ref('')
 const masterStations = reactive([
@@ -39,7 +38,7 @@ const sendData = (slaveList, sensorsList, time) => {
             }
         }
         let masterStr = masterValue.value.toString()
-        axios.post('xu/range_query', {'masterNum': masterStr, 'sensorNum': dataList, 'time': time})
+        axios.post('online/range_query', {'masterNum': masterStr, 'sensorNum': dataList, 'time': time})
             .then(response => {
                 allData.value = response.data;
                 if (allData.lenght != 0) {
@@ -58,10 +57,6 @@ const sendData = (slaveList, sensorsList, time) => {
         })
     }
 }
-
-onMounted(() => {
-
-})
 
 const getMasterIndex = (masterValue) => {
     return stations[masterValue];
@@ -89,9 +84,9 @@ onMounted(() => {
         <el-col :span="24" class="p-2">
             <div class="base-div items">
                 <div class="item">
-                    <div class="text-center" style="width: 240px">
+                    <div class="text-center" style="width: 200px">
                         <p>主站选择</p>
-                        <el-select v-model="masterValue" placeholder="Select">
+                        <el-select v-model="masterValue" placeholder="Select" default-first-option=true>
                             <el-option label="主站 01" value="master01"/>
                             <el-option label="主站 01" value="master01" disabled/>
                             <el-option label="主站 01" value="master01" disabled/>
@@ -99,7 +94,7 @@ onMounted(() => {
                     </div>
                 </div>
                 <div class="item">
-                    <div class="text-center " style="width: 240px">
+                    <div class="text-center " style="width: 200px">
                         <p>从站选择</p>
                         <el-select v-model="slaveValue" multiple collapse-tags placeholder="Select">
                             <el-option v-for="item in slaveStations" :label="item.label" :key="item"
@@ -108,7 +103,7 @@ onMounted(() => {
                     </div>
                 </div>
                 <div class="item">
-                    <div class="text-center" style="width: 240px">
+                    <div class="text-center" style="width: 200px">
                         <p>传感器选择</p>
                         <el-select v-model="sensorValue" multiple collapse-tags placeholder="Select">
                             <el-option v-for="item in sensorsList" :label="item.label" :key="item" :value="item.value"/>
@@ -125,11 +120,12 @@ onMounted(() => {
                                 value-format="YYYY-MM-DD HH:mm:ss"
                                 start-placeholder="开始时间"
                                 end-placeholder="结束时间"
+                                :shortcuts="shortcuts"
                         />
                     </div>
                 </div>
                 <div class="item">
-                    <div class="buttons text-center" style="width: 240px">
+                    <div class="buttons text-center" style="width: 200px">
                         <el-button type="primary" plain @click="sendData(slaveValue, sensorValue, timeStr)">获取数据
                         </el-button>
                         <el-button type="primary" plain>数据下载</el-button>
@@ -147,7 +143,7 @@ onMounted(() => {
                 <!--                <h1>{{ slaveStations }}</h1>-->
                 <!--                <h1>{{ slaveValue }}</h1>-->
                 <!--                <h1>{{ sensorValue }}</h1>-->
-                <!--                <h1>{{ timeStr }}</h1>-->
+<!--                <h1>{{ timeStr }}</h1>-->
                 <!--                                <h1>{{ allData }}</h1>-->
                 <HistoryChart :historyData="allData" :stations="slaveValue" :sensors="sensorValue"/>
             </div>

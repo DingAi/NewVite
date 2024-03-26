@@ -1,3 +1,5 @@
+import {reactive} from "vue";
+
 const sensors = [
     {
         value: 'it',
@@ -25,7 +27,7 @@ const sensors = [
     }
 ]
 
-const translate= {
+const translate = {
     'it': 'inTemperature',
     'et': 'exTemperature',
     'ih': 'inHumidity',
@@ -35,14 +37,33 @@ const translate= {
 }
 
 const trsnslateSlave = {
-    "11": "s1 - ",
-    "12": "s2 - ",
-    "13": "s3 - ",
-    "14": "s4 - ",
-    "15": "s5 - ",
-    "16": "s6 - ",
-    "17": "s7 - ",
-    "18": "s8 - ",
+    "11": "从站 1 ",
+    "12": "从站 2 ",
+    "13": "从站 3 ",
+    "14": "从站 4 ",
+    "15": "从站 5 ",
+    "16": "从站 6 ",
+    "17": "从站 7 ",
+    "18": "从站 8 ",
+}
+
+const trsnslateStationRunStep = {
+    1: "关箱子",
+    2: "关箱子延时",
+    3: "风扇开",
+    4: "风扇开延时",
+    5: "气体搅拌",
+    6: "气体搅拌延时",
+    7: "读取二氧化碳",
+    8: "读取二氧化碳延时 ",
+    9: "抽真空",
+    10: "抽真空延时",
+    11: "开箱子",
+    12: "开箱子延时",
+    13: "开箱子断电",
+    14: "开箱子断电延时",
+    15: "同循环延时",
+    16: "进入下一轮延时",
 }
 
 const stations = {
@@ -70,9 +91,56 @@ const stations = {
     ]
 }
 
+const masterStations = [
+    {value: 'master01', label: '主站 01'},
+    {value: 'master02', label: '主站 02'},
+    {value: 'master03', label: '主站 03'},
+];
+
+const shortcuts = [
+    {
+        text: '24小时',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24)
+            return [start, end]
+        },
+    },
+    {
+        text: '一周',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            return [start, end]
+        },
+    },
+    {
+        text: '一个月',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            return [start, end]
+        },
+    },
+    {
+        text: '三个月',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            return [start, end]
+        },
+    },
+]
+
 export {
     stations,
     sensors,
     translate,
-    trsnslateSlave
+    trsnslateSlave,
+    trsnslateStationRunStep,
+    shortcuts
 }

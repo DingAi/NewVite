@@ -8,14 +8,13 @@ const props = defineProps({
     ap: Object
 })
 
-const refresh = (uap,dap,dom) => {
-    let option = setGaugeData(uap,dap);
+const refresh = (uap, dap, dom) => {
+    let option = setGaugeData(uap, dap);
     dom.setOption(option)
 }
 
 onMounted(() => {
     let dom = IdInitEcharts('gauge-dom');
-    console.log(props.ap)
     window.addEventListener('resize', function () {
         dom.resize();
     });
@@ -25,8 +24,7 @@ onMounted(() => {
         () => props.ap.dap,
         () => {
             // if (props.ap.uap & props.ap.dap) {
-                refresh(props.ap.uap, props.ap.dap, dom);
-                console.log(props.ap.dap)
+            refresh(props.ap.uap, props.ap.dap, dom);
             // }
         }
     )

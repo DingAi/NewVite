@@ -21,7 +21,7 @@
             </el-col>
             <el-col :span="6" :xs="24" class="gauge-div p-2">
                 <div class="base-div">
-                    <GaugeChart :ap="{'uap':sensorData['up_atmospheric_pressure'], 'dap':sensorData['down_atmospheric_pressure']}" :time="sensorData['timest']"/>
+                    <GaugeChart :ap="{'uap':apData['uap'], 'dap':apData['dap']}"/>
                 </div>
             </el-col>
             <el-col :span="6" :xs="24" class="p-2">
@@ -38,17 +38,18 @@ import LineChart from "@/components/echarts/LineChart.vue";
 import {onMounted, reactive, ref} from "vue";
 import { useEquipmentStore } from "@/store/equipments.js";
 import GaugeChart from "@/components/echarts/GaugeChart.vue";
-import { getSensorData, getSoilData } from '@/apis/master-api.js'
+import {getAPData, getSensorData, getSoilData} from '@/apis/master-api.js'
 import AreaChart from "@/components/echarts/AreaChart.vue";
 import EquipmentsSwitch from "@/components/slave-station/EquipmentsSwitch.vue";
 import SoilSensors from "@/components/slave-station/SoilSensors.vue";
-import {timeHandle} from "@/util/data-generator.js";
+import {tiemstampHandle, timeHandle} from "@/util/data-generator.js";
 
 const page_name = ref('Master 01 : Slave01');
 const slave_num = 5;
 const use_switch = useEquipmentStore();
 const switchData = use_switch.getSwitchData();
 let sensorData = reactive({});
+let apData = reactive({})
 const soilData = reactive({});
 
 const refresh = async () => {
@@ -62,14 +63,14 @@ const refresh = async () => {
         // sensorData.carbon_dioxide = response.data['CO2'];
         // sensorData.up_atmospheric_pressure = response.data['UAP'];
         // sensorData.down_atmospheric_pressure = response.data['DAP'];
-        sensorData.time = timeHandle(response.data['time']);
+        sensorData.time = tiemstampHandle(response.data['time']);
 
     } catch (error) {
         console.error(error);
     }
 
     try {
-        const response = await getSoilData();
+        const response = await getSoilData(slave_num);
         soilData.layer1 = response.data['layer01'];
         soilData.layer2 = response.data['layer02'];
         soilData.layer3 = response.data['layer03'];
@@ -78,7 +79,17 @@ const refresh = async () => {
     } catch (error) {
         console.error(error);
     }
+
+    try {
+        const response = await getAPData();
+        apData.uap = response.data['UAP']
+        apData.dap = response.data['DAP']
+    } catch (error) {
+        console.error(error);
+    }
 }
+
+refresh();
 
 onMounted(() =>{
     setInterval(() => {

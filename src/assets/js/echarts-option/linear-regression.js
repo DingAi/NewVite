@@ -1,6 +1,6 @@
 
 
-const data = [
+const regressionData = [
     [0.067732, 3.176513],
     [0.42781, 3.816464],
     [0.995731, 4.550095],
@@ -209,7 +209,7 @@ const data = [
 const linearRegressionOption = {
     dataset: [
         {
-            source: data
+            source: []
         },
         {
             transform: {
@@ -247,14 +247,14 @@ const linearRegressionOption = {
     dataZoom: [
         {
             show: true,
-            start: 30,
-            end: 70,
+            start: 0,
+            end: 100,
         },
         {
             // show: true,
             type: 'inside',
-            start: 30,
-            end: 70,
+            start: 0,
+            end: 100,
         }
     ],
     series: [
@@ -276,5 +276,6 @@ const linearRegressionOption = {
 };
 
 export {
-    linearRegressionOption
+    linearRegressionOption,
+    regressionData
 }

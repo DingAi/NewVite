@@ -1,0 +1,1 @@
+import{u as a,j as e}from"./index-UmRB-UCS.js";const o=a();o.token;const l=t=>e({url:"online/real_time_data",method:"post",data:{slave_num:t,ids:[1,2,3,4]}}),u=t=>e({url:"online/soil",method:"post",data:{slave_num:t}}),n=()=>e({url:"online/air_pressure",method:"get"});export{u as a,n as b,l as g};

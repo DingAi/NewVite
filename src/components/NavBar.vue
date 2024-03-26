@@ -14,7 +14,7 @@ const userStore = useUserStore()
       :router="true"
   >
       <el-menu-item index="/">主页</el-menu-item>
-      <el-menu-item index="/test">Test</el-menu-item>
+     <el-menu-item index="/test">Test</el-menu-item>
       <el-sub-menu>
           <template #title>工作台</template>
           <el-menu-item index="/workplace/workplace-1/master-1">主站 01</el-menu-item>

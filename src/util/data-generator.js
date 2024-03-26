@@ -14,6 +14,11 @@ const timeHandle = (originalTime) => {
     return formattedTime;
 }
 
+const tiemstampHandle = (timestamp) =>{
+    const formattedDateTime = moment(timestamp*1000).format('YYYY-MM-DD HH:mm:ss');
+    return formattedDateTime
+}
+
 
 function generateData() {
     let data = [];
@@ -71,12 +76,27 @@ function get24HTimeRange() {
     return timeRange
 }
 
+function get12HTimeRange() {
+    // 获取当前时间
+    const currentTime = moment();
+    // 获取24小时前的时间
+    const twentyFourHoursAgo = moment().subtract(12, 'hours');
+    // 格式化时间为指定格式（年月日 时分秒）
+    const formattedCurrentTime = currentTime.format('YYYY-MM-DD HH:mm:ss');
+    const formattedTwentyFourHoursAgo = twentyFourHoursAgo.format('YYYY-MM-DD HH:mm:ss');
+    // 构建时间范围数组
+    const timeRange = [formattedTwentyFourHoursAgo, formattedCurrentTime];
+    return timeRange
+}
+
 
 export {
     dataGenerator,
     timeHandle,
+    tiemstampHandle,
     generateData,
     generateRandomArray,
     generateRandomDatesArray,
-    get24HTimeRange
+    get24HTimeRange,
+    get12HTimeRange,
 }

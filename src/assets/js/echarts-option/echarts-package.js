@@ -7,6 +7,7 @@ import 'echarts/theme/inspired.js'
 import 'echarts/theme/london.js'
 import 'echarts/theme/vintage.js'
 import 'echarts/theme/macarons.js'
+import 'echarts/theme/macarons2.js'
 
 const IdInitEcharts = (id) => {
     let theDiv = document.getElementById(id);

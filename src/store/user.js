@@ -15,7 +15,7 @@ export const useUserStore = defineStore('user', () => {
 
     const login = (credentials) => {
         // 可以替换为实际的登录逻辑
-        axios.post('api/user/dl', {credentials}).then(response => {
+        axios.post('online/user/dl', {credentials}).then(response => {
             isAuthenticated.value = response.data.isAuthenticated;
             if (isAuthenticated.value) {
                 ElNotification({
