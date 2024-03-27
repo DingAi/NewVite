@@ -38,7 +38,7 @@ import LineChart from "@/components/echarts/LineChart.vue";
 import {onMounted, reactive, ref} from "vue";
 import { useEquipmentStore } from "@/store/equipments.js";
 import GaugeChart from "@/components/echarts/GaugeChart.vue";
-import { getSensorData, getSoilData } from '@/apis/master-api.js'
+import { getSensorData, getSoilData } from '@/apis/request-api.js'
 import AreaChart from "@/components/echarts/AreaChart.vue";
 import EquipmentsSwitch from "@/components/slave-station/EquipmentsSwitch.vue";
 import SoilSensors from "@/components/slave-station/SoilSensors.vue";

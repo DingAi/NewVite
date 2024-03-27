@@ -5,12 +5,24 @@ const fluxOption = {
     },
     xAxis: {
         type: 'category',
-        axisLine: { onZero: true },
+        // axisLine: { onZero: true },
         boundaryGap: false,
         data: []
     },
+    toolbox: {
+        show: true,
+        feature: {
+            dataVi水通量: { readOnly: true },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+        }
+    },
     legend: {
-        top: '7%'
+        top: '7%',
+        data: ['碳通量', '水通量'],
+    },
+    tooltip: {
+        trigger: 'axis',
     },
     yAxis: {
         type: 'value'
@@ -18,29 +30,29 @@ const fluxOption = {
     dataZoom: [
         {
             show: true,
-            start: 30,
-            end: 70,
+            start: 0,
+            end: 100,
         },
         {
             // show: true,
             type: 'inside',
-            start: 30,
-            end: 70,
+            start: 0,
+            end: 100,
         }
     ],
     series: [
         {
             data: [],
-            name: 'EC',
+            name: '碳通量',
             type: 'line',
-            smooth: false,  //曲线平滑
+            smooth: true,  //曲线平滑
             areaStyle: {}
         },
         {
             data: [],
-            name: 'EW',
+            name: '水通量',
             type: 'line',
-            smooth: false,  //曲线平滑
+            smooth: true,  //曲线平滑
             areaStyle: {}
         }
     ]

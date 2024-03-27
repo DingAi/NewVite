@@ -2,7 +2,7 @@
 import * as echarts from 'echarts';
 import {onMounted} from "vue";
 import ecStat from 'echarts-stat';
-import {linearRegressionOption, regressionData} from "@/assets/js/echarts-option/linear-regression.js";
+
 
 let data1 = [
   [1, 2],

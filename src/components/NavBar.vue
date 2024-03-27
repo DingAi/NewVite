@@ -17,9 +17,9 @@ const userStore = useUserStore()
      <el-menu-item index="/test">Test</el-menu-item>
       <el-sub-menu>
           <template #title>工作台</template>
-          <el-menu-item index="/workplace/workplace-1/master-1">主站 01</el-menu-item>
-          <el-menu-item index="/workplace/workplace-2/master-2" disabled>主站 02</el-menu-item>
-          <el-menu-item index="/workplace/workplace-3/master-3" disabled>主站 03</el-menu-item>
+          <el-menu-item index="/workplace/workplace-1/master-1">气体箱</el-menu-item>
+          <el-menu-item index="/workplace/workplace-2/master-2" disabled>气象站</el-menu-item>
+          <el-menu-item index="/workplace/workplace-3/master-3" disabled>空间碳通量检测</el-menu-item>
       </el-sub-menu>
       <el-menu-item index="/history">历史</el-menu-item>
       <el-menu-item index="/analysis">数据分析</el-menu-item>

@@ -4,7 +4,7 @@ import APHistoryChart from "@/components/echarts/APHistoryChart.vue";
 import CO2HistoryChart from "@/components/echarts/CO2HistoryChart.vue";
 import {timeSetNameList} from "@/assets/js/used-json.js";
 import {generateData} from "@/util/data-generator.js";
-import {getStationStatus} from "@/apis/master-api.js";
+import {getStationStatus} from "@/apis/request-api.js";
 import {trsnslateStationRunStep} from "@/assets/js/stations-data.js";
 import axios from "axios";
 

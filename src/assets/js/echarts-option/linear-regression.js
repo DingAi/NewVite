@@ -230,6 +230,14 @@ const linearRegressionOption = {
             type: 'cross'
         }
     },
+    toolbox: {
+        show: true,
+        feature: {
+            dataView: { readOnly: true },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+        }
+    },
     xAxis: {
         splitLine: {
             lineStyle: {
@@ -251,7 +259,7 @@ const linearRegressionOption = {
             end: 100,
         },
         {
-            // show: true,
+            show: true,
             type: 'inside',
             start: 0,
             end: 100,

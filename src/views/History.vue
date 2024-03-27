@@ -13,7 +13,7 @@ const masterStations = reactive([
 ]);
 
 
-const masterValue = ref('主站 01')
+const masterValue = ref('master01');
 const slaveValue = ref([])
 const sensorValue = ref('')
 const sensorsList = reactive(sensors)
@@ -29,8 +29,9 @@ const getSlaves = (masterNum) => {
     }
 }
 
+
 const sendData = (slaveList, sensorsList, time) => {
-    if (sensorsList && sensorsList && time) {
+    if (sensorsList && time) {
         let dataList = [];
         for (let slave of slaveList) {
             for (let sensor of sensorsList) {
@@ -64,6 +65,7 @@ const getMasterIndex = (masterValue) => {
 
 
 onMounted(() => {
+    getSlaves(masterValue.value);
     watch(
         () => masterValue.value,
         () => {

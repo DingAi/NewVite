@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import {historyAreaOption} from '@/assets/js/echarts-option/history-area.js'
+import {historyAreaOption} from '@/assets/js/echarts-option/historys.js'
 import {onMounted, watch} from "vue";
 import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {trsnslateSlave, translate} from '@/assets/js/stations-data.js'
@@ -23,7 +23,7 @@ const refresh = (dom, option, historyData, slaveList, sensorsList) => {
   let sensorNameIndex = 0;
   let slaveNameIndex = 0;
   for (let sensor of historyData) {
-    let newData = {name: '', type: 'line', symbol: 'none', data: []};
+    let newData = {name: '', type: 'line', symbol: 'none', data: [], smooth: true,};
     let dataList = new Array();
     let timeList = new Array();
 
@@ -50,7 +50,7 @@ const refresh = (dom, option, historyData, slaveList, sensorsList) => {
 
 onMounted(() => {
   let dom = IdInitEcharts('history-line');
-  dom.showLoading();
+  // dom.showLoading();
   window.addEventListener('resize', function () {
     dom.resize();
   });
