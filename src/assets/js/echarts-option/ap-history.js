@@ -17,6 +17,7 @@ const apHistoryOption = {
     toolbox: {
         feature: {
             restore: {},
+
         }
     },
     axisPointer: {

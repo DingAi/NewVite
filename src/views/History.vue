@@ -1,9 +1,12 @@
 <script setup>
 import {ref, reactive, watch, onMounted} from 'vue';
-import {stations, sensors, shortcuts} from "@/assets/js/stations-data.js"
+import {stations, sensors, shortcuts, trsnslateSlave, translate} from "@/assets/js/stations-data.js"
 import axios from "axios";
 import {ElNotification} from 'element-plus'
 import HistoryChart from "@/components/echarts/HistoryChart.vue";
+import Loading from "@/components/Loading.vue";
+import {getHistoryData} from "@/apis/request-api.js";
+import {convertToCSV, dataProcessingAndDownload, timeHandle} from "@/util/data-generator.js";
 
 const timeStr = ref('')
 const masterStations = reactive([
@@ -18,7 +21,8 @@ const slaveValue = ref([])
 const sensorValue = ref('')
 const sensorsList = reactive(sensors)
 let slaveStations = ref({})
-const allData = ref({})
+const historyData = ref({})
+const isLoading = ref(true);
 
 
 const getSlaves = (masterNum) => {
@@ -30,32 +34,87 @@ const getSlaves = (masterNum) => {
 }
 
 
-const sendData = (slaveList, sensorsList, time) => {
-    if (sensorsList && time) {
+const sendData = async (slaveList, sensorsList, time) => {
+    if (sensorsList.length >0 && slaveList.length >0 && time) {
+        isLoading.value = false;
         let dataList = [];
         for (let slave of slaveList) {
             for (let sensor of sensorsList) {
                 dataList.push(sensor + slave);
             }
         }
-        let masterStr = masterValue.value.toString()
-        axios.post('online/range_query', {'masterNum': masterStr, 'sensorNum': dataList, 'time': time})
-            .then(response => {
-                allData.value = response.data;
-                if (allData.lenght != 0) {
-                    ElNotification({
-                        title: 'Success',
-                        message: '数据查询成功！',
-                        type: 'success',
-                    })
-                }
-            })
+        let masterStr = masterValue.value.toString();
+        try {
+            const response = await getHistoryData(masterStr, dataList, time)
+            historyData.value = response.data;
+            console.log(historyData);
+            if (historyData.value.length !== 0) {
+                ElNotification({
+                    title: 'Success',
+                    message: '图表生成完成！',
+                    type: 'success',
+                });
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            isLoading.value = true;
+        }
     } else {
         ElNotification({
             title: 'Warning',
             message: '请选择完整数据！',
             type: 'warning',
-        })
+        });
+    }
+};
+
+
+const download = async (historyData, slaveList, sensorsList) => {
+    if (slaveList.length >0 && sensorsList.length >0 && timeStr.value){
+        if (historyData.length > 0) {
+            ElNotification({
+                title: 'Info',
+                message: '下载正在进行，请不要关闭页面！',
+                type: 'info',
+                position: 'bottom-right',
+            });
+            dataProcessingAndDownload(historyData, slaveList, sensorsList)
+        } else {
+            try {
+                let dataList = [];
+                for (let slave of slaveList) {
+                    for (let sensor of sensorsList) {
+                        dataList.push(sensor + slave);
+                    }
+                }
+                ElNotification({
+                    title: 'Info',
+                    message: '下载正在进行，请不要关闭页面！',
+                    type: 'info',
+                    position: 'bottom-right',
+                });
+                const response = await getHistoryData(masterValue.value, dataList, timeStr.value)
+                let downloadHistoryData = response.data;
+                dataProcessingAndDownload(downloadHistoryData, slaveList, sensorsList)
+            } catch (error) {
+                console.error(error);
+            } finally {
+                ElNotification({
+                    title: 'Success',
+                    message: '数据下载完成！',
+                    type: 'success',
+                    position: 'bottom-right',
+                });
+                isLoading.value = true;
+            }
+        }
+    }else {
+        ElNotification({
+            title: 'Warning',
+            message: '请选择完整数据！',
+            type: 'warning',
+        });
     }
 }
 
@@ -66,6 +125,7 @@ const getMasterIndex = (masterValue) => {
 
 onMounted(() => {
     getSlaves(masterValue.value);
+
     watch(
         () => masterValue.value,
         () => {
@@ -128,11 +188,11 @@ onMounted(() => {
                 </div>
                 <div class="item">
                     <div class="buttons text-center" style="width: 200px">
-                        <el-button type="primary" plain @click="sendData(slaveValue, sensorValue, timeStr)">生成图表</el-button>
-                        <el-button type="primary" plain>数据下载</el-button>
+                        <el-button type="primary" plain @click="sendData(slaveValue, sensorValue, timeStr)">生成图表
+                        </el-button>
+                        <el-button type="primary" plain @click="download(historyData, slaveValue, sensorValue)">数据下载</el-button>
                     </div>
                 </div>
-
             </div>
         </el-col>
     </el-row>
@@ -144,9 +204,11 @@ onMounted(() => {
                 <!--                <h1>{{ slaveStations }}</h1>-->
                 <!--                <h1>{{ slaveValue }}</h1>-->
                 <!--                <h1>{{ sensorValue }}</h1>-->
-<!--                <h1>{{ timeStr }}</h1>-->
-                <!--                                <h1>{{ allData }}</h1>-->
-                <HistoryChart :historyData="allData" :stations="slaveValue" :sensors="sensorValue"/>
+                <!--                <h1>{{ timeStr }}</h1>-->
+                <!--                                <h1>{{ historyData }}</h1>-->
+                <HistoryChart :historyData="historyData" :stations="slaveValue" :sensors="sensorValue"
+                              v-if="isLoading"/>
+                <Loading v-else/>
             </div>
         </el-col>
     </el-row>

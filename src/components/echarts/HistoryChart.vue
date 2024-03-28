@@ -1,5 +1,5 @@
 <template>
-  <div class="full" id="history-line"></div>
+    <div class="full" id="history-line"></div>
 </template>
 
 <script setup>
@@ -10,61 +10,67 @@ import {trsnslateSlave, translate} from '@/assets/js/stations-data.js'
 import {timeHandle} from "@/util/data-generator.js";
 
 const props = defineProps({
-  historyData: Array,
-  stations: Array,
-  sensors: Array
+    historyData: Array,
+    stations: Array,
+    sensors: Array,
 })
+console.log(props.sensors);
 
 let historyLineOption = historyAreaOption;
 
 const refresh = (dom, option, historyData, slaveList, sensorsList) => {
-  option.series = [];
-  option.xAxis.data = [];
-  let sensorNameIndex = 0;
-  let slaveNameIndex = 0;
-  for (let sensor of historyData) {
-    let newData = {name: '', type: 'line', symbol: 'none', data: [], smooth: true,};
-    let dataList = new Array();
-    let timeList = new Array();
+    option.series = [];
+    option.xAxis.data = [];
+    let sensorNameIndex = 0;
+    let slaveNameIndex = 0;
+    for (let sensor of historyData) {
+        let newData = {name: '', type: 'line', symbol: 'none', data: [], smooth: true,};
+        let dataList = [];
+        let timeList = [];
 
-    let slaveName = trsnslateSlave[slaveList[slaveNameIndex]]
-    let sensorName = translate[sensorsList[sensorNameIndex]];
-    if (sensorNameIndex + 1 == sensorsList.length) {
-      sensorNameIndex = 0;
-      slaveNameIndex++;
-    } else {
-      sensorNameIndex++;
+        let slaveName = trsnslateSlave[slaveList[slaveNameIndex]]
+        let sensorName = translate[sensorsList[sensorNameIndex]];
+
+        sensorNameIndex = (sensorNameIndex + 1) % sensorsList.length;
+        slaveNameIndex = sensorNameIndex === 0 ? slaveNameIndex + 1 : slaveNameIndex;
+
+        for (let item of sensor) {
+            dataList.push(item[sensorName]);
+            timeList.push(timeHandle(item['timest']));
+        }
+
+        newData.name = slaveName + sensorName;
+        newData.data = dataList;
+
+        option.series.push(newData);
+        option.xAxis.data = timeList;
     }
-    for (let item of sensor) {
-      dataList.push(item[sensorName]);
-      timeList.push(timeHandle(item['timest']));
-    }
-    newData.name = slaveName + sensorName;
-    newData.data = dataList;
-    option.series.push(newData);
-    option.xAxis.data = timeList;
-  }
-  dom.setOption(option, true);
-  dom.hideLoading();
+
+    dom.setOption(option, true);
+    dom.hideLoading();
 }
 
 onMounted(() => {
-  let dom = IdInitEcharts('history-line');
-  // dom.showLoading();
-  window.addEventListener('resize', function () {
-    dom.resize();
-  });
+    let dom = IdInitEcharts('history-line');
+    if(props.historyData.length > 0){
+        dom.showLoading();
+        refresh(dom, historyLineOption, props.historyData, props.stations, props.sensors);
+    }
+    watch(
+        () => props.historyData,
+        () => {
 
-  watch(
-      () => props.historyData,
-      () => {
-        if (props.historyData) {
-
-          refresh(dom, historyLineOption, props.historyData, props.stations, props.sensors);
-        }
-      },
-      {deep: true}
-  )
+            console.log('historyData',props.historyData)
+            window.addEventListener('resize', function () {
+                dom.resize();
+            });
+            if (props.historyData) {
+                dom.showLoading();
+                refresh(dom, historyLineOption, props.historyData, props.stations, props.sensors);
+            }
+        },
+        {deep: true}
+    )
 })
 </script>
 

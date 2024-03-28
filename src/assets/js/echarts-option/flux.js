@@ -12,8 +12,7 @@ const fluxOption = {
     toolbox: {
         show: true,
         feature: {
-            dataVi水通量: { readOnly: true },
-            magicType: { type: ['line', 'bar'] },
+            magicType: { type: ['bar', 'line'] },
             restore: {},
         }
     },
@@ -34,7 +33,6 @@ const fluxOption = {
             end: 100,
         },
         {
-            // show: true,
             type: 'inside',
             start: 0,
             end: 100,
@@ -45,14 +43,14 @@ const fluxOption = {
             data: [],
             name: '碳通量',
             type: 'line',
-            smooth: true,  //曲线平滑
+            smooth: false,  //曲线平滑
             areaStyle: {}
         },
         {
             data: [],
             name: '水通量',
             type: 'line',
-            smooth: true,  //曲线平滑
+            smooth: false,  //曲线平滑
             areaStyle: {}
         }
     ]

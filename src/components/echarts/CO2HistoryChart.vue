@@ -62,8 +62,8 @@ function refresh(dom, co2Data) {
 
 onMounted(() => {
     let dom = IdInitEcharts('co2-dom');
-    refreshCO2History(dom)
     dom.showLoading();
+    refreshCO2History(dom)
     window.addEventListener('resize', function () {
         dom.resize();
     });

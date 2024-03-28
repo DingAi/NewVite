@@ -3,10 +3,11 @@ import {ref, reactive} from 'vue';
 import FluxHistoryChart from "@/components/echarts/FluxHistoryChart.vue";
 import {linearRegressionOption} from "@/assets/js/echarts-option/linear-regression.js";
 import _ from 'lodash';
-import {get12HTimeRange, timeHandle} from "@/util/data-generator.js";
+import {dataProcessingAndDownload, get12HTimeRange, get24HTimeRange, timeHandle} from "@/util/data-generator.js";
 import {stations, shortcuts, sensors} from "@/assets/js/stations-data.js";
 import Loading from "@/components/Loading.vue";
-import {getAnalysisData} from "@/apis/request-api.js";
+import {getAnalysisData, getHistoryData} from "@/apis/request-api.js";
+import {ElNotification} from "element-plus";
 
 //主站、从站、时间范围选择
 const masterValue = ref('master01')
@@ -58,10 +59,61 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
     }
 }
 
+
+const download = async (fluxData) => {
+    if (slaveList.length >0 && sensorsList.length >0 && timeStr.value){
+        if (fluxData.length > 0) {
+            ElNotification({
+                title: 'Info',
+                message: '下载正在进行，请不要关闭页面！',
+                type: 'info',
+                position: 'bottom-right',
+            });
+            // dataProcessingAndDownload(fluxData)
+        } else {
+            try {
+                let dataList = [];
+                for (let slave of slaveList) {
+                    for (let sensor of sensorsList) {
+                        dataList.push(sensor + slave);
+                    }
+                }
+                ElNotification({
+                    title: 'Info',
+                    message: '下载正在进行，请不要关闭页面！',
+                    type: 'info',
+                    position: 'bottom-right',
+                });
+                const response = await getHistoryData(masterValue.value, dataList, timeStr.value)
+                let downloadHistoryData = response.data;
+                dataProcessingAndDownload(downloadHistoryData, slaveList, sensorsList)
+            } catch (error) {
+                console.error(error);
+            } finally {
+                ElNotification({
+                    title: 'Success',
+                    message: '数据下载完成！',
+                    type: 'success',
+                    position: 'bottom-right',
+                });
+                isLoading.value = true;
+            }
+        }
+    }else {
+        ElNotification({
+            title: 'Warning',
+            message: '请选择完整数据！',
+            type: 'warning',
+        });
+    }
+}
+
+
 const selectRegression = (regressionIndex) => {
     selectedRegressionData.CRegressionData = totalData[0][regressionIndex]
     selectedRegressionData.WRegressionData = totalData[5][regressionIndex]
 }
+
 
 const getSlaves = (masterNum) => {
     if (masterNum) {
@@ -71,13 +123,15 @@ const getSlaves = (masterNum) => {
     }
 }
 
+
 const getMasterIndex = (masterValue) => {
     return stations[masterValue];
 }
 
+
 onMounted(() => {
     getSlaves(masterValue.value)
-    getLoadData(masterValue.value, '11', get12HTimeRange(),3,1);
+    getLoadData(masterValue.value, '11', get24HTimeRange(),3,1);
 })
 
 
@@ -146,28 +200,28 @@ onMounted(() => {
                                         </div>
 
                                         <h4>
-                                            <el-tooltip content="二氧化碳线性回归K值" placement="top" effect="light">
+<!--                                            <el-tooltip content="二氧化碳线性回归K值" placement="top" effect="light">-->
                                                 <span class="badge open-color-auto m-1 bg-warning">CK: {{
                                                     item[1].toFixed(2)
                                                     }}</span>
-                                            </el-tooltip>
-                                            <el-tooltip content="二氧化碳线性回归K值拟合度" placement="top"
-                                                        effect="light">
+<!--                                            </el-tooltip>-->
+<!--                                            <el-tooltip content="二氧化碳线性回归K值拟合度" placement="top"-->
+<!--                                                        effect="light">-->
                                                 <span class="badge open-color-auto m-1 bg-secondary">CR: {{
                                                     item[2].toFixed(2)
                                                     }}</span>
-                                            </el-tooltip>
-                                            <el-tooltip content="水蒸汽浓度线性回归K值" placement="top" effect="light">
+<!--                                            </el-tooltip>-->
+<!--                                            <el-tooltip content="水蒸汽浓度线性回归K值" placement="top" effect="light">-->
                                                 <span class="badge open-color-auto m-1 bg-primary">WK: {{
                                                     item[4].toFixed(2)
                                                     }}</span>
-                                            </el-tooltip>
-                                            <el-tooltip content="水蒸汽浓度线性回归K值拟合度" placement="top"
-                                                        effect="light">
+<!--                                            </el-tooltip>-->
+<!--                                            <el-tooltip content="水蒸汽浓度线性回归K值拟合度" placement="top"-->
+<!--                                                        effect="light">-->
                                                 <span class="badge open-color-auto m-1 bg-secondary">WR: {{
                                                     item[5].toFixed(2)
                                                     }}</span>
-                                            </el-tooltip>
+<!--                                            </el-tooltip>-->
                                         </h4>
                                         <el-collapse accordion>
                                             <el-collapse-item>
@@ -178,7 +232,7 @@ onMounted(() => {
                                                     <!--                                                    <p>平均净辐射</p>-->
                                                     <!--                                                    <p>平均开启温湿度</p>-->
                                                     <p>
-                                                        如果你看到了这句话，说明这里的内容还在商榷或编写进行中
+                                                        如果你看到了这句话，说明这里的内容还在商榷或在编写进行中
                                                     </p>
                                                 </div>
                                             </el-collapse-item>
@@ -226,13 +280,14 @@ onMounted(() => {
                         <el-input-number v-model="boxVolume" :precision="2" :step="1" size="large"/>
                     </div>
                 </div>
-
-
                 <div class="item">
                     <div class="text-center">
                         <p>箱底土壤面积（S）</p>
                         <el-input-number v-model="boxBottomArea" :precision="2" :step="1" size="large"/>
                     </div>
+                </div>
+                <div class="item">
+                    <el-button type="primary" plain>通量数据下载</el-button>
                 </div>
             </div>
         </el-col>
