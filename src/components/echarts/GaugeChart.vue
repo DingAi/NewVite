@@ -23,9 +23,7 @@ onMounted(() => {
     watch(
         () => props.ap.dap,
         () => {
-            // if (props.ap.uap & props.ap.dap) {
             refresh(props.ap.uap, props.ap.dap, dom);
-            // }
         }
     )
 })

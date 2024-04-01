@@ -9,8 +9,8 @@ const historyAreaOption = {
     toolbox: {
         show: true,
         feature: {
+            saveAsImage: {},
             dataView: {readOnly: true},
-            magicType: {type: ['line', 'bar']},
             restore: {},
         }
     },

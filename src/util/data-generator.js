@@ -173,9 +173,23 @@ const dataProcessingAndDownload = (historyData, slaveList, sensorsList) =>{
     downloadCSV(csvContent, 'historyDownLoadFile.csv')
 }
 
+const timeDataTransform = (timeRangeList) => {
+    let timeList = [];
+    for(let timeItem of timeRangeList){
+        let startTime = timeHandle(timeItem[0]);
+        let endTime = timeHandle(timeItem[1]);
+        let connectTime = startTime + "-" + endTime;
+        timeList.push(connectTime)
+    }
+    return timeList;
+}
+
+
+
 
 export {
     downloadCSV,
+    timeDataTransform,
     dataProcessingAndDownload,
     dataGenerator,
     timeHandle,

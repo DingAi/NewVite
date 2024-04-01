@@ -42,14 +42,14 @@ const fluxOption = {
         {
             data: [],
             name: '碳通量',
-            type: 'line',
+            type: 'bar',
             smooth: false,  //曲线平滑
             areaStyle: {}
         },
         {
             data: [],
             name: '水通量',
-            type: 'line',
+            type: 'bar',
             smooth: false,  //曲线平滑
             areaStyle: {}
         }

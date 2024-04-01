@@ -26,7 +26,7 @@ export const useUserStore = defineStore('user', () => {
                 user.value = credentials.value.username
                 token.value = response.data.token;
                 console.log(token.value)
-                router.push('/home');
+                router.push('/');
             } else {
                 ElNotification({
                     title: 'Error',

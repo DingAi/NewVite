@@ -1,4 +1,4 @@
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 
 const sensors = [
     {
@@ -37,14 +37,14 @@ const translate = {
 }
 
 const trsnslateSlave = {
-    "11": "从站 1 ",
-    "12": "从站 2 ",
-    "13": "从站 3 ",
-    "14": "从站 4 ",
-    "15": "从站 5 ",
-    "16": "从站 6 ",
-    "17": "从站 7 ",
-    "18": "从站 8 ",
+    "11": "Station 1 ",
+    "12": "Station 2 ",
+    "13": "Station 3 ",
+    "14": "Station 4 ",
+    "15": "Station 5 ",
+    "16": "Station 6 ",
+    "17": "Station 7 ",
+    "18": "Station 8 ",
 }
 
 const trsnslateStationRunStep = {
@@ -190,11 +190,49 @@ const shortcuts = [
     },
 ]
 
+
+const soilData = [
+    {name: '土壤含水量', value: Math.random().toFixed(2), unit: '%'},
+    {name: '土壤温度', value: Math.floor(Math.random() * (40 - 10 + 1) + 10), unit: '℃'},
+    {name: '土壤电导率', value: Math.random().toFixed(2), unit: 'dS/m'},
+    {name: '土壤PH', value: Math.random().toFixed(1), unit: ''},
+    {name: '土壤氮含量', value: Math.random().toFixed(2), unit: 'mg/kg'},
+    {name: '土壤磷含量', value: Math.random().toFixed(2), unit: 'mg/kg'},
+    {name: '土壤钾含量', value: Math.random().toFixed(2), unit: 'mg/kg'},
+    {name: '土壤盐度', value: Math.random().toFixed(2), unit: '%'},
+    {name: '土壤TDS', value: Math.floor(Math.random() * (2000 - 500 + 1) + 500), unit: 'ppm'},
+    {name: '风速', value: Math.random().toFixed(2), unit: 'm/s'},
+];
+
+const weatherData = [
+    {name: '净辐射', value: Math.random().toFixed(2), unit: 'W/m²'},
+    {name: '温度', value: Math.floor(Math.random() * (40 - 10 + 1) + 10), unit: '℃'},
+    {name: '湿度', value: Math.random().toFixed(2) * 100, unit: '%'},
+    {name: 'CO₂', value: Math.floor(Math.random() * (1000 - 300 + 1) + 300), unit: 'ppm'},
+    {name: '大气压力', value: Math.floor(Math.random() * (1050 - 950 + 1) + 950), unit: 'hPa'},
+    {name: '光照', value: Math.floor(Math.random() * (1000 - 100 + 1) + 100), unit: 'lux'},
+];
+
+const solarData = [
+    {name: '光伏板电压', value: Math.random().toFixed(2), unit: 'V'},
+    {name: '光伏板电流', value: Math.random().toFixed(2), unit: 'A'},
+    {name: '光伏板发电功率', value: (Math.random() * 100).toFixed(2), unit: 'W'},
+    {name: '输出电压', value: Math.random().toFixed(2), unit: 'V'},
+    {name: '输出电流', value: Math.random().toFixed(2), unit: 'A'},
+    {name: '输出功率', value: (Math.random() * 1000).toFixed(2), unit: 'W'},
+    {name: '蓄电池电压', value: (Math.random() * 12).toFixed(2), unit: 'V'},
+    {name: '蓄电池电流', value: Math.random().toFixed(2), unit: 'A'},
+];
+
+
 export {
     stations,
     sensors,
     translate,
     trsnslateSlave,
     trsnslateStationRunStep,
-    shortcuts
+    shortcuts,
+    soilData,
+    weatherData,
+    solarData,
 }

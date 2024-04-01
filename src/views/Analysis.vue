@@ -3,8 +3,8 @@ import {ref, reactive} from 'vue';
 import FluxHistoryChart from "@/components/echarts/FluxHistoryChart.vue";
 import {linearRegressionOption} from "@/assets/js/echarts-option/linear-regression.js";
 import _ from 'lodash';
-import {dataProcessingAndDownload, get12HTimeRange, get24HTimeRange, timeHandle} from "@/util/data-generator.js";
-import {stations, shortcuts, sensors} from "@/assets/js/stations-data.js";
+import {convertToCSV, downloadCSV, get24HTimeRange, timeDataTransform, timeHandle} from "@/util/data-generator.js";
+import {stations, shortcuts, sensors, trsnslateSlave, translate} from "@/assets/js/stations-data.js";
 import Loading from "@/components/Loading.vue";
 import {getAnalysisData, getHistoryData} from "@/apis/request-api.js";
 import {ElNotification} from "element-plus";
@@ -33,6 +33,7 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
         const response = await getAnalysisData(masterValue, slaveValue, timeRangeStr, boxVolume, boxBottomArea);
         selectedRegressionData.dataList = response.data[0][0]
         totalData = response.data
+        console.log(totalData)
         let itemNum = response.data[3].length;  // 获取到的时间段的数量
         let dataIndex = regressionDataList.indexList = _.range(itemNum)
         let CKvalueList = response.data[1];
@@ -43,6 +44,7 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
         fluxData.ec = response.data[4];
         fluxData.ew = response.data[8];
         fluxData.timeList = response.data[3]
+        console.log(fluxData)
         for (let item of timeList) {
             timeRangeList.value.push([timeHandle(item[0]), timeHandle(item[1])]);
         }
@@ -52,7 +54,7 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
         );
         regressionDataList.indexList = dataPackageList;
         selectedRegressionData.CRegressionData = totalData[0][0]
-        selectedRegressionData.WRegressionData = totalData[5][1]
+        selectedRegressionData.WRegressionData = totalData[5][0]
         isLoading.value = true
     } catch (error) {
         console.error(error);
@@ -60,8 +62,17 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
 }
 
 
+const fluxDataDownload = (fluxData) =>{
+    let tabHeader = ['碳通量','水通量','Time'];
+    let totalData = [fluxData.ec, fluxData.ew, timeDataTransform(fluxData.timeList)];
+    console.log(fluxData);
+    let csvContent = convertToCSV(tabHeader, totalData)
+    downloadCSV(csvContent, '通量历史数据.csv')
+}
+
+
 const download = async (fluxData) => {
-    if (slaveList.length >0 && sensorsList.length >0 && timeStr.value){
+    if (slaveValue.length >0 && timeStr.value){
         if (fluxData.length > 0) {
             ElNotification({
                 title: 'Info',
@@ -69,24 +80,15 @@ const download = async (fluxData) => {
                 type: 'info',
                 position: 'bottom-right',
             });
-            // dataProcessingAndDownload(fluxData)
         } else {
             try {
-                let dataList = [];
-                for (let slave of slaveList) {
-                    for (let sensor of sensorsList) {
-                        dataList.push(sensor + slave);
-                    }
-                }
                 ElNotification({
                     title: 'Info',
                     message: '下载正在进行，请不要关闭页面！',
                     type: 'info',
                     position: 'bottom-right',
                 });
-                const response = await getHistoryData(masterValue.value, dataList, timeStr.value)
-                let downloadHistoryData = response.data;
-                dataProcessingAndDownload(downloadHistoryData, slaveList, sensorsList)
+                fluxDataDownload(fluxData)
             } catch (error) {
                 console.error(error);
             } finally {
@@ -198,7 +200,6 @@ onMounted(() => {
                                                      @click="selectRegression(item[0])">TO INDEX：{{ item[0] + 1 }} >
                                             </el-text>
                                         </div>
-
                                         <h4>
 <!--                                            <el-tooltip content="二氧化碳线性回归K值" placement="top" effect="light">-->
                                                 <span class="badge open-color-auto m-1 bg-warning">CK: {{
@@ -226,14 +227,10 @@ onMounted(() => {
                                         <el-collapse accordion>
                                             <el-collapse-item>
                                                 <template #title>
-                                                    气象站数据数据
+                                                    其他数据
                                                 </template>
-                                                <div>
-                                                    <!--                                                    <p>平均净辐射</p>-->
-                                                    <!--                                                    <p>平均开启温湿度</p>-->
-                                                    <p>
-                                                        如果你看到了这句话，说明这里的内容还在商榷或在编写进行中
-                                                    </p>
+                                                <div v-if="totalData">
+                                                    <p><b>区间平均温度：{{totalData[9][item[0]]}}℃</b></p>
                                                 </div>
                                             </el-collapse-item>
                                         </el-collapse>
@@ -265,18 +262,6 @@ onMounted(() => {
                 <div class="item">
                     <div class="text-center">
                         <p>箱体体积（V）</p>
-                        <el-statistic :value="268500"/>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="text-center">
-                        <el-statistic title="二氧化碳标准密度（ρ）" :value="268500"/>
-                        <el-statistic title="水标准密度（ρ）" :value="268500"/>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="text-center">
-                        <p>箱体体积（V）</p>
                         <el-input-number v-model="boxVolume" :precision="2" :step="1" size="large"/>
                     </div>
                 </div>
@@ -286,8 +271,8 @@ onMounted(() => {
                         <el-input-number v-model="boxBottomArea" :precision="2" :step="1" size="large"/>
                     </div>
                 </div>
-                <div class="item">
-                    <el-button type="primary" plain>通量数据下载</el-button>
+                <div class="item" v-if="isLoading">
+                    <el-button type="primary" plain @click="fluxDataDownload(fluxData)">通量数据下载</el-button>
                 </div>
             </div>
         </el-col>

@@ -9,6 +9,7 @@ export default {
 </script>
 
 <style scoped>
+/*:deep()*/
 //.el-date-range-picker .el-picker-panel__body {
 //  @media (max-width: 768px) {
 //    width: 323px !important;

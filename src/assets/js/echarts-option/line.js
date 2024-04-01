@@ -4,7 +4,10 @@ let lineOption = {
     },
     title: {
         text: 'Title',
-        left: 'center'
+        left: 'left'
+    },
+    legend: {
+        data: ['温度','湿度'],
     },
     toolbox: {
         show: true,
@@ -22,15 +25,26 @@ let lineOption = {
     },
     series: [
         {
+            name: '温度',
             data: [],
-            type: 'line',
+            type: 'bar',
             smooth: false,  //曲线平滑
-            markPoint: {
-                data: [
-                    { type: 'max', name: 'Max' },
-                    { type: 'min', name: 'Min' }
-                ]
-            },
+            // markPoint: {
+            //     data: [
+            //         { type: 'average', name: 'Avg' },
+            //     ]
+            // },
+        },
+        {
+            name: '湿度',
+            data: [],
+            type: 'bar',
+            smooth: false,  //曲线平滑
+            // markPoint: {
+            //     data: [
+            //         { type: 'average', name: 'Avg' },
+            //     ]
+            // },
         },
     ]
 };

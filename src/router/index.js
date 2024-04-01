@@ -21,7 +21,11 @@ const routes = [
         name: 'Login',
         component: () => import('../views/Login.vue'),
     },
-
+    {
+        path: '/meteorological',
+        name: 'Meteorological',
+        component: () => import('../views/Meteorological.vue'),
+    },
     {
         path: '/test',
         name: 'Test',

@@ -23,12 +23,12 @@ const props = defineProps({
 let option = linesOption;
 
 
-let inTDataList = new Array();
-let exTDataList = new Array();
-let inHDataList = new Array();
-let exHDataList = new Array();
-let dataList = new Array();
-let timeList = new Array();
+let inTDataList = [];
+let exTDataList = [];
+let inHDataList = [];
+let exHDataList = [];
+let dataList = [];
+let timeList = [];
 
 const refresh = (dom, option, data, time) => {
     dataList = dataGenerator(dataList, data, 20);

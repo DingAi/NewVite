@@ -23,19 +23,11 @@ const switch_drawer = ()=>{
                 <el-menu default-active="/workplace/workplace-1/master-2" :router="true">
                     <el-menu-item index="/workplace/workplace-1/master-2" @click="switch_drawer">
                         <el-icon><Platform /></el-icon>
-                        <span>主站概览</span>
+                        <span>传感器参数</span>
                     </el-menu-item>
                     <el-menu-item index="/workplace/workplace-1/slave-2-1" @click="switch_drawer">
                         <el-icon><Platform /></el-icon>
-                        <span>从站 01</span>
-                    </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-1/slave-2-2" @click="switch_drawer">
-                        <el-icon><Platform /></el-icon>
-                        <span>从站 02</span>
-                    </el-menu-item>
-                    <el-menu-item index="4" disabled>
-                        <el-icon><Platform /></el-icon>
-                        <span>从站 03</span>
+                        <span>硬件参数</span>
                     </el-menu-item>
                 </el-menu>
             </el-row>
@@ -43,21 +35,13 @@ const switch_drawer = ()=>{
         <el-row class="full" :gutter="10">
             <el-col :span="3" :xs="0" class="hidden-on-mobile p-2">
                 <el-menu default-active="/workplace/workplace-2/master-2" :router="true">
-                    <el-menu-item index="/workplace/workplace-2/master-2" @click="switch_drawer">
+                    <el-menu-item index="/workplace/workplace-1/master-2" @click="switch_drawer">
                         <el-icon><Platform /></el-icon>
-                        <span>主站概览</span>
+                        <span>传感器参数</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-2/slave-2-1" @click="switch_drawer">
-                        <el-icon><Operation /></el-icon>
-                        <span>从站 01</span>
-                    </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-2/slave-2-2" @click="switch_drawer">
-                        <el-icon><Operation /></el-icon>
-                        <span>从站 02</span>
-                    </el-menu-item>
-                    <el-menu-item index="4" disabled>
-                        <el-icon><Operation /></el-icon>
-                        <span>从站 03</span>
+                    <el-menu-item index="/workplace/workplace-1/slave-2-1" @click="switch_drawer">
+                        <el-icon><Setting /></el-icon>
+                        <span>硬件参数</span>
                     </el-menu-item>
                 </el-menu>
             </el-col>

@@ -8,24 +8,13 @@
 import {onMounted, watch} from "vue";
 import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {fluxOption} from "@/assets/js/echarts-option/flux.js";
-import {generateRandomArray, generateRandomDatesArray, timeHandle} from "@/util/data-generator.js";
+import {generateRandomArray, generateRandomDatesArray, timeDataTransform, timeHandle} from "@/util/data-generator.js";
 
 const props = defineProps({
     fluxData: Object,
 })
 
 let option = fluxOption;
-
-const timeDataTransform = (timeRangeList) => {
-    let timeList = [];
-    for(let timeItem of timeRangeList){
-        let startTime = timeHandle(timeItem[0]);
-        let endTime = timeHandle(timeItem[1]);
-        let connectTime = startTime + "-" + endTime;
-        timeList.push(connectTime)
-    }
-    return timeList;
-}
 
 
 const refresh = (dom, ec, ew, timeRangeList) => {
