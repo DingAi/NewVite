@@ -64,6 +64,9 @@ const newLinearRegressionOption = {
             end: 100,
         }
     ],
+    grad: {
+        containLabel:true
+    },
     series: [{
         name: 'C Data',
         type: 'scatter',

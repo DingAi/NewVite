@@ -46,13 +46,15 @@ const apHistoryOption = {
         {
             left: 60,
             right: 50,
-            height: '35%'
+            height: '35%',
+            containLabel:true
         },
         {
             left: 60,
             right: 50,
             top: '55%',
-            height: '35%'
+            height: '35%',
+            containLabel:true
         }
     ],
     xAxis: [

@@ -14,6 +14,9 @@ const historyAreaOption = {
             restore: {},
         }
     },
+    grad: {
+        containLabel:true
+    },
     xAxis: {
         type: 'category',
         data: []

@@ -52,6 +52,9 @@ const refresh = (dom, option, historyData, slaveList, sensorsList) => {
 
 onMounted(() => {
     let dom = IdInitEcharts('history-line');
+    window.addEventListener('resize', function () {
+        dom.resize();
+    });
     if(props.historyData.length > 0){
         dom.showLoading();
         refresh(dom, historyLineOption, props.historyData, props.stations, props.sensors);

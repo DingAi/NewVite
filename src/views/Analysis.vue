@@ -33,7 +33,6 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
         const response = await getAnalysisData(masterValue, slaveValue, timeRangeStr, boxVolume, boxBottomArea);
         selectedRegressionData.dataList = response.data[0][0]
         totalData = response.data
-        console.log(totalData)
         let itemNum = response.data[3].length;  // 获取到的时间段的数量
         let dataIndex = regressionDataList.indexList = _.range(itemNum)
         let CKvalueList = response.data[1];
@@ -44,7 +43,6 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
         fluxData.ec = response.data[4];
         fluxData.ew = response.data[8];
         fluxData.timeList = response.data[3]
-        console.log(fluxData)
         for (let item of timeList) {
             timeRangeList.value.push([timeHandle(item[0]), timeHandle(item[1])]);
         }
@@ -65,9 +63,34 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
 const fluxDataDownload = (fluxData) =>{
     let tabHeader = ['碳通量','水通量','Time'];
     let totalData = [fluxData.ec, fluxData.ew, timeDataTransform(fluxData.timeList)];
+    if(slaveValue && timeRangeStr){
+        try {
+            ElNotification({
+                title: 'Info',
+                message: '下载正在进行，请不要关闭页面！',
+                type: 'info',
+                position: 'bottom-right',
+            });
+            let csvContent = convertToCSV(tabHeader, totalData)
+            downloadCSV(csvContent, '通量历史数据.csv')
+        }catch (error) {
+            console.error(error);
+        } finally {
+            ElNotification({
+                title: 'Success',
+                message: '数据下载完成！',
+                type: 'success',
+                position: 'bottom-right',
+            });
+        }
+    }else {
+        ElNotification({
+            title: 'Warning',
+            message: '请选择完整数据！',
+            type: 'warning',
+        });
+    }
     console.log(fluxData);
-    let csvContent = convertToCSV(tabHeader, totalData)
-    downloadCSV(csvContent, '通量历史数据.csv')
 }
 
 
@@ -230,7 +253,7 @@ onMounted(() => {
                                                     其他数据
                                                 </template>
                                                 <div v-if="totalData">
-                                                    <p><b>区间平均温度：{{totalData[9][item[0]]}}℃</b></p>
+<!--                                                    <p><b>区间平均温度：{{totalData[9][item[0]]}}℃</b></p>-->
                                                 </div>
                                             </el-collapse-item>
                                         </el-collapse>
@@ -248,7 +271,7 @@ onMounted(() => {
                             </div>
                             <div class="chart-div p-2">
                                 <FluxHistoryChart v-if="fluxData" :fluxData="fluxData"/>
-                                <Loading v-else/>
+<!--                                <Loading v-else/>-->
                             </div>
                         </div>
                     </div>

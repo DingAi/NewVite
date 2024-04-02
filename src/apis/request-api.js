@@ -4,7 +4,7 @@ const LocalServices = 'xu';
 const cloudServices = 'online';
 
 const getSensorData = (slaveNum) => {
-    let url = `${LocalServices}/real_time_data`;
+    let url = `${cloudServices}/real_time_data`;
     return axios({
         url: url,
         method: 'post',
@@ -45,7 +45,7 @@ const getStationStatus = () => {
 }
 
 const getAnalysisData = (masterNum, slaveNum, timeRange, boxVolume, boxBottomArea) => {
-    let url = `${LocalServices}/data_analysis`
+    let url = `${cloudServices}/data_analysis`
     return axios({
         url: url,
         method: 'post',
@@ -74,7 +74,7 @@ const getHistoryData = (masterNum, tabList, timeRange) => {
 }
 
 const getMeteorologicalData = () =>{
-    let url = `${LocalServices}/meteorological_station`
+    let url = `${cloudServices}/meteorological_station`
     return axios({
         url: url,
         method: 'get'
@@ -82,7 +82,7 @@ const getMeteorologicalData = () =>{
 }
 
 const getMeteorologicalHistory = () =>{
-    let url = `${LocalServices}/meteorological_station_history`
+    let url = `${cloudServices}/meteorological_station_history`
     return axios({
         url: url,
         method: 'get'

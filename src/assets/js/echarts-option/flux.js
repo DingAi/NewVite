@@ -6,7 +6,7 @@ const fluxOption = {
     xAxis: {
         type: 'category',
         // axisLine: { onZero: true },
-        boundaryGap: false,
+        boundaryGap: true,
         data: []
     },
     toolbox: {
@@ -15,6 +15,9 @@ const fluxOption = {
             magicType: { type: ['bar', 'line'] },
             restore: {},
         }
+    },
+    grad: {
+        containLabel:true
     },
     legend: {
         top: '7%',

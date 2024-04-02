@@ -7,7 +7,7 @@ import {dataGenerator} from "@/util/data-generator.js";
 import {IdInitEcharts, setTitle} from "@/assets/js/echarts-package.js";
 import {onMounted, watch} from "vue";
 import moment from "moment";
-import {lineOption} from "@/assets/js/echarts-option/line.js";
+import {lineOption} from "@/assets/js/echarts-option/lines.js";
 
 const props = defineProps({
     temperature: Number,

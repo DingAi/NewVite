@@ -21,7 +21,8 @@ const refresh = (dom, ec, ew, timeRangeList) => {
     option.series[0].data = ec;
     option.series[1].data = ew;
     option.xAxis.data = timeDataTransform(timeRangeList);
-    dom.setOption(option)
+    dom.setOption(option);
+    dom.hideLoading();
 }
 
 onMounted(() => {
@@ -29,11 +30,16 @@ onMounted(() => {
     window.addEventListener('resize', function () {
         dom.resize();
     });
+    dom.showLoading();
+    // if (props.fluxData) {
+    //     refresh(dom, props.fluxData.ec, props.fluxData.ew, props.fluxData.timeList);
+    // }
 
     watch(
         () => props.fluxData,
         () => {
             if (props.fluxData) {
+
                 refresh(dom, props.fluxData.ec, props.fluxData.ew, props.fluxData.timeList);
             }
         },

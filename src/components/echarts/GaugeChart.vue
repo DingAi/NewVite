@@ -1,6 +1,6 @@
 <script setup>
 
-import {setGaugeData} from "@/assets/js/echarts-option/gauge.js";
+import {setGaugeData} from "@/assets/js/echarts-option/gauges.js";
 import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {onMounted, watch} from "vue";
 
@@ -9,7 +9,7 @@ const props = defineProps({
 })
 
 const refresh = (uap, dap, dom) => {
-    let option = setGaugeData(uap, dap);
+    let option = setGaugeData(uap, dap, '输入气压', '输出气压');
     dom.setOption(option)
 }
 

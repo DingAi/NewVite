@@ -61,9 +61,6 @@ const refresh = async () => {
         sensorData.in_humidity = response.data['inHumidity'];
         sensorData.ex_humidity = response.data['exHumidity'];
         sensorData.illumination = response.data['illumination'];
-        // sensorData.carbon_dioxide = response.data['CO2'];
-        // sensorData.up_atmospheric_pressure = response.data['UAP'];
-        // sensorData.down_atmospheric_pressure = response.data['DAP'];
         sensorData.time = tiemstampHandle(response.data['time']);
 
     } catch (error) {

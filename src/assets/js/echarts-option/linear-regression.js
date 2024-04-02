@@ -230,6 +230,9 @@ const linearRegressionOption = {
             type: 'cross'
         }
     },
+    grad: {
+        containLabel:true
+    },
     toolbox: {
         show: true,
         feature: {

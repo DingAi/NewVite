@@ -45,7 +45,8 @@ const refresh = async (dom, C, W) => {
     option2.series[3].data = result2.points;
     option2.series[3].markPoint.data[0].coord = result2.parameter.start;
     option2.series[3].markPoint.data[1].coord = result2.parameter.start;
-    dom.setOption(newLinearRegressionOption)
+    dom.setOption(newLinearRegressionOption);
+    dom.hideLoading();
 }
 
 
@@ -55,13 +56,19 @@ onMounted(() => {
     window.addEventListener('resize', function () {
         dom.resize();
     });
-    let newOption = refresh(dom, props.selectedRegressionData.CRegressionData, props.selectedRegressionData.WRegressionData);
-    dom.setOption(newOption)
+    dom.showLoading();
+    // refresh(dom, props.selectedRegressionData.CRegressionData, props.selectedRegressionData.WRegressionData);
+
+
+    if (props.selectedRegressionData) {
+        refresh(dom, props.selectedRegressionData.CRegressionData, props.selectedRegressionData.WRegressionData);
+    }
 
     watch(
         () => props.selectedRegressionData,
         () => {
             if (props.selectedRegressionData) {
+                dom.showLoading();
                 refresh(dom, props.selectedRegressionData.CRegressionData, props.selectedRegressionData.WRegressionData);
             }
         },

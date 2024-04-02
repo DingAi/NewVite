@@ -5,12 +5,11 @@
 <script setup>
 import {timeHandle} from "@/util/data-generator.js";
 import {IdInitEcharts, setTitle} from "@/assets/js/echarts-package.js";
-import {onMounted, ref,} from "vue";
-import {solarOption} from "@/assets/js/echarts-option/solar.js";
+import {onMounted} from "vue";
+import {solarOption} from "@/assets/js/echarts-option/lines.js";
 import {getMeteorologicalHistory} from "@/apis/request-api.js";
 
 let option = solarOption;
-let totalData = ref()
 
 
 const refresh = async (dom, option) => {
@@ -23,7 +22,6 @@ const refresh = async (dom, option) => {
     let timeList = [];
     try {
         const response = await getMeteorologicalHistory();
-        console.log(response)
         for (let item of response.data){
             photovoltaicPanelVoltageList.push(item['photovoltaic_panel_voltage']);
             photovoltaicPanelCurrentList.push(item['photovoltaic_panel_current']);

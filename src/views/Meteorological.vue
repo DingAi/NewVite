@@ -1,10 +1,11 @@
 <script setup>
 import {reactive, ref} from "vue";
 import {getMeteorologicalData} from "@/apis/request-api.js";
-import {shortcuts, soilData, solarData, weatherData} from "@/assets/js/stations-data.js";
+import {soilData, solarData, weatherData} from "@/assets/js/stations-data.js";
 import MeteorologicalChart01 from "@/components/echarts/MeteorologicalChart01.vue";
 import MeteorologicalChart02 from "@/components/echarts/MeteorologicalChart02.vue";
-import TGaugeChart from "@/components/echarts/TBGaugeChart.vue";
+import TGaugeChart from "@/components/echarts/MGaugeChart01.vue";
+import Loading from "@/components/Loading.vue";
 
 
 const soil = reactive({
@@ -17,14 +18,19 @@ const solar = reactive({
     data: solarData
 })
 
-const timeRangeStr = ref('')
 const solarTransmissionData = ref([])
 const BETemperature = ref([])
+const batteryData = ref(1)
+const isLoading = ref(false)
 
 
 const refresh = async () => {
     try {
         const response = await getMeteorologicalData();
+        BETemperature.value[0] = response.data[7];
+        BETemperature.value[1] = response.data[8];
+        batteryData.value = response.data[9];
+
         solar.data[0].value = response.data[0];
         solar.data[1].value = response.data[1];
         solar.data[2].value = response.data[2];
@@ -43,8 +49,7 @@ const refresh = async () => {
         for (let i = 0; i < weatherData.length; i++) {
             weather.data[i].value = response.data[25 + i];
         }
-        BETemperature.value[0] = response.data[7];
-        BETemperature.value[1] = response.data[8];
+        isLoading.value = true;
     } catch (error) {
         console.error(error);
     }
@@ -55,7 +60,7 @@ const refresh = async () => {
 refresh();
 
 onMounted(() => {
-    setInterval(refresh, 5000)
+    setInterval(refresh, 60000)
     // refresh();
 })
 </script>
@@ -97,20 +102,22 @@ onMounted(() => {
                 </div>
             </div>
         </el-col>
-        <el-col :span="12" :xs="24" class="">
-            <div class="item base-div" style="height: 50%">
+        <el-col :span="12" :xs="24" class="full">
+            <div class="item base-div phone-600">
                 <MeteorologicalChart01 :temperature="weather.data[1].value" :humidity="weather.data[2].value"/>
             </div>
-            <div class="item base-div" style="height: 50%">
+            <div class="item base-div phone-600">
                 <MeteorologicalChart02/>
             </div>
         </el-col>
-        <el-col :span="6" :xs="24" class="">
-            <div class="item base-div" style="height: 50%">
-                <TGaugeChart :equipmetTemperature="BETemperature"/>
+        <el-col :span="6" :xs="24" class="full">
+            <div class="item base-div phone-400">
+                <MGaugeChart01 :BETemperature="BETemperature" v-if="isLoading"/>
+                <Loading v-else/>
             </div>
-            <div class="item base-div" style="height: 50%">
-                <TGaugeChart :equipmetTemperature="BETemperature"/>
+            <div class="item base-div phone-400">
+                <MGaugeChart02 :batteryData="batteryData" v-if="isLoading"/>
+                <Loading v-else/>
             </div>
         </el-col>
     </el-row>
@@ -118,10 +125,26 @@ onMounted(() => {
 
 <style lang="less" scoped>
 @import "@/assets/css/master-style";
+@phone-max-width: 767px; // 假设手机端的最大宽度是767px
 
 .item {
   flex-grow: 1;
   margin-bottom: 10px; /* 设置相邻div之间的间距 */
+}
+
+
+.phone-400{
+    height: 50%;
+    @media (max-width: @phone-max-width) {
+        height: 400px;
+    }
+}
+
+.phone-600{
+    height: 50%;
+    @media (max-width: @phone-max-width) {
+        height: 600px;
+    }
 }
 
 </style>

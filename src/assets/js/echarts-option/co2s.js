@@ -11,6 +11,9 @@ const co2Option = {
         data: [],
         top: '10%'
     },
+    grad: {
+        containLabel:true
+    },
     toolbox: {
         feature: {
         }

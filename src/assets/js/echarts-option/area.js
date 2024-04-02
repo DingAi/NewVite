@@ -22,6 +22,9 @@ const areaOption = {
     yAxis: {
         type: 'value'
     },
+    grad: {
+        containLabel:true
+    },
     series: [
         {
             name: '光照值',
