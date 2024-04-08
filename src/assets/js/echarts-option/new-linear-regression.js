@@ -68,15 +68,15 @@ const newLinearRegressionOption = {
         containLabel:true
     },
     series: [{
-        name: 'C Data',
+        name: 'CO₂ Data',
         type: 'scatter',
         data: data1
     }, {
-        name: 'W Data',
+        name: 'H₂O Data',
         type: 'scatter',
         data: data2
     }, {
-        name: 'C Linear Regression',
+        name: 'CO₂ 线性回归',
         type: 'line',
         data: result1.points,
         markPoint: {
@@ -86,7 +86,7 @@ const newLinearRegressionOption = {
             ]
         }
     }, {
-        name: 'W Linear Regression',
+        name: 'H₂O 线性回归',
         type: 'line',
         data: result2.points,
         markPoint: {

@@ -37,6 +37,16 @@ const routes = [
         component: Analysis
     },
     {
+        path: '/data-list',
+        name: 'DataList',
+        component: () => import('../views/Data.vue'),
+    },
+    {
+        path: '/other',
+        name: 'Other',
+        component: () => import('../views/Other.vue'),
+    },
+    {
         path: '/workplace',
         name: 'Workplace',
         component: Workplace,

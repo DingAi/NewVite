@@ -4,7 +4,6 @@ import {getMeteorologicalData} from "@/apis/request-api.js";
 import {soilData, solarData, weatherData} from "@/assets/js/stations-data.js";
 import MeteorologicalChart01 from "@/components/echarts/MeteorologicalChart01.vue";
 import MeteorologicalChart02 from "@/components/echarts/MeteorologicalChart02.vue";
-import TGaugeChart from "@/components/echarts/MGaugeChart01.vue";
 import Loading from "@/components/Loading.vue";
 
 
@@ -39,16 +38,17 @@ const refresh = async () => {
         solar.data[5].value = response.data[6];
         solar.data[6].value = response.data[11];
         solar.data[7].value = response.data[12];
-        for (let i = 0; i < soil.data.length-2; i++) {
+        for (let i = 0; i < soil.data.length; i++) {
             solarTransmissionData.value[i] = soil.data[i].value
         }
-        for (let i = 0; i < soilData.length-1; i++) {
+        for (let i = 0; i < soilData.length; i++) {
             soil.data[i].value = response.data[14 + i];
         }
-        soil.data[9] = response.data[24];
         for (let i = 0; i < weatherData.length; i++) {
-            weather.data[i].value = response.data[25 + i];
+            weather.data[i].value = response.data[23 + i];
+            console.log(response.data[24+i])
         }
+        console.log(weather.data)
         isLoading.value = true;
     } catch (error) {
         console.error(error);
@@ -70,7 +70,7 @@ onMounted(() => {
         <el-col :span="6" :xs="24" class="full">
             <div class="item" style="height: 25%">
                 <div class="full p-3">
-                    <el-descriptions title="天气数据" direction="vertical" :column="3" :size="'large'" border>
+                    <el-descriptions title="天气数据" direction="vertical" :column="4" :size="'large'" border>
                         <el-descriptions-item v-for="item in weather.data" :label="item.name" :key="item.name">
                             <b>{{ item.value }}{{ item.unit }}</b>
                         </el-descriptions-item>
@@ -80,7 +80,7 @@ onMounted(() => {
             <div class="item" style="height: 40%">
                 <div class="full p-3">
                     <el-divider border-style="dashed"/>
-                    <el-descriptions title="土壤数据" direction="vertical" :column="4" :size="'large'" border>
+                    <el-descriptions title="土壤数据" direction="vertical" :column="3" :size="'large'" border>
                         <el-descriptions-item v-for="item in soil.data" :label="item.name" :key="item.name">
                             <b>{{ item.value }}{{ item.unit }}</b>
                         </el-descriptions-item>
@@ -91,7 +91,7 @@ onMounted(() => {
 <!--                </div>-->
             </div>
 
-            <div class="item" style="height: 35%">
+            <div class="item" style="height: 30%">
                 <div class="full p-3">
                     <el-divider border-style="dashed"/>
                     <el-descriptions title="光伏设备" direction="vertical" :column="4" :size="'large'" border>

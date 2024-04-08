@@ -18,7 +18,7 @@ const timeRange = get12HTimeRange();
 
 const refreshAPHistory = (dom, option) => {
   try {
-    axios.post('online/range_query', {'masterNum': 'master01', 'sensorNum': ['qy11'], 'time': timeRange})
+    axios.post('school/range_query', {'masterNum': 'master01', 'sensorNum': ['qy11'], 'time': timeRange})
         .then(response => {
           apHistoryData.value = response.data;
           refresh(dom, apHistoryData.value, option)

@@ -5,7 +5,7 @@ const co2Option = {
     title: {
         left: 'center',
         text: '二氧化碳',
-        subtext: '12小时历史',
+        subtext: '６小时历史',
     },
     legend: {
         data: [],

@@ -55,7 +55,6 @@ const soilData = reactive({});
 const refresh = async () => {
     try {
         const response = await getSensorData(slave_num);
-        console.log(response.data)
         sensorData.in_temperature = response.data['inTemperature'];
         sensorData.ex_temperature = response.data['exTemperature'];
         sensorData.in_humidity = response.data['inHumidity'];

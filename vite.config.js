@@ -66,11 +66,6 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
-      "/django": {
-        target: "http://127.0.0.1:8800/",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/django/, ""),
-      },
       "/fastapi": {
         target: "http://127.0.0.1:8000/",
         changeOrigin: true,
@@ -79,14 +74,25 @@ export default defineConfig({
       "/xu": {
         target: "http://192.168.28.33:8060/",
         changeOrigin: true,
+        ws: true,
         rewrite: (path) => path.replace(/^\/xu/, ""),
+      },
+      "/ws": {
+        target: "ws://192.168.28.33:8060/",
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/ws/, ""),
       },
       "/online": {
         target: "http://47.92.170.190:5002",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/online/, ""),
       },
-
+      "/school": {
+        target: "http://192.168.30.119:5006",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/school/, ""),
+      },
     },
   },
   resolve: {

@@ -90,6 +90,19 @@ function get12HTimeRange() {
     return timeRange
 }
 
+function get6HTimeRange() {
+    // 获取当前时间
+    const currentTime = moment();
+    // 获取24小时前的时间
+    const twentyFourHoursAgo = moment().subtract(6, 'hours');
+    // 格式化时间为指定格式（年月日 时分秒）
+    const formattedCurrentTime = currentTime.format('YYYY-MM-DD HH:mm:ss');
+    const formattedTwentyFourHoursAgo = twentyFourHoursAgo.format('YYYY-MM-DD HH:mm:ss');
+    // 构建时间范围数组
+    const timeRange = [formattedTwentyFourHoursAgo, formattedCurrentTime];
+    return timeRange
+}
+
 // 生成线性回归数据
 function generateLinearData(numPoints, slope, intercept, noiseLevel) {
     let data = [];
@@ -170,7 +183,7 @@ const dataProcessingAndDownload = (historyData, slaveList, sensorsList) =>{
     totalData.push(timeList);
     console.log(totalData);
     let csvContent = convertToCSV(nameList, totalData)
-    downloadCSV(csvContent, 'historyDownLoadFile.csv')
+    downloadCSV(csvContent, `history(${timeList[0]} to ${timeList[timeList.length-1]}).csv`)
 }
 
 const timeDataTransform = (timeRangeList) => {
@@ -199,6 +212,7 @@ export {
     generateRandomDatesArray,
     get24HTimeRange,
     get12HTimeRange,
+    get6HTimeRange,
     generateLinearData,
     convertToCSV
 }

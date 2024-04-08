@@ -11,7 +11,7 @@ const useEquipmentStore = defineStore('equipment', () => {
     })
 
     const getSwitchData = () => {
-        axios.get('online/items').then(response => {
+        axios.get('school/items').then(response => {
             switchData.lid = response.data['lid'];
             switchData.radiotube = response.data['radiotube'];
             switchData.fan = response.data['fan'];

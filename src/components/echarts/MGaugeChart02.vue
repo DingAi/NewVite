@@ -10,6 +10,7 @@ import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {watch} from "vue";
 
 let option = batteryLevelOption;
+option.series[0].detail.formatter = '{value}%'
 
 const props = defineProps({
     batteryData: Number,
@@ -26,8 +27,6 @@ onMounted(() => {
         dom.resize();
     });
     refresh(dom, props.batteryData);
-
-    console.log(props.batteryData)
     watch(
         () => props.batteryData,
         () => {

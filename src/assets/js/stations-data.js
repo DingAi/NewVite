@@ -68,26 +68,26 @@ const trsnslateStationRunStep = {
 
 const stations = {
     "master01": [
-        {"value": "11", "label": "从站 01"},
-        {"value": "12", "label": "从站 02"},
-        {"value": "13", "label": "从站 03"},
-        {"value": "14", "label": "从站 04"},
-        {"value": "15", "label": "从站 05"},
-        {"value": "16", "label": "从站 06"},
-        {"value": "17", "label": "从站 07"},
-        {"value": "18", "label": "从站 08"}
+        {value: "11", label: "从站 01"},
+        {value: "12", label: "从站 02"},
+        {value: "13", label: "从站 03"},
+        {value: "14", label: "从站 04"},
+        {value: "15", label: "从站 05"},
+        {value: "16", label: "从站 06"},
+        {value: "17", label: "从站 07"},
+        {value: "18", label: "从站 08"}
     ],
     "master02": [
-        {"value": "21", "label": "从站 01"},
-        {"value": "22", "label": "从站 02"},
-        {"value": "23", "label": "从站 03"},
-        {"value": "24", "label": "从站 04"},
-        {"value": "25", "label": "从站 05"},
-        {"value": "26", "label": "从站 06"},
-        {"value": "27", "label": "从站 07"},
-        {"value": "28", "label": "从站 08"},
-        {"value": "29", "label": "从站 09"},
-        {"value": "210", "label": "从站 10"}
+        {value: "21", label: "从站 01"},
+        {value: "22", label: "从站 02"},
+        {value: "23", label: "从站 03"},
+        {value: "24", label: "从站 04"},
+        {value: "25", label: "从站 05"},
+        {value: "26", label: "从站 06"},
+        {value: "27", label: "从站 07"},
+        {value: "28", label: "从站 08"},
+        {value: "29", label: "从站 09"},
+        {value: "210", label: "从站 10"}
     ]
 }
 
@@ -192,37 +192,140 @@ const shortcuts = [
 
 
 const soilData = [
-    {name: '土壤含水量', value: Math.random().toFixed(2), unit: '%'},
-    {name: '土壤温度', value: Math.floor(Math.random() * (40 - 10 + 1) + 10), unit: '℃'},
-    {name: '土壤电导率', value: Math.random().toFixed(2), unit: 'dS/m'},
-    {name: '土壤PH', value: Math.random().toFixed(1), unit: ''},
-    {name: '土壤氮含量', value: Math.random().toFixed(2), unit: 'mg/kg'},
-    {name: '土壤磷含量', value: Math.random().toFixed(2), unit: 'mg/kg'},
-    {name: '土壤钾含量', value: Math.random().toFixed(2), unit: 'mg/kg'},
-    {name: '土壤盐度', value: Math.random().toFixed(2), unit: '%'},
-    {name: '土壤TDS', value: Math.floor(Math.random() * (2000 - 500 + 1) + 500), unit: 'ppm'},
-    {name: '风速', value: Math.random().toFixed(2), unit: 'm/s'},
+    {name: '土壤含水量', value: 0, unit: '%'},
+    {name: '土壤温度', value: 0, unit: '℃'},
+    {name: '土壤电导率', value: 0, unit: 'dS/m'},
+    {name: '土壤PH', value: 0, unit: ''},
+    {name: '土壤氮含量', value: 0, unit: 'mg/kg'},
+    {name: '土壤磷含量', value: 0, unit: 'mg/kg'},
+    {name: '土壤钾含量', value: 0, unit: 'mg/kg'},
+    {name: '土壤盐度', value: 0, unit: '%'},
+    {name: '土壤TDS', value: 0, unit: 'ppm'},
 ];
 
 const weatherData = [
-    {name: '净辐射', value: Math.random().toFixed(2), unit: 'W/m²'},
-    {name: '温度', value: Math.floor(Math.random() * (40 - 10 + 1) + 10), unit: '℃'},
-    {name: '湿度', value: Math.random().toFixed(2) * 100, unit: '%'},
-    {name: 'CO₂', value: Math.floor(Math.random() * (1000 - 300 + 1) + 300), unit: 'ppm'},
-    {name: '大气压力', value: Math.floor(Math.random() * (1050 - 950 + 1) + 950), unit: 'hPa'},
-    {name: '光照', value: Math.floor(Math.random() * (1000 - 100 + 1) + 100), unit: 'lux'},
+    {name: '风速', value: 0, unit: 'm/s'},
+    {name: '净辐射', value: 0, unit: 'W/m²'},
+    {name: '温度', value: 0, unit: '℃'},
+    {name: '湿度', value: 0, unit: '%'},
+    {name: 'CO₂', value: 0, unit: 'ppm'},
+    {name: '大气压力', value: 0, unit: 'hPa'},
+    {name: '光照', value: 0, unit: 'lux'},
 ];
 
 const solarData = [
-    {name: '光伏板电压', value: Math.random().toFixed(2), unit: 'V'},
-    {name: '光伏板电流', value: Math.random().toFixed(2), unit: 'A'},
-    {name: '光伏板发电功率', value: (Math.random() * 100).toFixed(2), unit: 'W'},
-    {name: '输出电压', value: Math.random().toFixed(2), unit: 'V'},
-    {name: '输出电流', value: Math.random().toFixed(2), unit: 'A'},
-    {name: '输出功率', value: (Math.random() * 1000).toFixed(2), unit: 'W'},
-    {name: '蓄电池电压', value: (Math.random() * 12).toFixed(2), unit: 'V'},
-    {name: '蓄电池电流', value: Math.random().toFixed(2), unit: 'A'},
+    {name: '光伏板电压', value: 0, unit: 'V'},
+    {name: '光伏板电流', value: 0, unit: 'A'},
+    {name: '光伏板发电功率', value:0, unit: 'W'},
+    {name: '输出电压', value: 0, unit: 'V'},
+    {name: '输出电流', value: 0, unit: 'A'},
+    {name: '输出功率', value: 0, unit: 'W'},
+    {name: '蓄电池电压', value: 0, unit: 'V'},
+    {name: '蓄电池电流', value: 0, unit: 'A'},
 ];
+
+const dataOptionsSensors = [
+    {value: 'it', label: '箱内温度'},
+    {value: 'et', label: '箱外温度'},
+    {value: 'ih', label: '箱内湿度'},
+    {value: 'eh', label: '箱外湿度'},
+    {value: 'co2', label: '二氧化碳'},
+    {value: 'ill', label: '光照'},
+]
+
+const dataOptons = [
+    {
+        value: 'master01',
+        label: '主站1',
+        children: [
+            {value: "11", label: "从站 01",children:dataOptionsSensors},
+            {value: "12", label: "从站 02",children:dataOptionsSensors},
+            {value: "13", label: "从站 03",children:dataOptionsSensors},
+            {value: "14", label: "从站 04",children:dataOptionsSensors},
+            {value: "15", label: "从站 05",children:dataOptionsSensors},
+            {value: "16", label: "从站 06",children:dataOptionsSensors},
+            {value: "17", label: "从站 07",children:dataOptionsSensors},
+            {value: "18", label: "从站 08",children:dataOptionsSensors}
+        ]
+    },
+    {
+        value: 'master02',
+        label: '主站2',
+        children: [
+            {value: "21", label: "从站 01",children:dataOptionsSensors},
+            {value: "22", label: "从站 02",children:dataOptionsSensors},
+            {value: "23", label: "从站 03",children:dataOptionsSensors},
+            {value: "24", label: "从站 04",children:dataOptionsSensors},
+            {value: "25", label: "从站 05",children:dataOptionsSensors},
+            {value: "26", label: "从站 06",children:dataOptionsSensors},
+            {value: "27", label: "从站 07",children:dataOptionsSensors},
+            {value: "28", label: "从站 08",children:dataOptionsSensors},
+            {value: "29", label: "从站 09",children:dataOptionsSensors},
+            {value: "210", label: "从站 10",children:dataOptionsSensors}
+        ]
+    },
+    {
+        value: 'master03',
+        label: '主站3',
+        children: [
+            {value: "31", label: "从站 01",children:dataOptionsSensors},
+            {value: "32", label: "从站 02",children:dataOptionsSensors},
+            {value: "33", label: "从站 03",children:dataOptionsSensors},
+            {value: "34", label: "从站 04",children:dataOptionsSensors},
+            {value: "35", label: "从站 05",children:dataOptionsSensors},
+            {value: "36", label: "从站 06",children:dataOptionsSensors},
+            {value: "37", label: "从站 07",children:dataOptionsSensors},
+            {value: "38", label: "从站 08",children:dataOptionsSensors},
+            {value: "39", label: "从站 09",children:dataOptionsSensors},
+            {value: "310", label: "从站 10",children:dataOptionsSensors}
+        ]
+    }
+];
+
+const meteorologicalOptions = [
+    {
+        value: 'weatherData',
+        label: '天气数据',
+        children: [
+            {value: 'windVelocity', label: '风速', unit: 'm/s'},
+            {value: 'netRadiation', label: '净辐射', unit: 'W/m²'},
+            {value: 'temperature', label: '温度', unit: '℃'},
+            {value: 'humidity', label: '湿度', unit: '%'},
+            {value: 'CO₂', label: 'CO₂', unit: 'ppm'},
+            {value: 'atmosphericPressure', label: '大气压力', unit: 'hPa'},
+            {value: 'illumination', label: '光照', unit: 'lux'},
+        ]
+    },
+    {
+        value: 'soilData',
+        label: '土壤数据',
+        children: [
+            { value: 'soilMoisture', label: '土壤含水量', unit: '%' },
+            { value: 'soilTemperature', label: '土壤温度', unit: '℃' },
+            { value: 'soilConductivity', label: '土壤电导率', unit: 'dS/m' },
+            { value: 'soilPH', label: '土壤PH', unit: '' },
+            { value: 'soilNitrogen', label: '土壤氮含量', unit: 'mg/kg' },
+            { value: 'soilPhosphorus', label: '土壤磷含量', unit: 'mg/kg' },
+            { value: 'soilPotassium', label: '土壤钾含量', unit: 'mg/kg' },
+            { value: 'soilSalinity', label: '土壤盐度', unit: '%' },
+            { value: 'soilTDS', label: '土壤TDS', unit: 'ppm' },
+        ]
+    },
+    {
+        value: 'solarData',
+        label: '太阳能数据',
+        children: [
+            { value: 'solarPanelVoltage', label: '光伏板电压', unit: 'V' },
+            { value: 'solarPanelCurrent', label: '光伏板电流', unit: 'A' },
+            { value: 'solarPanelPower', label: '光伏板发电功率', unit: 'W' },
+            { value: 'outputVoltage', label: '输出电压', unit: 'V' },
+            { value: 'outputCurrent', label: '输出电流', unit: 'A' },
+            { value: 'outputPower', label: '输出功率', unit: 'W' },
+            { value: 'batteryVoltage', label: '蓄电池电压', unit: 'V' },
+            { value: 'batteryCurrent', label: '蓄电池电流', unit: 'A' },
+        ]
+    }
+]
 
 
 export {
@@ -235,4 +338,6 @@ export {
     soilData,
     weatherData,
     solarData,
+    dataOptons,
+    meteorologicalOptions
 }

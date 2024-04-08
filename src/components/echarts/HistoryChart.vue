@@ -14,7 +14,6 @@ const props = defineProps({
     stations: Array,
     sensors: Array,
 })
-console.log(props.sensors);
 
 let historyLineOption = historyAreaOption;
 
@@ -63,7 +62,6 @@ onMounted(() => {
         () => props.historyData,
         () => {
 
-            console.log('historyData',props.historyData)
             window.addEventListener('resize', function () {
                 dom.resize();
             });

@@ -17,6 +17,7 @@ const props = defineProps({
 const refresh = async (dom, data) =>{
     try {
         let option = setGaugeData(data[0], data[1],'蓄电池温度', '设备温度');
+      option.series[0].detail.formatter = '{value}℃'
         option && dom.setOption(option)
     } catch (error) {
         console.error(error);

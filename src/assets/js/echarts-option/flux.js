@@ -6,14 +6,16 @@ const fluxOption = {
     xAxis: {
         type: 'category',
         // axisLine: { onZero: true },
-        boundaryGap: true,
+        // boundaryGap: true,
         data: []
     },
     toolbox: {
         show: true,
         feature: {
+            dataView: {readOnly: true},
             magicType: { type: ['bar', 'line'] },
             restore: {},
+            saveAsImage: {},
         }
     },
     grad: {
@@ -21,7 +23,7 @@ const fluxOption = {
     },
     legend: {
         top: '7%',
-        data: ['碳通量', '水通量'],
+        // data: ['CO₂通量', 'H₂O通量'],
     },
     tooltip: {
         trigger: 'axis',
@@ -44,15 +46,16 @@ const fluxOption = {
     series: [
         {
             data: [],
-            name: '碳通量',
-            type: 'bar',
+            // label: {show: true, fontSize: 16},
+            name: 'CO₂ 通量',
+            type: 'line',
             smooth: false,  //曲线平滑
             areaStyle: {}
         },
         {
             data: [],
-            name: '水通量',
-            type: 'bar',
+            name: 'H₂O 通量',
+            type: 'line',
             smooth: false,  //曲线平滑
             areaStyle: {}
         }

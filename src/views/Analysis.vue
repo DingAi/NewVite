@@ -11,16 +11,15 @@ import {ElNotification} from "element-plus";
 
 //主站、从站、时间范围选择
 const masterValue = ref('master01')
-const slaveValue = ref('')
+const slaveValue = ref('11')
 let slaveStations = ref({}) //用来做匹配的列表
-const timeRangeStr = ref('')
+const timeRangeStr = ref(get24HTimeRange())
 
 //从站参数
 const boxVolume = ref(3)
 const boxBottomArea = ref(1)
 
 //线性回归数据
-let option = linearRegressionOption;
 let totalData = ref([]);
 let timeRangeList = ref([]);
 let regressionDataList = reactive({});
@@ -60,11 +59,11 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
 }
 
 
-const fluxDataDownload = (fluxData) =>{
-    let tabHeader = ['碳通量','水通量','Time'];
-    let totalData = [fluxData.ec, fluxData.ew, timeDataTransform(fluxData.timeList)];
-    if(slaveValue && timeRangeStr){
+const fluxDataDownload = (fluxData) => {
+    if (slaveValue && timeRangeStr) {
         try {
+            let tabHeader = [slaveValue.value + 'CO2', slaveValue.value + 'H2O', 'Time'];
+            let totalData = [fluxData.ec, fluxData.ew, timeDataTransform(fluxData.timeList)];
             ElNotification({
                 title: 'Info',
                 message: '下载正在进行，请不要关闭页面！',
@@ -73,7 +72,7 @@ const fluxDataDownload = (fluxData) =>{
             });
             let csvContent = convertToCSV(tabHeader, totalData)
             downloadCSV(csvContent, '通量历史数据.csv')
-        }catch (error) {
+        } catch (error) {
             console.error(error);
         } finally {
             ElNotification({
@@ -83,48 +82,7 @@ const fluxDataDownload = (fluxData) =>{
                 position: 'bottom-right',
             });
         }
-    }else {
-        ElNotification({
-            title: 'Warning',
-            message: '请选择完整数据！',
-            type: 'warning',
-        });
-    }
-    console.log(fluxData);
-}
-
-
-const download = async (fluxData) => {
-    if (slaveValue.length >0 && timeStr.value){
-        if (fluxData.length > 0) {
-            ElNotification({
-                title: 'Info',
-                message: '下载正在进行，请不要关闭页面！',
-                type: 'info',
-                position: 'bottom-right',
-            });
-        } else {
-            try {
-                ElNotification({
-                    title: 'Info',
-                    message: '下载正在进行，请不要关闭页面！',
-                    type: 'info',
-                    position: 'bottom-right',
-                });
-                fluxDataDownload(fluxData)
-            } catch (error) {
-                console.error(error);
-            } finally {
-                ElNotification({
-                    title: 'Success',
-                    message: '数据下载完成！',
-                    type: 'success',
-                    position: 'bottom-right',
-                });
-                isLoading.value = true;
-            }
-        }
-    }else {
+    } else {
         ElNotification({
             title: 'Warning',
             message: '请选择完整数据！',
@@ -156,7 +114,7 @@ const getMasterIndex = (masterValue) => {
 
 onMounted(() => {
     getSlaves(masterValue.value)
-    getLoadData(masterValue.value, '11', get24HTimeRange(),3,1);
+    getLoadData(masterValue.value, '11', get24HTimeRange(), 3, 1);
 })
 
 
@@ -179,11 +137,11 @@ onMounted(() => {
                 <div class="item">
                     <div class="text-center" style="width: 240px">
                         <p>从站选择</p>
-                        <el-select v-model="slaveValue" collapse-tags placeholder="Select">
-                            <el-option v-for="item in slaveStations" :label="item.label" :key="item"
+                        <el-select  v-model="slaveValue" collapse-tags placeholder="Select">
+                            <el-option  v-for="item in slaveStations" :label="item.label" :key="item"
                                        :value="item.value"/>
                         </el-select>
-<!--                        <p>{{ slaveValue }}</p>-->
+                        <!--                        <p>{{ slaveValue }}</p>-->
                     </div>
                 </div>
                 <div class="item">
@@ -196,11 +154,14 @@ onMounted(() => {
                                         end-placeholder="结束时间"
                                         :shortcuts="shortcuts"/>
                     </div>
-<!--                    <p>{{ timeRangeStr }}</p>-->
+                    <!--                    <p>{{ timeRangeStr }}</p>-->
                 </div>
                 <div class="item">
                     <div>
-                        <el-button @click="getLoadData(masterValue, slaveValue, timeRangeStr, boxVolume, boxBottomArea)">发送请求</el-button>
+                        <el-button
+                                @click="getLoadData(masterValue, slaveValue, timeRangeStr, boxVolume, boxBottomArea)">
+                            图表加载
+                        </el-button>
                     </div>
                 </div>
             </div>
@@ -224,28 +185,11 @@ onMounted(() => {
                                             </el-text>
                                         </div>
                                         <h4>
-<!--                                            <el-tooltip content="二氧化碳线性回归K值" placement="top" effect="light">-->
-                                                <span class="badge open-color-auto m-1 bg-warning">CK: {{
-                                                    item[1].toFixed(2)
-                                                    }}</span>
-<!--                                            </el-tooltip>-->
-<!--                                            <el-tooltip content="二氧化碳线性回归K值拟合度" placement="top"-->
-<!--                                                        effect="light">-->
-                                                <span class="badge open-color-auto m-1 bg-secondary">CR: {{
-                                                    item[2].toFixed(2)
-                                                    }}</span>
-<!--                                            </el-tooltip>-->
-<!--                                            <el-tooltip content="水蒸汽浓度线性回归K值" placement="top" effect="light">-->
-                                                <span class="badge open-color-auto m-1 bg-primary">WK: {{
-                                                    item[4].toFixed(2)
-                                                    }}</span>
-<!--                                            </el-tooltip>-->
-<!--                                            <el-tooltip content="水蒸汽浓度线性回归K值拟合度" placement="top"-->
-<!--                                                        effect="light">-->
-                                                <span class="badge open-color-auto m-1 bg-secondary">WR: {{
-                                                    item[5].toFixed(2)
-                                                    }}</span>
-<!--                                            </el-tooltip>-->
+                                            <span class="badge open-color-auto m-1 text-bg-danger">K<sub>(CO<sub>2</sub>) </sub>：{{item[1].toFixed(2) }}</span>
+                                            <span class="badge open-color-auto m-1 text-bg-danger"></span>
+                                            <span class="badge open-color-auto m-1 bg-secondary">R<sup>2</sup><sub>(CO<sub>2</sub>)</sub>：{{item[2].toFixed(2) }}</span>
+                                            <span class="badge open-color-auto m-1 bg-primary">K<sub>(H<sub>2</sub>O)</sub>：{{item[4].toFixed(2) }}</span>
+                                            <span class="badge open-color-auto m-1 bg-secondary">R<sup>2</sup><sub>(H<sub>2</sub>O)</sub>：{{item[5].toFixed(2) }}</span>
                                         </h4>
                                         <el-collapse accordion>
                                             <el-collapse-item>
@@ -253,7 +197,7 @@ onMounted(() => {
                                                     其他数据
                                                 </template>
                                                 <div v-if="totalData">
-<!--                                                    <p><b>区间平均温度：{{totalData[9][item[0]]}}℃</b></p>-->
+                                                    <!--                                                    <p><b>区间平均温度：{{totalData[9][item[0]]}}℃</b></p>-->
                                                 </div>
                                             </el-collapse-item>
                                         </el-collapse>
@@ -271,7 +215,7 @@ onMounted(() => {
                             </div>
                             <div class="chart-div p-2">
                                 <FluxHistoryChart v-if="fluxData" :fluxData="fluxData"/>
-<!--                                <Loading v-else/>-->
+                                <!--                                <Loading v-else/>-->
                             </div>
                         </div>
                     </div>

@@ -1,3 +1,6 @@
+@blur-radius: 10px; // 模糊半径
+@glass-color: rgba(255, 255, 255, 0.5); // 玻璃颜色
+
 //在移动端的高度变量
 @media-h-500:500px;
 
@@ -51,7 +54,6 @@
 
 header{
   height: auto;
-
   @media (min-width: 768px) {
     height: 4vh !important;  // 在电脑端的属性
   }
@@ -73,6 +75,19 @@ main{
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 0.5rem;
   padding: 1.5rem;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: @glass-color;
+    filter: blur(@blur-radius);
+    z-index: -1;
+    pointer-events: none;
+  }
 }
 
 .history-div1{

@@ -3,12 +3,15 @@
 // let slave_num = reactive(1);
 import {ref} from "vue";
 import Sidebar from "@/components/Sidebar.vue";
+import {useNavStore} from "@/store/nav.js";
+import {storeToRefs} from "pinia";
 
 //抽屉收放状态码
 const drawer = ref(false)
 const switch_drawer = () => {
     drawer.value = false;
 }
+
 
 </script>
 

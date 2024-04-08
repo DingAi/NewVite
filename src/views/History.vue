@@ -8,7 +8,7 @@ import Loading from "@/components/Loading.vue";
 import {getHistoryData} from "@/apis/request-api.js";
 import {convertToCSV, dataProcessingAndDownload, timeHandle} from "@/util/data-generator.js";
 
-const timeStr = ref('')
+const timeRange = ref([])
 const masterStations = reactive([
     {value: 'master01', label: '主站 01'},
     {value: 'master02', label: '主站 02'},
@@ -71,7 +71,7 @@ const sendData = async (slaveList, sensorsList, time) => {
 
 
 const download = async (historyData, slaveList, sensorsList) => {
-    if (slaveList.length >0 && sensorsList.length >0 && timeStr.value){
+    if (slaveList.length >0 && sensorsList.length >0 && timeRange.value){
         if (historyData.length > 0) {
             ElNotification({
                 title: 'Info',
@@ -94,7 +94,7 @@ const download = async (historyData, slaveList, sensorsList) => {
                     type: 'info',
                     position: 'bottom-right',
                 });
-                const response = await getHistoryData(masterValue.value, dataList, timeStr.value)
+                const response = await getHistoryData(masterValue.value, dataList, timeRange.value)
                 let downloadHistoryData = response.data;
                 dataProcessingAndDownload(downloadHistoryData, slaveList, sensorsList)
             } catch (error) {
@@ -177,7 +177,7 @@ onMounted(() => {
                         <p>时间选择</p>
                         <el-date-picker
                                 style="width: 320px"
-                                v-model="timeStr"
+                                v-model="timeRange"
                                 type="datetimerange"
                                 value-format="YYYY-MM-DD HH:mm:ss"
                                 start-placeholder="开始时间"
@@ -188,7 +188,7 @@ onMounted(() => {
                 </div>
                 <div class="item">
                     <div class="buttons text-center" style="width: 200px">
-                        <el-button type="primary" plain @click="sendData(slaveValue, sensorValue, timeStr)">生成图表
+                        <el-button type="primary" plain @click="sendData(slaveValue, sensorValue, timeRange)">生成图表
                         </el-button>
                         <el-button type="primary" plain @click="download(historyData, slaveValue, sensorValue)">数据下载</el-button>
                     </div>
@@ -198,18 +198,19 @@ onMounted(() => {
     </el-row>
     <el-row :gutter="20" class="history-chart">
         <el-col :span="24" class="p-2">
-            <div class="base-div">
-                <!--                <h1>数据图表</h1>-->
-                <!--                <h1>{{ masterValue }}</h1>-->
-                <!--                <h1>{{ slaveStations }}</h1>-->
-                <!--                <h1>{{ slaveValue }}</h1>-->
-                <!--                <h1>{{ sensorValue }}</h1>-->
-                <!--                <h1>{{ timeStr }}</h1>-->
-                <!--                                <h1>{{ historyData }}</h1>-->
-                <HistoryChart :historyData="historyData" :stations="slaveValue" :sensors="sensorValue"
-                              v-if="isLoading"/>
-                <Loading v-else/>
-            </div>
+<!--          <el-watermark class="full" :content="['选择数据后', '图表加载']" v-if="historyData.value.length===0"></el-watermark>-->
+          <div class="base-div">
+            <!--                <h1>数据图表</h1>-->
+            <!--                <h1>{{ masterValue }}</h1>-->
+            <!--                <h1>{{ slaveStations }}</h1>-->
+            <!--                <h1>{{ slaveValue }}</h1>-->
+            <!--                <h1>{{ sensorValue }}</h1>-->
+            <!--                <h1>{{ timeStr }}</h1>-->
+<!--                                            <h1>{{ historyData }}</h1>-->
+            <HistoryChart :historyData="historyData" :stations="slaveValue" :sensors="sensorValue"
+                          v-if="isLoading"/>
+            <Loading v-else/>
+          </div>
         </el-col>
     </el-row>
 </template>

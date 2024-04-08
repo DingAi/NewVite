@@ -1,21 +1,24 @@
 <script setup>
 import {useUserStore} from "@/store/user.js";
+import {useNavStore} from "@/store/nav.js";
+import {storeToRefs} from "pinia";
 
 
-const userStore = useUserStore()
+const userStore = useUserStore();
+
 </script>
 
 <template>
 
     <el-menu
             class="el-menu-demo"
-            :default-active="'/'"
+            :default-active="$route.path"
             mode="horizontal"
             :router="true"
     >
         <el-menu-item index="/">主页</el-menu-item>
         <el-menu-item index="/test">Test</el-menu-item>
-        <el-sub-menu>
+        <el-sub-menu index="">
             <template #title>工作台</template>
             <el-menu-item index="/workplace/workplace-1/master-1">气体箱</el-menu-item>
             <el-menu-item index="/meteorological">气象站</el-menu-item>
@@ -23,6 +26,8 @@ const userStore = useUserStore()
         </el-sub-menu>
         <el-menu-item index="/history">历史</el-menu-item>
         <el-menu-item index="/analysis">数据分析</el-menu-item>
+        <el-menu-item index="/data-list">数据列表</el-menu-item>
+        <el-menu-item index="/other">Other</el-menu-item>
         <div class="flex-grow"/>
         <el-menu-item index="/login">
             <el-avatar> {{ userStore.user }}</el-avatar>
