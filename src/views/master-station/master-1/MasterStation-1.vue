@@ -4,7 +4,6 @@ import APHistoryChart from "@/components/echarts/APHistoryChart.vue";
 import CO2HistoryChart from "@/components/echarts/CO2HistoryChart.vue";
 import {timeSetNameList} from "@/assets/js/used-json.js";
 import {generateData} from "@/util/data-generator.js";
-import {getStationStatus} from "@/apis/request-api.js";
 import {trsnslateStationRunStep} from "@/assets/js/stations-data.js";
 import axios from "axios";
 
@@ -24,13 +23,12 @@ const switchReserve = (switchValue) =>{
 onMounted(()=>{
     axios.get('online/equipment').then(response =>{
         stationRunStep.value = trsnslateStationRunStep[response.data['step']];
-        // airPumpStatus.value = response.data['air'];
         if(response.data['air']){
             airPumpStatus.value = '开启';
         }else {
             airPumpStatus.value = '关闭';
         }
-        runningStationNum.value = '从站：0' + response.data['box'];
+        runningStationNum.value = '从站：0' + response.data['box'].toString();
     })
 })
 </script>

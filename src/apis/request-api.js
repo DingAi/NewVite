@@ -47,6 +47,7 @@ const getStationStatus = () => {
 
 const getAnalysisData = (masterNum, slaveNum, timeRange, boxVolume, boxBottomArea) => {
     let url = `${SchoolServices}/data_analysis`
+    // let url = `${LocalServices}/data_analysis`
     return axios({
         url: url,
         method: 'post',
@@ -92,7 +93,7 @@ const getMeteorologicalHistory = () =>{
 
 
 const getDataList = (selected, timeRange) => {
-    let url = `${LocalServices}/data_display`
+    let url = `${SchoolServices}/data_display`
     return axios({
         url: url,
         method: 'post',

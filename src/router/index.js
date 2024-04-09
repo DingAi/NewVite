@@ -39,7 +39,7 @@ const routes = [
     {
         path: '/data-list',
         name: 'DataList',
-        component: () => import('../views/Data.vue'),
+        component: () => import('../views/DataList.vue'),
     },
     {
         path: '/other',

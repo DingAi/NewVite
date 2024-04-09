@@ -72,7 +72,7 @@ const newLinearRegressionOption = {
         type: 'scatter',
         data: data1
     }, {
-        name: 'H₂O Data',
+        name: 'H₂O 体积浓度',
         type: 'scatter',
         data: data2
     }, {
