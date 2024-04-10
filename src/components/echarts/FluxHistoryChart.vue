@@ -31,15 +31,14 @@ onMounted(() => {
         dom.resize();
     });
     dom.showLoading();
-    // if (props.fluxData) {
-    //     refresh(dom, props.fluxData.ec, props.fluxData.ew, props.fluxData.timeList);
-    // }
+    if (props.fluxData) {
+        refresh(dom, props.fluxData.ec, props.fluxData.ew, props.fluxData.timeList);
+    }
 
     watch(
         () => props.fluxData,
         () => {
             if (props.fluxData) {
-
                 refresh(dom, props.fluxData.ec, props.fluxData.ew, props.fluxData.timeList);
             }
         },

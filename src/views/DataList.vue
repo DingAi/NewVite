@@ -18,7 +18,6 @@ const indexList = ref([])
 
 const getData = async  () =>{
   const response = await getDataList(selectValue01.value, timeRange01.value)
-  indexList.value = [];
   boxReturnData.value = response.data['data'][0];
   for (let item of response.data['index_name_list']) {
     indexList.value.push(item[0]['COLUMN_NAME'])

@@ -37,6 +37,11 @@ const routes = [
         component: Analysis
     },
     {
+        path: '/spatial',
+        name: 'Spatial',
+        component: () => import('../views/SpatialDataCollection.vue'),
+    },
+    {
         path: '/data-list',
         name: 'DataList',
         component: () => import('../views/DataList.vue'),

@@ -104,7 +104,7 @@ onMounted(() => {
         </el-col>
         <el-col :span="12" :xs="24" class="full">
             <div class="item base-div phone-600">
-                <MeteorologicalChart01 :temperature="weather.data[1].value" :humidity="weather.data[2].value"/>
+                <MeteorologicalChart01 :temperature="weather.data[2].value" :humidity="weather.data[3].value"/>
             </div>
             <div class="item base-div phone-600">
                 <MeteorologicalChart02/>
@@ -113,11 +113,9 @@ onMounted(() => {
         <el-col :span="6" :xs="24" class="full">
             <div class="item base-div phone-400">
                 <MGaugeChart01 :BETemperature="BETemperature" v-if="isLoading"/>
-                <Loading v-else/>
             </div>
             <div class="item base-div phone-400">
                 <MGaugeChart02 :batteryData="batteryData" v-if="isLoading"/>
-                <Loading v-else/>
             </div>
         </el-col>
     </el-row>

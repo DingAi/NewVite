@@ -19,7 +19,7 @@ import {ElNotification} from "element-plus";
 const masterValue = ref('master01')
 const slaveValue = ref('11')
 let slaveStations = ref({}) //用来做匹配的列表
-const timeRangeStr = ref(get24HTimeRange())
+const timeRangeStr = ref(get6HTimeRange())
 
 //从站参数
 const boxVolume = ref(3)
@@ -35,6 +35,7 @@ let isLoading = ref(false);
 
 const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, boxBottomArea) => {
   try {
+    isLoading.value = false;
     const response = await getAnalysisData(masterValue, slaveValue, timeRangeStr, boxVolume, boxBottomArea);
     selectedRegressionData.dataList = response.data[0][0]
     totalData = response.data
@@ -44,13 +45,14 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
     let CRvalueList = response.data[2];
     let WkvalueList = response.data[6];
     let WRvalueList = response.data[7];
-    let timeList = response.data[3];
-    fluxData.ec = response.data[4];
-    fluxData.ew = response.data[8];
+
     fluxData.ck = response.data[1];
     fluxData.cr = response.data[2];
+    let timeList = response.data[3];
+    fluxData.ec = response.data[4];
     fluxData.hk = response.data[6];
     fluxData.hr = response.data[7];
+    fluxData.ew = response.data[8];
     fluxData.timeList = response.data[3]
     fluxData.inTemperatureAve = response.data[9];
     fluxData.inHumidityAve = response.data[10];
@@ -79,6 +81,8 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
     isLoading.value = true
   } catch (error) {
     console.error(error);
+  } finally {
+    isLoading.value = true;
   }
 }
 
@@ -91,10 +95,10 @@ const fluxDataDownload = (fluxData) => {
         'Ave inTemperature','Ave inHumidity','Ave exTemperature', 'Ave exHumidity', 'Ave inBox CO2', 'Ave VPD',
         'Ave M CO2','Ave temperature', 'Ave humidity', 'Ave atmospheric pressure', 'Ave wind speed',
         'Ave net radiation ', 'Ave illumination','Time', ];
-      let totalData = [fluxData.ec, fluxData.ew, fluxData.inTemperatureAve, fluxData.ck, fluxData.cr, fluxData.hk, fluxData.hr,
-      fluxData.inHumidityAve,  fluxData.exTemperatureAve, fluxData.exHumidityAve, fluxData.CO2Ave, fluxData.VPDAve, fluxData.mAveCO2,
-        fluxData.mAveTemperature, fluxData.mAveHumidity, fluxData.mAveAP, fluxData.mAveWindSheep, fluxData.mAveRadiation,
-        fluxData.mAveIllumination, timeDataTransform(fluxData.timeList),];
+      let totalData = [fluxData.ec, fluxData.ew, fluxData.ck, fluxData.cr, fluxData.hk, fluxData.hr,
+        fluxData.inTemperatureAve, fluxData.inHumidityAve,  fluxData.exTemperatureAve, fluxData.exHumidityAve, fluxData.CO2Ave, fluxData.VPDAve,
+        fluxData.mAveCO2, fluxData.mAveTemperature, fluxData.mAveHumidity, fluxData.mAveAP, fluxData.mAveWindSheep,
+        fluxData.mAveRadiation, fluxData.mAveIllumination, timeDataTransform(fluxData.timeList),];
       ElNotification({
         title: 'Info',
         message: '下载正在进行，请不要关闭页面！',
@@ -201,7 +205,7 @@ onMounted(() => {
   <el-row :gutter="20" class="analysis-div-2">
     <el-col :span="24" class="p-2" style="max-height: 100%">
       <div class="base-div">
-        <div class="data-container">
+        <div class="data-container" v-if="isLoading">
           <div class="left">
             <div class="timeline-div p-1">
               <el-timeline>
@@ -255,17 +259,19 @@ onMounted(() => {
               <div class="chart-div p-2">
                 <linearRegressionChart v-if="isLoading"
                                        :selectedRegressionData="selectedRegressionData"/>
-                <Loading v-else/>
+<!--                <Loading v-else/>-->
               </div>
               <div class="chart-div p-2">
-                <FluxHistoryChart v-if="fluxData" :fluxData="fluxData"/>
-                <!--                                <Loading v-else/>-->
+                <FluxHistoryChart v-if="isLoading" :fluxData="fluxData"/>
+<!--                <Loading v-else/>-->
               </div>
             </div>
           </div>
         </div>
+        <Loading v-else/>
       </div>
     </el-col>
+
   </el-row>
   <el-row :gutter="20" class="analysis-div-3">
     <el-col :span="24" class="p-2">
@@ -300,12 +306,5 @@ onMounted(() => {
   right: 0;
 }
 
-.hover-text {
-  transition: color 0.3s; /* 添加过渡效果 */
-  cursor: pointer; /* 鼠标指针样式为小手 */
-}
 
-.hover-text:hover {
-  color: #0073ff; /* 鼠标悬停时的颜色 */
-}
 </style>

@@ -129,7 +129,7 @@ function convertToCSV(headers, data) {
         const rowData = [];
         for (let columnIndex = 0; columnIndex < headers.length; columnIndex++) {
             const columnData = data[columnIndex];
-            const value = columnData[rowIndex] || '';
+            const value = columnData[rowIndex] !== undefined ? columnData[rowIndex] : '';
             const escaped = ('' + value).replace(/"/g, '\\"');
             rowData.push(`"${escaped}"`);
         }
@@ -191,7 +191,7 @@ const timeDataTransform = (timeRangeList) => {
     for(let timeItem of timeRangeList){
         let startTime = timeHandle(timeItem[0]);
         let endTime = timeHandle(timeItem[1]);
-        let connectTime = startTime + "-" + endTime;
+        let connectTime = startTime + " - " + endTime;
         timeList.push(connectTime)
     }
     return timeList;
