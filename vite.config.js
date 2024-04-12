@@ -95,6 +95,13 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    resolve: {
+      alias: {
+        three: 'bmap-three',
+      },
+    },
+  },
   resolve: {
     // 配置路径别名
     alias: [

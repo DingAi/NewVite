@@ -47,7 +47,6 @@ const sendData = async (slaveList, sensorsList, time) => {
         try {
             const response = await getHistoryData(masterStr, dataList, time)
             historyData.value = response.data;
-            console.log(historyData);
             if (historyData.value.length !== 0) {
                 ElNotification({
                     title: 'Success',
@@ -70,17 +69,17 @@ const sendData = async (slaveList, sensorsList, time) => {
 };
 
 
-const download = async (historyData, slaveList, sensorsList) => {
+const download = async (slaveList, sensorsList) => {
     if (slaveList.length >0 && sensorsList.length >0 && timeRange.value){
-        if (historyData.length > 0) {
-            ElNotification({
-                title: 'Info',
-                message: '下载正在进行，请不要关闭页面！',
-                type: 'info',
-                position: 'bottom-right',
-            });
-            dataProcessingAndDownload(historyData, slaveList, sensorsList)
-        } else {
+        // if (historyData.value.length > 0) {
+        //     ElNotification({
+        //         title: 'Info',
+        //         message: '下载正在进行，请不要关闭页面！',
+        //         type: 'info',
+        //         position: 'bottom-right',
+        //     });
+        //     dataProcessingAndDownload(historyData.value, slaveList, sensorsList)
+        // } else {
             try {
                 let dataList = [];
                 for (let slave of slaveList) {
@@ -108,7 +107,7 @@ const download = async (historyData, slaveList, sensorsList) => {
                 });
                 isLoading.value = true;
             }
-        }
+        // }
     }else {
         ElNotification({
             title: 'Warning',
@@ -190,7 +189,7 @@ onMounted(() => {
                     <div class="buttons text-center" style="width: 200px">
                         <el-button type="primary" plain @click="sendData(slaveValue, sensorValue, timeRange)">生成图表
                         </el-button>
-                        <el-button type="primary" plain @click="download(historyData, slaveValue, sensorValue)">数据下载</el-button>
+                        <el-button type="primary" plain @click="download(slaveValue, sensorValue)">数据下载</el-button>
                     </div>
                 </div>
             </div>
@@ -230,5 +229,35 @@ onMounted(() => {
 .buttons {
   display: flex;
   justify-content: center;
+}
+
+:deep(.el-date-range-picker .el-picker-panel__body ){
+  @media (max-width: 768px) {
+    width: 323px !important;
+  }
+}
+
+:deep(.el-date-range-picker__editors-wrap) {
+  @media (max-width: 768px) {
+    display: flex !important;
+  }
+}
+
+:deep(.el-date-range-picker__content) {
+  @media (max-width: 768px) {
+    width: 100% !important;
+  }
+}
+
+:deep(.el-picker-panel [slot=sidebar], .el-picker-panel__sidebar) {
+    width: 70px;
+}
+
+:deep(.el-picker-panel [slot=sidebar]+.el-picker-panel__body, .el-picker-panel__sidebar+.el-picker-panel__body) {
+    margin-left: 70px;
+}
+
+:deep(.el-date-range-picker) {
+    width: 393px !important;
 }
 </style>

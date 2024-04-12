@@ -25,7 +25,7 @@ const handleSelect = (key, keyPath) => {
           </el-menu-item>
         </el-sub-menu>
         <el-menu-item index="/">主页</el-menu-item>
-<!--        <el-menu-item index="/test">Test</el-menu-item>-->
+        <el-menu-item index="/test">Test</el-menu-item>
         <el-sub-menu index="2">
             <template #title>工作台</template>
             <el-menu-item index="/workplace/workplace-1/master-1">气体箱</el-menu-item>

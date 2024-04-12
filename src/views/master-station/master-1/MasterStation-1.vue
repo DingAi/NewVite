@@ -12,9 +12,9 @@ let switchData = reactive(generateData());
 let isAuto = ref(true);
 let openPopup = ref(false);
 
-let stationRunStep = ref(0)
-let airPumpStatus = ref(0)
-let runningStationNum = ref(0)
+let stationRunStep = ref('')
+let airPumpStatus = ref('')
+let runningStationNum = ref('')
 
 const switchReserve = (switchValue) =>{
     switchValue = !switchValue;
@@ -29,6 +29,7 @@ onMounted(()=>{
             airPumpStatus.value = '关闭';
         }
         runningStationNum.value = '从站：0' + response.data['box'].toString();
+      console.log(stationRunStep.value, airPumpStatus.value, runningStationNum.value)
     })
 })
 </script>

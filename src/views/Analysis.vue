@@ -77,7 +77,6 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
     regressionDataList.indexList = dataPackageList;
     selectedRegressionData.CRegressionData = totalData[0][0]
     selectedRegressionData.WRegressionData = totalData[5][0]
-    console.log(totalData)
     isLoading.value = true
   } catch (error) {
     console.error(error);
