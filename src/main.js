@@ -30,6 +30,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 app.component('VueDatePicker', VueDatePicker);
 app.use(pinia);
-app.use(router)
+app.use(router);
 app.config.globalProperties.$routerG = router;
 app.mount('#app')

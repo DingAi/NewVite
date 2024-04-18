@@ -9,52 +9,82 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
+        meta:{
+            isShowNav: true
+        }
     },
     {
         path: '/history',
         name: 'History',
-        component: History
+        component: History,
+        meta:{
+            isShowNav: true
+        }
     },
     {
         path: '/login',
         name: 'Login',
         component: () => import('../views/Login.vue'),
+        meta:{
+            isShowNav: false
+        }
     },
     {
         path: '/meteorological',
         name: 'Meteorological',
         component: () => import('../views/Meteorological.vue'),
+        meta:{
+            isShowNav: true
+        }
     },
     {
         path: '/test',
         name: 'Test',
-        component: () => import('../views/Test.vue'),
+        component: () => import('../views/Map.vue'),
+        meta:{
+            isShowNav: true
+        }
     },
     {
         path: '/analysis',
         name: 'Analysis',
-        component: Analysis
+        component: Analysis,
+        meta:{
+            isShowNav: true
+        }
     },
     {
         path: '/spatial',
         name: 'Spatial',
         component: () => import('../views/SpatialDataCollection.vue'),
+        meta:{
+            isShowNav: true
+        }
     },
     {
         path: '/data-list',
         name: 'DataList',
         component: () => import('../views/DataList.vue'),
+        meta:{
+            isShowNav: true
+        }
     },
     {
         path: '/other',
         name: 'Other',
         component: () => import('../views/Other.vue'),
+        meta:{
+            isShowNav: true
+        }
     },
     {
         path: '/workplace',
         name: 'Workplace',
         component: Workplace,
+        meta:{
+            isShowNav: true
+        },
         children: [
             {
                 path: 'workplace-1',

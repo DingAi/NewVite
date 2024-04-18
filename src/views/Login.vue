@@ -1,10 +1,11 @@
 <template>
     <div class="full">
         <div class="login-container">
-            <el-card class="login-card">
+            <el-card class="login-card text-center">
                 <div class="logo-container">
                 </div>
-                <h3 class="login-title">LOGIN</h3>
+                <h2 class="login-title">传感器数据平台</h2>
+                <el-text>LOGIN</el-text>
                 <el-form ref="loginForm" :model="loginData" class="login-form">
                     <el-form-item prop="username">
                         <el-input
@@ -26,7 +27,6 @@
                     <el-form-item>
                         <el-button type="primary" @click="login" class="button">登录</el-button>
                     </el-form-item>
-                    <!--          <span>注册</span>-->
                 </el-form>
             </el-card>
             <h1>{{ responseData }}</h1>

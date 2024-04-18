@@ -4,7 +4,6 @@ import {getMeteorologicalData} from "@/apis/request-api.js";
 import {soilData, solarData, weatherData} from "@/assets/js/stations-data.js";
 import MeteorologicalChart01 from "@/components/echarts/MeteorologicalChart01.vue";
 import MeteorologicalChart02 from "@/components/echarts/MeteorologicalChart02.vue";
-import Loading from "@/components/Loading.vue";
 
 
 const soil = reactive({
@@ -17,10 +16,11 @@ const solar = reactive({
     data: solarData
 })
 
-const solarTransmissionData = ref([])
+const solarTransmissionData = reactive({})
 const BETemperature = ref([])
 const batteryData = ref(1)
 const isLoading = ref(false)
+solarTransmissionData.dataList = [];
 
 
 const refresh = async () => {
@@ -38,30 +38,26 @@ const refresh = async () => {
         solar.data[5].value = response.data[6];
         solar.data[6].value = response.data[11];
         solar.data[7].value = response.data[12];
+
         for (let i = 0; i < soil.data.length; i++) {
-            solarTransmissionData.value[i] = soil.data[i].value
+            solarTransmissionData.dataList[i] = soil.data[i].value
         }
         for (let i = 0; i < soilData.length; i++) {
             soil.data[i].value = response.data[14 + i];
         }
         for (let i = 0; i < weatherData.length; i++) {
             weather.data[i].value = response.data[23 + i];
-            console.log(response.data[24+i])
         }
-        console.log(weather.data)
         isLoading.value = true;
     } catch (error) {
         console.error(error);
     }
 }
 
-
-// isLoad.value = true;
 refresh();
 
 onMounted(() => {
-    setInterval(refresh, 60000)
-    // refresh();
+    setInterval(refresh, 3000)
 })
 </script>
 
@@ -86,9 +82,6 @@ onMounted(() => {
                         </el-descriptions-item>
                     </el-descriptions>
                 </div>
-<!--                <div v-else>-->
-<!--                    <Loading/>-->
-<!--                </div>-->
             </div>
 
             <div class="item" style="height: 30%">
@@ -107,11 +100,12 @@ onMounted(() => {
                 <MeteorologicalChart01 :temperature="weather.data[2].value" :humidity="weather.data[3].value"/>
             </div>
             <div class="item base-div phone-600">
-                <MeteorologicalChart02/>
+                <MeteorologicalChart02 :solarData="solarTransmissionData.dataList" v-if="isLoading"/>
             </div>
         </el-col>
         <el-col :span="6" :xs="24" class="full">
             <div class="item base-div phone-400">
+
                 <MGaugeChart01 :BETemperature="BETemperature" v-if="isLoading"/>
             </div>
             <div class="item base-div phone-400">
@@ -123,7 +117,7 @@ onMounted(() => {
 
 <style lang="less" scoped>
 @import "@/assets/css/master-style";
-@phone-max-width: 767px; // 假设手机端的最大宽度是767px
+@phone-max-width: 767px; // 手机端的最大宽度是767px
 
 .item {
   flex-grow: 1;

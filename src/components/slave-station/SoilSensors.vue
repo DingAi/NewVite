@@ -60,6 +60,7 @@ let chineseName = ref(['体积含水量', '土壤温度', '土壤介电常数'])
 <style scoped>
 .table {
     background-color: transparent;
+    height: 100%;
 }
 
 .table tr {

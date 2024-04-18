@@ -1,11 +1,12 @@
 import axios from "axios";
 
-const LocalServices = 'xu';
-const cloudServices = 'online';
-const SchoolServices = 'school';
+const LocalService = 'xu';
+const cloudService = 'online';
+const schoolService = 'school';
+const currentService = schoolService;
 
 const getSensorData = (slaveNum) => {
-    let url = `${SchoolServices}/real_time_data`;
+    let url = `${currentService}/real_time_data`;
     return axios({
         url: url,
         method: 'post',
@@ -19,7 +20,7 @@ const getSensorData = (slaveNum) => {
 //获取一个站点的传感器数据
 //slave_num为从站编号
 const getSoilData = (slaveNum) => {
-    let url = `${SchoolServices}/soil`
+    let url = `${currentService}/soil`
     return axios({
         url: url,
         method: 'post',
@@ -29,8 +30,9 @@ const getSoilData = (slaveNum) => {
     })
 }
 
+
 const getAPData = () => {
-    let url = `${SchoolServices}/air_pressure`
+    let url = `${currentService}/air_pressure`
     return axios({
         url: url,
         method: 'get'
@@ -38,15 +40,16 @@ const getAPData = () => {
 }
 
 const getStationStatus = () => {
-    let url = `${SchoolServices}/equipment`
+    let url = `${currentService}/equipment`
     return axios({
         url: url,
         method: 'get'
     })
 }
 
+
 const getAnalysisData = (masterNum, slaveNum, timeRange, boxVolume, boxBottomArea) => {
-    let url = `${SchoolServices}/data_analysis`
+    let url = `${currentService}/data_analysis`
     // let url = `${LocalServices}/data_analysis`
     return axios({
         url: url,
@@ -63,7 +66,7 @@ const getAnalysisData = (masterNum, slaveNum, timeRange, boxVolume, boxBottomAre
 
 
 const getHistoryData = (masterNum, tabList, timeRange) => {
-    let url = `${SchoolServices}/range_query`
+    let url = `${currentService}/range_query`
     return axios({
         url: url,
         method: 'post',
@@ -75,16 +78,18 @@ const getHistoryData = (masterNum, tabList, timeRange) => {
     })
 }
 
+
 const getMeteorologicalData = () =>{
-    let url = `${SchoolServices}/meteorological_station`
+    let url = `${currentService}/meteorological_station`
     return axios({
         url: url,
         method: 'get'
     })
 }
 
+
 const getMeteorologicalHistory = () =>{
-    let url = `${SchoolServices}/meteorological_station_history`
+    let url = `${currentService}/meteorological_station_history`
     return axios({
         url: url,
         method: 'get'
@@ -93,7 +98,7 @@ const getMeteorologicalHistory = () =>{
 
 
 const getDataList = (selected, timeRange) => {
-    let url = `${SchoolServices}/data_display`
+    let url = `${currentService}/data_display`
     return axios({
         url: url,
         method: 'post',

@@ -1,69 +1,72 @@
 <template>
-    <div class="full" id="solar-dom"></div>
+  <div class="full" id="solar-dom"></div>
 </template>
 
 <script setup>
-import {timeHandle} from "@/util/data-generator.js";
+import {dataGenerator, timeHandle} from "@/util/data-generator.js";
 import {IdInitEcharts, setTitle} from "@/assets/js/echarts-package.js";
-import {onMounted} from "vue";
-import {solarOption} from "@/assets/js/echarts-option/lines.js";
-import {getMeteorologicalHistory} from "@/apis/request-api.js";
+import {onMounted, watch} from "vue";
+import {areasOption} from "@/assets/js/echarts-option/areas.js";
+import moment from "moment";
 
-let option = solarOption;
+let option = areasOption;
 
+const props = defineProps({
+  solarData: Array,
+})
 
-const refresh = async (dom, option) => {
-    let photovoltaicPanelVoltageList = [];
-    let photovoltaicPanelCurrentList = [];
-    let photovoltaicPanelPowerGenerationList = [];
-    let outputVoltageList = [];
-    let outputCurrentList = [];
-    let outputPowerList = [];
-    let timeList = [];
-    try {
-        const response = await getMeteorologicalHistory();
-        for (let item of response.data){
-            photovoltaicPanelVoltageList.push(item['photovoltaic_panel_voltage']);
-            photovoltaicPanelCurrentList.push(item['photovoltaic_panel_current']);
-            photovoltaicPanelPowerGenerationList.push(item['photovoltaic_panel_power_generation']);
-            outputVoltageList.push(item['output_voltage']);
-            outputCurrentList.push(item['output_current']);
-            outputPowerList.push(item['output_power']);
-            timeList.push(timeHandle(item['timest']))
-        }
-    } catch (error) {
-        console.error(error);
-    }
+let photovoltaicPanelVoltageList = [];
+let photovoltaicPanelCurrentList = [];
+let photovoltaicPanelPowerGenerationList = [];
+let outputVoltageList = [];
+let outputCurrentList = [];
+let outputPowerList = [];
+let timeList = [];
 
-    option.series[0].data = photovoltaicPanelVoltageList;
-    option.series[1].data = photovoltaicPanelCurrentList;
-    option.series[2].data = photovoltaicPanelPowerGenerationList;
-    option.series[3].data = outputVoltageList;
-    option.series[4].data = outputCurrentList;
-    option.series[5].data = outputPowerList;
-    option.xAxis.data = timeList;
-    dom.setOption(option);
+const refresh = async (dom, option, dataList) => {
+  photovoltaicPanelVoltageList = dataGenerator(photovoltaicPanelVoltageList, dataList[0], 20);
+  photovoltaicPanelCurrentList = dataGenerator(photovoltaicPanelCurrentList, dataList[1], 20);
+  photovoltaicPanelPowerGenerationList = dataGenerator(photovoltaicPanelPowerGenerationList, dataList[2], 20);
+  outputVoltageList = dataGenerator(outputVoltageList, dataList[3], 20);
+  outputCurrentList = dataGenerator(outputCurrentList, dataList[4], 20);
+  outputPowerList = dataGenerator(outputPowerList, dataList[5], 20);
+  const now = moment();
+  const nowString = now.toString();
+  timeList.push(nowString)
+
+  option.series[5].data = photovoltaicPanelVoltageList;
+  option.series[4].data = photovoltaicPanelCurrentList;
+  option.series[3].data = photovoltaicPanelPowerGenerationList;
+  option.series[2].data = outputVoltageList;
+  option.series[1].data = outputCurrentList;
+  option.series[0].data = outputPowerList;
+  option.xAxis.data = timeList;
+  dom.setOption(option);
 }
 
 
 onMounted(() => {
-    let dom = IdInitEcharts('solar-dom');
-    option = setTitle(option, '光伏硬件数据');
-    window.addEventListener('resize', function () {
-        dom.resize();
-    });
+  let dom = IdInitEcharts('solar-dom');
+  option = setTitle(option, '光伏硬件数据');
+  window.addEventListener('resize', function () {
+    dom.resize();
+  });
 
-    refresh(dom, option);
+  refresh(dom, option, props.solarData);
+  watch(
+      () => props.solarData[0],
+      () => {
+        if (props.solarData) {
+          console.log(props.solarData)
+          refresh(dom, option, props.solarData);        }
+      }
+  )
 
-    // watch(
-    //     () => props.solarTransmissionData,
-    //     () => {
-    //         if (props.solarTransmissionData) {
-    //             refresh(dom, option);
-    //         }
-    //     }
-    // )
+
+
 })
+
+
 </script>
 
 <style scoped>

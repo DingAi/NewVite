@@ -11,6 +11,10 @@ import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {apHistoryOption} from "@/assets/js/echarts-option/ap-history.js";
 import {get12HTimeRange, timeHandle} from '@/util/data-generator.js'
 import axios from "axios";
+import {useServicesStore} from "@/store/stations.js";
+
+const useService = useServicesStore()
+const {currentService} = useService;
 
 let option = apHistoryOption;
 let apHistoryData = ref([]);
@@ -18,7 +22,8 @@ const timeRange = get12HTimeRange();
 
 const refreshAPHistory = (dom, option) => {
   try {
-    axios.post('school/range_query', {'masterNum': 'master01', 'sensorNum': ['qy11'], 'time': timeRange})
+    let url = currentService + '/range_query'
+    axios.post(url, {'masterNum': 'master01', 'sensorNum': ['qy11'], 'time': timeRange})
         .then(response => {
           apHistoryData.value = response.data;
           refresh(dom, apHistoryData.value, option)

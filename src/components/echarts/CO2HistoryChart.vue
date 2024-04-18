@@ -10,15 +10,20 @@ import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {co2Option} from "@/assets/js/echarts-option/co2s.js";
 import {get6HTimeRange, timeHandle} from "@/util/data-generator.js";
 import axios from "axios";
+import {useServicesStore} from "@/store/stations.js";
 
+
+const useService = useServicesStore()
+const {currentService} = useService;
 
 let co2Data = ref([]);
 const timeRange = get6HTimeRange();
 
 const refreshCO2History = async (dom) => {
     try {
+        let url = currentService + '/range_query'
         let CO2s = ['co211', 'co212', 'co213', 'co214', 'co215', 'co216', 'co217', 'co218', ]
-        axios.post('school/range_query', {'masterNum': 'master01', 'sensorNum': CO2s, 'time': timeRange})
+        axios.post(url, {'masterNum': 'master01', 'sensorNum': CO2s, 'time': timeRange})
             .then(response => {
                 co2Data.value = response.data;
                 refresh(dom, co2Data.value);

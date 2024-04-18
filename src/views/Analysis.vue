@@ -70,6 +70,7 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
     for (let item of timeList) {
       timeRangeList.value.push([timeHandle(item[0]), timeHandle(item[1])]);
     }
+
     // 将几个数组转换为一个二维数组
     const dataPackageList = [dataIndex, CKvalueList, CRvalueList, timeList, WkvalueList, WRvalueList].reduce(
         (acc, curr) => curr.map((item, i) => [...(acc[i] || []), item]), []
@@ -175,7 +176,6 @@ onMounted(() => {
               <el-option v-for="item in slaveStations" :label="item.label" :key="item"
                          :value="item.value"/>
             </el-select>
-            <!--                        <p>{{ slaveValue }}</p>-->
           </div>
         </div>
         <div class="item">
@@ -188,7 +188,6 @@ onMounted(() => {
                             end-placeholder="结束时间"
                             :shortcuts="shortcuts"/>
           </div>
-          <!--                    <p>{{ timeRangeStr }}</p>-->
         </div>
         <div class="item">
           <div>
@@ -256,13 +255,10 @@ onMounted(() => {
           <div class="right">
             <div class="full charts-div p-2">
               <div class="chart-div p-2">
-                <linearRegressionChart v-if="isLoading"
-                                       :selectedRegressionData="selectedRegressionData"/>
-<!--                <Loading v-else/>-->
+                <linearRegressionChart v-if="isLoading" :selectedRegressionData="selectedRegressionData"/>
               </div>
               <div class="chart-div p-2">
                 <FluxHistoryChart v-if="isLoading" :fluxData="fluxData"/>
-<!--                <Loading v-else/>-->
               </div>
             </div>
           </div>

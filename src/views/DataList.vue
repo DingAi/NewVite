@@ -22,16 +22,6 @@ const getData = async  () =>{
   for (let item of response.data['index_name_list']) {
     indexList.value.push(item[0]['COLUMN_NAME'])
   }
-  // let convertData = []
-  // for (let items of response.data['data']) {
-  //   let itemDataList = [];
-  //   let count = 0;
-  //   for (let item of items) {
-  //     itemDataList.push(item[indexList.value[count]]);
-  //   }
-  //   count++;
-  //   convertData.push(itemDataList);
-  // }
 }
 
 const handleSizeChange = (val) => {

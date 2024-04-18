@@ -11,7 +11,6 @@ const handleSelect = (key, keyPath) => {
 </script>
 
 <template>
-
     <el-menu :default-active="$route.path" mode="horizontal" :router="true">
         <el-sub-menu index="1">
           <template #title>
@@ -25,7 +24,7 @@ const handleSelect = (key, keyPath) => {
           </el-menu-item>
         </el-sub-menu>
         <el-menu-item index="/">主页</el-menu-item>
-        <el-menu-item index="/test">Test</el-menu-item>
+        <el-menu-item index="/test">地图服务</el-menu-item>
         <el-sub-menu index="2">
             <template #title>工作台</template>
             <el-menu-item index="/workplace/workplace-1/master-1">气体箱</el-menu-item>
@@ -36,9 +35,7 @@ const handleSelect = (key, keyPath) => {
         <el-menu-item index="/history">历史</el-menu-item>
         <el-menu-item index="/analysis">数据分析</el-menu-item>
 <!--        <el-menu-item index="/data-list">数据列表</el-menu-item>-->
-<!--        <el-menu-item index="/other">Other</el-menu-item>-->
-<!--        <div class="flex-grow"/>-->
-<!--        <div class="flex-grow"/>-->
+        <el-menu-item index="/other">Other</el-menu-item>
     </el-menu>
 </template>
 

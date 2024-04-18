@@ -21,7 +21,7 @@ const switchReserve = (switchValue) =>{
 }
 
 onMounted(()=>{
-    axios.get('online/equipment').then(response =>{
+    axios.get('school/equipment').then(response =>{
         stationRunStep.value = trsnslateStationRunStep[response.data['step']];
         if(response.data['air']){
             airPumpStatus.value = '开启';
