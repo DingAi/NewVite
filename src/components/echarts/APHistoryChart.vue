@@ -9,25 +9,17 @@
 import {onMounted, ref} from "vue";
 import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {apHistoryOption} from "@/assets/js/echarts-option/ap-history.js";
-import {get12HTimeRange, timeHandle} from '@/util/data-generator.js'
-import axios from "axios";
-import {useServicesStore} from "@/store/stations.js";
-
-const useService = useServicesStore()
-const {currentService} = useService;
+import {getTimeRange, timeHandle} from '@/util/data-generator.js'
+import {getHistoryData} from "@/apis/request-api.js";
 
 let option = apHistoryOption;
 let apHistoryData = ref([]);
-const timeRange = get12HTimeRange();
 
-const refreshAPHistory = (dom, option) => {
+const refreshAPHistory = async (dom, option) => {
   try {
-    let url = currentService + '/range_query'
-    axios.post(url, {'masterNum': 'master01', 'sensorNum': ['qy11'], 'time': timeRange})
-        .then(response => {
-          apHistoryData.value = response.data;
-          refresh(dom, apHistoryData.value, option)
-        })
+    const response = await getHistoryData('master01', ['qy11'], getTimeRange(6))
+    apHistoryData.value = response.data;
+    refresh(dom, apHistoryData.value, option);
   } catch (error) {
     console.error(error);
   }

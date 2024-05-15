@@ -45,7 +45,8 @@ import SoilSensors from "@/components/slave-station/SoilSensors.vue";
 import {tiemstampHandle, timeHandle} from "@/util/data-generator.js";
 
 const page_name = ref('Master 01 : Slave01');
-const slave_num = 1;
+const slaveNum = 1;
+const masterNum = 'master01'
 const use_switch = useEquipmentStore();
 const switchData = use_switch.getSwitchData();
 let sensorData = reactive({});
@@ -54,7 +55,7 @@ const soilData = reactive({});
 
 const refresh = async () => {
     try {
-        const response = await getSensorData(slave_num);
+        const response = await getSensorData(slaveNum, masterNum);
         sensorData.in_temperature = response.data['inTemperature'];
         sensorData.ex_temperature = response.data['exTemperature'];
         sensorData.in_humidity = response.data['inHumidity'];
@@ -67,7 +68,7 @@ const refresh = async () => {
     }
 
     try {
-        const response = await getSoilData(slave_num);
+        const response = await getSoilData(slaveNum, masterNum);
         soilData.layer1 = response.data['layer01'];
         soilData.layer2 = response.data['layer02'];
         soilData.layer3 = response.data['layer03'];
@@ -78,7 +79,7 @@ const refresh = async () => {
     }
 
     try {
-        const response = await getAPData();
+        const response = await getAPData(masterNum);
         apData.uap = response.data['UAP']
         apData.dap = response.data['DAP']
     } catch (error) {

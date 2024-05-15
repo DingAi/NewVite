@@ -16,6 +16,9 @@ const co2Option = {
     },
     toolbox: {
         feature: {
+            dataView: {readOnly: true},
+            saveAsImage: {},
+            restore: {},
         }
     },
     xAxis: {
@@ -25,6 +28,7 @@ const co2Option = {
     },
     yAxis: {
         type: 'value',
+        show: false,
         boundaryGap: [0, '100%'],
     },
     dataZoom: [

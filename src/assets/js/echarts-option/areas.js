@@ -17,7 +17,10 @@ const areasOption = {
     },
     toolbox: {
         feature: {
-            saveAsImage: {}
+            dataView: {readOnly: true},
+            magicType: { type: ['bar', 'line'] },
+            saveAsImage: {},
+            restore: {},
         }
     },
     grid: {

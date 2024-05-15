@@ -1,6 +1,8 @@
 import moment from "moment";
 import {translate, trsnslateSlave} from "@/assets/js/stations-data.js";
+import proj4 from 'proj4';
 
+// 图表数据填充
 const dataGenerator = (dataList, data, xIndex) => {
     dataList.push(data);
     if (dataList.length === xIndex) {
@@ -9,12 +11,14 @@ const dataGenerator = (dataList, data, xIndex) => {
     return dataList;
 }
 
+// 时间格式转换
 const timeHandle = (originalTime) => {
     const time = moment(originalTime, 'ddd, DD MMM YYYY HH:mm:ss [GMT]');
     const formattedTime = time.format('YYYY-MM-DD HH:mm:ss');
     return formattedTime;
 }
 
+// 时间戳转换成时间格式
 const tiemstampHandle = (timestamp) =>{
     const formattedDateTime = moment(timestamp*1000).format('YYYY-MM-DD HH:mm:ss');
     return formattedDateTime
@@ -34,41 +38,12 @@ function generateData() {
     return data;
 }
 
-function generateRandomArray(fixedLength) {
-    const array = [];
-    let consecutiveZeros = 0;
-    for (let i = 0; i < fixedLength; i++) {
-        const randomValue = Math.random();
-        if (randomValue <= 0.7) {
-            array.push(0);
-            consecutiveZeros++;
-        } else {
-            array.push(Math.floor(Math.random() * 100) + 1);
-            consecutiveZeros = 0;
-        }
-        if (consecutiveZeros >= 10) {
-            consecutiveZeros = 0;
-            i -= 9;
-        }
-    }
-    return array;
-}
-
-function generateRandomDatesArray(length) {
-    const array = [];
-    for (let i = 0; i < length; i++) {
-        // 生成一个随机的日期
-        const randomDate = moment().add(Math.floor(Math.random() * 365), 'days');
-        array.push(randomDate.toString());
-    }
-    return array;
-}
-
-function get24HTimeRange() {
+// 返回从当前时间开始的时间范围（以小时为单位）
+function getTimeRange(hour) {
     // 获取当前时间
     const currentTime = moment();
     // 获取24小时前的时间
-    const twentyFourHoursAgo = moment().subtract(24, 'hours');
+    const twentyFourHoursAgo = moment().subtract(hour, 'hours');
     // 格式化时间为指定格式（年月日 时分秒）
     const formattedCurrentTime = currentTime.format('YYYY-MM-DD HH:mm:ss');
     const formattedTwentyFourHoursAgo = twentyFourHoursAgo.format('YYYY-MM-DD HH:mm:ss');
@@ -77,43 +52,6 @@ function get24HTimeRange() {
     return timeRange
 }
 
-function get12HTimeRange() {
-    // 获取当前时间
-    const currentTime = moment();
-    // 获取24小时前的时间
-    const twentyFourHoursAgo = moment().subtract(12, 'hours');
-    // 格式化时间为指定格式（年月日 时分秒）
-    const formattedCurrentTime = currentTime.format('YYYY-MM-DD HH:mm:ss');
-    const formattedTwentyFourHoursAgo = twentyFourHoursAgo.format('YYYY-MM-DD HH:mm:ss');
-    // 构建时间范围数组
-    const timeRange = [formattedTwentyFourHoursAgo, formattedCurrentTime];
-    return timeRange
-}
-
-function get6HTimeRange() {
-    // 获取当前时间
-    const currentTime = moment();
-    // 获取24小时前的时间
-    const twentyFourHoursAgo = moment().subtract(6, 'hours');
-    // 格式化时间为指定格式（年月日 时分秒）
-    const formattedCurrentTime = currentTime.format('YYYY-MM-DD HH:mm:ss');
-    const formattedTwentyFourHoursAgo = twentyFourHoursAgo.format('YYYY-MM-DD HH:mm:ss');
-    // 构建时间范围数组
-    const timeRange = [formattedTwentyFourHoursAgo, formattedCurrentTime];
-    return timeRange
-}
-
-// 生成线性回归数据
-function generateLinearData(numPoints, slope, intercept, noiseLevel) {
-    let data = [];
-    for (let i = 0; i < numPoints; i++) {
-        let x = i;
-        let noise = noiseLevel * (Math.random() - 0.5);
-        let y = slope * x + intercept + noise;
-        data.push({ x: x, y: y });
-    }
-    return data;
-}
 
 function convertToCSV(headers, data) {
     const csvRows = [];
@@ -197,7 +135,15 @@ const timeDataTransform = (timeRangeList) => {
     return timeList;
 }
 
-
+const coordinateConversion = (originalCoordinate) =>{
+// 定义 EPSG:4490 和 EPSG:3857 的坐标系参数
+    const epsg4490Def = '+proj=longlat +ellps=GRS80 +no_defs';
+    const webMercatorDef = '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs';
+    // 创建坐标转换函数
+    const epsg4490ToWebMercator = proj4(epsg4490Def, webMercatorDef);
+    // 示例：将 EPSG:4490 坐标转换为天地图球面墨卡托投影坐标
+    return epsg4490ToWebMercator.forward(originalCoordinate)
+}
 
 
 export {
@@ -208,11 +154,7 @@ export {
     timeHandle,
     tiemstampHandle,
     generateData,
-    generateRandomArray,
-    generateRandomDatesArray,
-    get24HTimeRange,
-    get12HTimeRange,
-    get6HTimeRange,
-    generateLinearData,
-    convertToCSV
+    getTimeRange,
+    convertToCSV,
+    coordinateConversion,
 }

@@ -1,4 +1,5 @@
 const fluxOption = {
+    color: ["#d32d3c", "#0d6efd",],
     title: {
         text: '通量历史记录',
         left: 'center'
@@ -14,8 +15,8 @@ const fluxOption = {
         feature: {
             dataView: {readOnly: true},
             magicType: { type: ['bar', 'line'] },
-            restore: {},
             saveAsImage: {},
+            restore: {},
         }
     },
     grad: {
@@ -48,14 +49,14 @@ const fluxOption = {
             data: [],
             // label: {show: true, fontSize: 16},
             name: 'CO₂ 通量',
-            type: 'line',
+            type: 'bar',
             smooth: false,  //曲线平滑
-            areaStyle: {}
+            areaStyle: {},
         },
         {
             data: [],
             name: 'H₂O 通量',
-            type: 'line',
+            type: 'bar',
             smooth: false,  //曲线平滑
             areaStyle: {}
         }

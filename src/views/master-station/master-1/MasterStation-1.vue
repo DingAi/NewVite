@@ -2,10 +2,9 @@
 import {onMounted, reactive, ref} from "vue";
 import APHistoryChart from "@/components/echarts/APHistoryChart.vue";
 import CO2HistoryChart from "@/components/echarts/CO2HistoryChart.vue";
-import {timeSetNameList} from "@/assets/js/used-json.js";
 import {generateData} from "@/util/data-generator.js";
-import {trsnslateStationRunStep} from "@/assets/js/stations-data.js";
-import axios from "axios";
+import {timeSetNameList, trsnslateStationRunStep} from "@/assets/js/stations-data.js";
+import {getRunningEquipment} from "@/apis/request-api.js";
 
 
 let switchData = reactive(generateData());
@@ -20,17 +19,20 @@ const switchReserve = (switchValue) =>{
     switchValue = !switchValue;
 }
 
+const equipmentRunStep = async () => {
+  const response = await getRunningEquipment();
+  stationRunStep.value = trsnslateStationRunStep[response.data['step']];
+  if(response.data['air']){
+    airPumpStatus.value = '开启';
+  }else {
+    airPumpStatus.value = '关闭';
+  }
+  runningStationNum.value = '从站：0' + response.data['box'].toString();
+}
+
 onMounted(()=>{
-    axios.get('school/equipment').then(response =>{
-        stationRunStep.value = trsnslateStationRunStep[response.data['step']];
-        if(response.data['air']){
-            airPumpStatus.value = '开启';
-        }else {
-            airPumpStatus.value = '关闭';
-        }
-        runningStationNum.value = '从站：0' + response.data['box'].toString();
-      console.log(stationRunStep.value, airPumpStatus.value, runningStationNum.value)
-    })
+    equipmentRunStep()
+    setInterval(equipmentRunStep, 3000);
 })
 </script>
 
@@ -49,7 +51,7 @@ onMounted(()=>{
                         <div class="text-center">
                             <h4>模式切换</h4>
                             <el-switch v-model="isAuto" class="ml-2" inline-prompt size="large"
-                                       style="--el-switch-on-color: #13ce66; --el-switch-off-color: #f6c72b"
+                                       style="--el-switch-on-color: #0d6efd; --el-switch-off-color: #1894ff"
                                        active-text="自动模式" inactive-text="手动模式"/>
                         </div>
                     </div>
@@ -108,15 +110,15 @@ onMounted(()=>{
                     <!--                    自动模式-->
                     <div class="switch_group re-text" v-for="(group, index) in switchData" v-if="isAuto">
                         <div class="station-name  text-center p-2">
-                            <el-text class="mx-1 text-primary" type="primary" size="large">
+                            <el-text class="mx-1 text-primary" type="primary" size="large" style="font-weight: bold;">
                                 Slave Station : {{ index + 1 }}
                             </el-text>
                         </div>
                         <div class="switchs">
                             <div class="switch text-center" v-for="(item, key) in group" :key="key">
                                 <p class="text-color-1">{{ item.name }}</p>
-                                <span v-if="item.value" class="badge open-color-auto">closed</span>
-                                <span v-else class="badge close-color-auto">opening</span>
+                                <el-tag type="primary" v-if="item.value" >运行</el-tag>
+                                <el-tag type="info" v-else >停止</el-tag>
                             </div>
                         </div>
                     </div>

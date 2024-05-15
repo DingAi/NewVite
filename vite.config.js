@@ -5,11 +5,13 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
+import cesium from 'vite-plugin-cesium'; // 引入插件
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    cesium(),
     AutoImport({
       // 这里除了引入 vue 以外还可以引入pinia、vue-router、vueuse等，
       // 甚至你还可以使用自定义的配置规则，见 https://github.com/antfu/unplugin-auto-import#configuration
@@ -61,18 +63,13 @@ export default defineConfig({
     // 是否开启 https
     https: false,
     proxy: {
-      "/api": {
-        target: "http://47.92.170.190:5000",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
       "/fastapi": {
         target: "http://127.0.0.1:8000/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/fastapi/, ""),
       },
       "/xu": {
-        target: "http://192.168.28.33:8060/",
+        target: "http://192.168.28.33:5000/",
         changeOrigin: true,
         ws: true,
         rewrite: (path) => path.replace(/^\/xu/, ""),
@@ -83,25 +80,25 @@ export default defineConfig({
         ws: true,
         rewrite: (path) => path.replace(/^\/ws/, ""),
       },
-      "/online": {
-        target: "http://47.92.170.190:5002",
+      "/new": {
+        target: "http://192.168.30.119:5000",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/online/, ""),
+        rewrite: (path) => path.replace(/^\/new/, ""),
       },
-      "/school": {
-        target: "http://192.168.30.119:5006",
+      "/weather": {
+        target: "http://47.92.170.190:9000",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/school/, ""),
+        rewrite: (path) => path.replace(/^\/weather/, ""),
       },
     },
   },
-  build: {
-    resolve: {
-      alias: {
-        three: 'bmap-three',
-      },
-    },
-  },
+  // build: {
+  //   resolve: {
+  //     alias: {
+  //       three: 'bmap-three',
+  //     },
+  //   },
+  // },
   resolve: {
     // 配置路径别名
     alias: [

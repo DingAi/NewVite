@@ -15,7 +15,7 @@ export const useUserStore = defineStore('user', () => {
 
     const login = (credentials) => {
         // 可以替换为实际的登录逻辑
-        axios.post('school/user/dl', {credentials}).then(response => {
+        axios.post('new/user/user/dl', {credentials}).then(response => {
             isAuthenticated.value = response.data.isAuthenticated;
             if (isAuthenticated.value) {
                 ElNotification({
@@ -43,7 +43,8 @@ export const useUserStore = defineStore('user', () => {
         isAuthenticated.value = false;
         user.value = null;
         token.value = null;
-        router.push('/login')
+        router.push('/login');
+        location.reload();
         // 清除任何存储的 token 或其他认证信息
     };
     return {

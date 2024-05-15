@@ -13,7 +13,9 @@ const lineOption = {
     toolbox: {
         show: true,
         feature: {
-            dataView: { readOnly: false },
+            dataView: {readOnly: true},
+            magicType: { type: ['bar', 'line'] },
+            saveAsImage: {},
             restore: {},
         }
     },

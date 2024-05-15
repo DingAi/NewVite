@@ -2,175 +2,294 @@
 @glass-color: rgba(255, 255, 255, 0.5); // 玻璃颜色
 
 //在移动端的高度变量
-@media-h-500:500px;
+@media-h-500: 500px;
 
 //桌面端的高度变量
-@desktop-h-50:50%;
+@desktop-h-50: 50%;
 
 
-
-#app{
-  min-height: 100vh;
+#app {
+    min-height: 100vh;
 }
 
-.full{
-  width: 100% !important;
-  height: 100% !important;
+.b-temp {
+    background: skyblue;
 }
 
-.base-row{
-
-  @media (min-width: 768px) {
-    height: @desktop-h-50;  // 在电脑端的属性
-  }
+.content-center {
+    align-content: center;
 }
 
-.line-div{
-  @media (min-width: 768px) {
-    height: 100%;  // 在电脑端的属性
-  }
-  height: @media-h-500
+.full {
+    width: 100% !important;
+    height: 100% !important;
 }
 
-.area-div{
-  @media (min-width: 768px) {
-    height: 100%;  // 在电脑端的属性
-  }
-  height: @media-h-500;
+.h-full {
+    height: 100% !important;
 }
 
-.gauge-div{
-  @media (min-width: 768px) {
-    height: 100%;  // 在电脑端的属性
-  }
-  height: @media-h-500;
+.w-full {
+    width: 100% !important;
 }
 
-.re-text{
-  @media (min-width: 768px) {
-    font-size: 1.25rem !important;
-  }
+.white-text {
+    color: white;
 }
 
-header{
-  height: auto;
-  @media (min-width: 768px) {
-    height: 4vh !important;  // 在电脑端的属性
-  }
+.base-row {
+
+    @media (min-width: 768px) {
+        height: @desktop-h-50;  // 在电脑端的属性
+    }
+}
+
+.line-div {
+    @media (min-width: 768px) {
+        height: 100%;  // 在电脑端的属性
+    }
+    height: @media-h-500
+}
+
+.area-div {
+    @media (min-width: 768px) {
+        height: 100%;  // 在电脑端的属性
+    }
+    height: @media-h-500;
+}
+
+.gauge-div {
+    @media (min-width: 768px) {
+        height: 100%;  // 在电脑端的属性
+    }
+    height: @media-h-500;
+}
+
+.re-text {
+    @media (min-width: 768px) {
+        font-size: 1.25rem !important;
+    }
+}
+
+header {
+    height: auto;
+    @media (min-width: 768px) {
+        height: 4vh !important;  // 在电脑端的属性
+    }
 }
 
 
+main {
+    height: auto;
 
-main{
-  height: auto;
-
-  @media (min-width: 768px) {
-    height: 96vh  // 在电脑端的属性
-  }
+    @media (min-width: 768px) {
+        height: 96vh  // 在电脑端的属性
+    }
 }
 
-.base-div{
-  width: 100%;
-  height: 100%;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  border-radius: 0.5rem;
-  padding: 1.5rem;
+.base-div {
+    width: 100%;
+    height: 100%;
+    box-shadow: rgba(83, 100, 110, 0.08) 0px 4px 12px;
+    //border-radius: 0.5rem;
+    padding: 1.5rem;
 
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: @glass-color;
-    filter: blur(@blur-radius);
-    z-index: -1;
-    pointer-events: none;
-  }
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: @glass-color;
+        filter: blur(@blur-radius);
+        z-index: -1;
+        pointer-events: none;
+    }
 }
 
-.history-div1{
-  height: auto;
+.history-div1 {
+    height: auto;
 
-  @media (min-width: 768px) {
-    height: 20px;  // 在电脑端的属性
-  }
+    @media (min-width: 768px) {
+        height: 20px;  // 在电脑端的属性
+    }
 }
 
-.history-div1{
-  height: auto;
+.history-div1 {
+    height: auto;
 
-  @media (min-width: 768px) {
-    height: 80px;  // 在电脑端的属性
-  }
+    @media (min-width: 768px) {
+        height: 80px;  // 在电脑端的属性
+    }
 }
 
-.history-select{
-  height: auto;
+.history-select {
+    height: auto;
 
-  @media (min-width: 768px) {
-    height: 20%;  // 在电脑端的属性
-  }
+    @media (min-width: 768px) {
+        height: 20%;  // 在电脑端的属性
+    }
 }
 
-.history-chart{
-  height: 600px;
+.history-chart {
+    height: 600px;
 
-  @media (min-width: 768px) {
-    height: 80%;  // 在电脑端的属性
-  }
+    @media (min-width: 768px) {
+        height: 80%;  // 在电脑端的属性
+    }
 }
 
 .hidden-on-desktop {
-  /*在电脑端隐藏*/
-  @media (min-width: 769px) {
-    display: none;
-  }
+    /*在电脑端隐藏*/
+    @media (min-width: 769px) {
+        display: none;
+    }
 }
 
 .hidden-on-mobile {
-  /*在手机端隐藏*/
-  @media (max-width: 769px) {
-    display: none;
-  }
+    /*在手机端隐藏*/
+    @media (max-width: 769px) {
+        display: none;
+    }
 }
 
 .hover-text {
-  transition: color 0.3s; /* 添加过渡效果 */
-  cursor: pointer; /* 鼠标指针样式为小手 */
+    transition: color 0.3s; /* 添加过渡效果 */
+    cursor: pointer; /* 鼠标指针样式为小手 */
 }
 
 .hover-text:hover {
-  color: #0073ff; /* 鼠标悬停时的颜色 */
+    color: #0073ff; /* 鼠标悬停时的颜色 */
 }
 
-:deep(.el-date-range-picker .el-picker-panel__body ){
-  @media (max-width: 768px) {
-    width: 323px !important;
-  }
+:deep(.el-date-range-picker .el-picker-panel__body ) {
+    @media (max-width: 768px) {
+        width: 323px !important;
+    }
 }
 
 :deep(.el-date-range-picker__editors-wrap) {
-  @media (max-width: 768px) {
-    display: flex !important;
-  }
+    @media (max-width: 768px) {
+        display: flex !important;
+    }
 }
 
 :deep(.el-date-range-picker__content) {
-  @media (max-width: 768px) {
-    width: 100% !important;
-  }
+    @media (max-width: 768px) {
+        width: 100% !important;
+    }
 }
 
 :deep(.el-picker-panel [slot=sidebar], .el-picker-panel__sidebar) {
-  width: 70px;
+    width: 70px;
 }
 
 :deep(.el-picker-panel [slot=sidebar]+.el-picker-panel__body, .el-picker-panel__sidebar+.el-picker-panel__body) {
-  margin-left: 70px;
+    margin-left: 70px;
 }
 
 :deep(.el-date-range-picker) {
-  width: 393px !important;
+    width: 393px !important;
+}
+
+body {
+    background: #0d6efd;
+}
+
+.data-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .left {
+        flex: 30%;
+        max-height: 100%;
+        overflow: hidden;
+
+        .timeline-div {
+            overflow-y: auto;
+            max-height: 100%;
+        }
+
+        //.timeline-div::-webkit-scrollbar {
+        //  display: none;
+        //}
+    }
+
+    .right {
+        flex: 70%;
+        width: 100%;
+        max-height: 100%;
+        //background-color: lightblue;
+    }
+
+    .right2 {
+        display: flex;
+        flex-direction: column;
+        flex: 30%;
+        width: 100%;
+        max-height: 100%;
+
+        div {
+            flex: 1;
+        }
+    }
+
+    .left2 {
+        display: flex;
+        flex-direction: column;
+        flex: 30%;
+        width: 100%;
+        max-height: 100%;
+
+        div {
+            flex: 1;
+        }
+    }
+
+    .mod {
+        flex: 40%;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-height: 100%;
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        height: 1600px;
+        .left, .right {
+            flex: 1;
+        }
+    }
+}
+
+//横向平均分布
+.transverse-average-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    //gap: 10px; /* 项之间的间距 */
+    .item {
+        background-color: #f0f0f0;
+        padding: 10px;
+        box-sizing: border-box; /* 确保 padding 不会影响项的宽度 */
+    }
+}
+
+//竖向分布,带滚动条
+.vertically-container {
+    flex-direction: column;
+    overflow: auto;
+}
+
+//竖向平均分布
+.vertically-average-container {
+    display: flex;
+    flex-direction: column;
+
+    div{
+        width: 100%;
+        flex: 1;
+    }
 }

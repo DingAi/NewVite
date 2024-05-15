@@ -1,60 +1,61 @@
 <template>
     <el-row class="full">
         <el-col :span="3" :xs="0" class="hidden-on-mobile p-2">
-            <el-menu default-active="/workplace/workplace-1/master-1" :router="true">
+            <el-menu default-active="/workplace/workplace-1/master-1" :router="true"
+                     active-text-color="#0d6efd">
                 <el-menu-item index="/workplace/workplace-1/master-1">
                     <el-icon>
                         <Platform/>
                     </el-icon>
-                    <span>主站概览</span>
+                    <span class="text-style">主站概览</span>
                 </el-menu-item>
                 <el-menu-item index="/workplace/workplace-1/slave-1-1">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
-                    <span>从站 01</span>
+                    <span class="text-style">从站 01</span>
                 </el-menu-item>
                 <el-menu-item index="/workplace/workplace-1/slave-1-2">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
-                    <span>从站 02</span>
+                    <span class="text-style">从站 02</span>
                 </el-menu-item>
                 <el-menu-item index="/workplace/workplace-1/slave-1-3">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
-                    <span>从站 03</span>
+                    <span class="text-style">从站 03</span>
                 </el-menu-item>
                 <el-menu-item index="/workplace/workplace-1/slave-1-4">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
-                    <span>从站 04</span>
+                    <span class="text-style">从站 04</span>
                 </el-menu-item>
                 <el-menu-item index="/workplace/workplace-1/slave-1-5">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
-                    <span>从站 05</span>
+                    <span class="text-style">从站 05</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-1/slave-1-6" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-1/slave-1-6">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
-                    <span>从站 06</span>
+                    <span class="text-style">从站 06</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-1/slave-1-7" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-1/slave-1-7">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
-                    <span>从站 07</span>
+                    <span class="text-style">从站 07</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-1/slave-1-8" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-1/slave-1-8">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
-                    <span>从站 08</span>
+                    <span class="text-style">从站 08</span>
                 </el-menu-item>
             </el-menu>
         </el-col>
@@ -69,5 +70,9 @@
 </script>
 
 <style scoped>
-
+.text-style{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
 </style>

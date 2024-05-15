@@ -1,7 +1,7 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import Home from "../views/HomeView.vue";
-import History from "@/views/History.vue";
-import Analysis from "@/views/Analysis.vue";
+import History from "@/views/HistoryView.vue";
+import Analysis from "@/views/AnalysisView.vue";
 import Workplace from "@/views/WorkPlace.vue";
 import {useUserStore} from "@/store/user.js";
 
@@ -25,7 +25,7 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: () => import('../views/Login.vue'),
+        component: () => import('../views/LoginView.vue'),
         meta:{
             isShowNav: false
         }
@@ -33,7 +33,15 @@ const routes = [
     {
         path: '/meteorological',
         name: 'Meteorological',
-        component: () => import('../views/Meteorological.vue'),
+        component: () => import('../views/MeteorologicalView.vue'),
+        meta:{
+            isShowNav: true
+        }
+    },
+    {
+        path: '/map',
+        name: 'Map',
+        component: () => import('../views/MapView.vue'),
         meta:{
             isShowNav: true
         }
@@ -41,7 +49,15 @@ const routes = [
     {
         path: '/test',
         name: 'Test',
-        component: () => import('../views/Map.vue'),
+        component: () => import('../views/Test.vue'),
+        meta:{
+            isShowNav: true
+        }
+    },
+    {
+        path: '/map-3d',
+        name: 'Map3D',
+        component: () => import('../views/Map3DView.vue'),
         meta:{
             isShowNav: true
         }
@@ -57,7 +73,15 @@ const routes = [
     {
         path: '/spatial',
         name: 'Spatial',
-        component: () => import('../views/SpatialDataCollection.vue'),
+        component: () => import('../views/SpatialDataCollectionView.vue'),
+        meta:{
+            isShowNav: true
+        }
+    },
+    {
+        path: '/weather',
+        name: 'Weather',
+        component: () => import('../views/WeatherView.vue'),
         meta:{
             isShowNav: true
         }
@@ -73,7 +97,7 @@ const routes = [
     {
         path: '/other',
         name: 'Other',
-        component: () => import('../views/Other.vue'),
+        component: () => import('../views/Tiles.vue'),
         meta:{
             isShowNav: true
         }
@@ -167,16 +191,16 @@ const routes = [
                 name: 'Workplace-3',
                 component: () => import('../views/master-station/master-3/Workplace-3.vue'),
                 children: [
-                    {
-                        path: 'slave-3-1',
-                        name: 'SlaveStation-3-1',
-                        component: () => import('../views/master-station/master-3/SlaveStation-1.vue'),
-                    },
-                    {
-                        path: 'slave-3-2',
-                        name: 'SlaveStation-3-2',
-                        component: () => import('../views/master-station/master-3/SlaveStation-2.vue'),
-                    },
+                    // {
+                    //     path: 'slave-3-1',
+                    //     name: 'SlaveStation-3-1',
+                    //     component: () => import('../views/master-station/master-3/SlaveStation-1.vue'),
+                    // },
+                    // {
+                    //     path: 'slave-3-2',
+                    //     name: 'SlaveStation-3-2',
+                    //     component: () => import('../views/master-station/master-3/SlaveStation-2.vue'),
+                    // },
                     {
                         path: 'master-3',
                         name: 'MasterStation-3',

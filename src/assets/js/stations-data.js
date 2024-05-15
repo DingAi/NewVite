@@ -26,10 +26,10 @@ const sensors = [
         value: 'eh',
         label: '箱外湿度'
     },
-    {
-        value: 'ill',
-        label: '光照'
-    },
+    // {
+    //     value: 'ill',
+    //     label: '光照'
+    // },
     {
         value: 'co2',
         label: 'CO2'
@@ -87,17 +87,45 @@ const stations = {
         {value: "18", label: "从站 08"}
     ],
     "master02": [
-        {value: "21", label: "从站 01"},
-        {value: "22", label: "从站 02"},
-        {value: "23", label: "从站 03"},
-        {value: "24", label: "从站 04"},
-        {value: "25", label: "从站 05"},
-        {value: "26", label: "从站 06"},
-        {value: "27", label: "从站 07"},
-        {value: "28", label: "从站 08"},
-        {value: "29", label: "从站 09"},
-        {value: "210", label: "从站 10"}
-    ]
+        {value: "11", label: "从站 01"},
+        {value: "12", label: "从站 02"},
+        {value: "13", label: "从站 03"},
+        {value: "14", label: "从站 04"},
+        {value: "15", label: "从站 05"},
+        {value: "16", label: "从站 06"},
+        {value: "17", label: "从站 07"},
+        {value: "18", label: "从站 08"},
+        {value: "19", label: "从站 09"},
+        {value: "110", label: "从站 10"}
+    ],
+    "master03": [
+        {value: "11", label: "从站 01"},
+        {value: "12", label: "从站 02"},
+        {value: "13", label: "从站 03"},
+        {value: "14", label: "从站 04"},
+        {value: "15", label: "从站 05"},
+        {value: "16", label: "从站 06"},
+        {value: "17", label: "从站 07"},
+        {value: "18", label: "从站 08"},
+        {value: "19", label: "从站 09"},
+        {value: "110", label: "从站 10"}
+    ],
+}
+
+const weatherSations = {
+    "master01": [
+        {value: "11", label: "从站 01"},
+        {value: "12", label: "从站 02"},
+        {value: "13", label: "从站 03"},
+        {value: "14", label: "从站 04"},
+    ],
+    "master02": [
+        {value: "11", label: "从站 01"},
+        {value: "12", label: "从站 02"},
+        {value: "13", label: "从站 03"},
+        {value: "14", label: "从站 04"},
+        {value: "15", label: "从站 05"},
+    ],
 }
 
 const masterStations = [
@@ -107,6 +135,15 @@ const masterStations = [
 ];
 
 const shortcuts = [
+    {
+        text: '1 小时',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 1)
+            return [start, end]
+        },
+    },
     {
         text: '3 小时',
         value: () => {
@@ -140,6 +177,28 @@ const shortcuts = [
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24)
+            return [start, end]
+        },
+    },
+    {
+        text: '今天',
+        value: () => {
+            const start = new Date()
+            start.setHours(0, 0, 0, 0)
+            const end = new Date()
+            // end.setHours(23, 59, 59, 999)
+            return [start, end]
+        },
+    },
+    {
+        text: '昨天',
+        value: () => {
+            const end = new Date()
+            const start = new Date()
+            start.setDate(start.getDate() - 1)
+            start.setHours(0, 0, 0, 0)
+            end.setDate(end.getDate() - 1)
+            end.setHours(23, 59, 59, 999)
             return [start, end]
         },
     },
@@ -185,15 +244,6 @@ const shortcuts = [
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
-            return [start, end]
-        },
-    },
-    {
-        text: '一年',
-        value: () => {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 365)
             return [start, end]
         },
     },
@@ -336,6 +386,78 @@ const meteorologicalOptions = [
     }
 ]
 
+const timeSetNameList = [
+    ['开关箱时间', '开箱时间', '关箱时间', '风扇展开延时'],
+    ['开风扇时间', '气体搅拌时间', '搅拌时间', '读二氧化碳时间'],
+    ['读碳时间', '抽真空时间', '同循环不同箱延时', '同循环时间'],
+    ['不同循环延时', '不同循环时间'],
+]
+
+const soilSensorTypeList = [
+    {
+        value: '000',
+        label: 'Option1',
+    },
+    {
+        value: '001',
+        label: 'Option2',
+    },
+    {
+        value: '010',
+        label: 'Option3',
+    },
+    {
+        value: '011',
+        label: 'Option4',
+    },
+    {
+        value: '100',
+        label: 'Option5',
+    },
+    {
+        value: '101',
+        label: 'Option6',
+    },
+    {
+        value: '110',
+        label: 'Option7',
+    },
+    {
+        value: '111',
+        label: 'Option8',
+    },
+
+]
+
+const soilSensorTable = [
+    {
+        layer: '1',
+        state: true,
+        value: "10000"
+    },
+    {
+        layer: '2',
+        state: true,
+        value: "01000"
+    },
+    {
+        layer: '3',
+        state: true,
+        value: "00100"
+        
+    },
+    {
+        layer: '4',
+        state: true,
+        value: "00010"
+    },
+    {
+        layer: '5',
+        state: true,
+        value: "00001"
+    },
+]
+
 
 export {
     stations,
@@ -349,5 +471,9 @@ export {
     solarData,
     dataOptons,
     meteorologicalOptions,
-    asiderJsonList
+    asiderJsonList,
+    timeSetNameList,
+    weatherSations,
+    soilSensorTypeList,
+    soilSensorTable
 }

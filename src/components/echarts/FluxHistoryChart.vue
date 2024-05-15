@@ -8,7 +8,7 @@
 import {onMounted, watch} from "vue";
 import {IdInitEcharts} from "@/assets/js/echarts-package.js";
 import {fluxOption} from "@/assets/js/echarts-option/flux.js";
-import {generateRandomArray, generateRandomDatesArray, timeDataTransform, timeHandle} from "@/util/data-generator.js";
+import {timeDataTransform} from "@/util/data-generator.js";
 
 const props = defineProps({
     fluxData: Object,

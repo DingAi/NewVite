@@ -23,7 +23,7 @@ const refresh = (dom, option, historyData, slaveList, sensorsList) => {
     let sensorNameIndex = 0;
     let slaveNameIndex = 0;
     for (let sensor of historyData) {
-        let newData = {name: '', type: 'line', symbol: 'none', data: [], smooth: true,};
+        let newData = {name: '', type: 'line', symbol: 'none', data: [], smooth: false,};
         let dataList = [];
         let timeList = [];
 

@@ -1,6 +1,7 @@
 <script setup>
 import * as echarts from 'echarts';
 import {onMounted} from "vue";
+import {coordinateConversion} from "@/util/data-generator.js";
 
 onMounted(() => {
     let chartDom = document.getElementById('home');
@@ -26,8 +27,8 @@ let option = {
                     lineDash: [0, 200],
                     lineDashOffset: 0,
                     fill: 'transparent',
-                    stroke: '#000',
-                    lineWidth: 1
+                    stroke: '#0d6efd',
+                    lineWidth: 1,
                 },
                 keyframeAnimation: {
                     duration: 3000,
@@ -51,7 +52,7 @@ let option = {
                         {
                             percent: 1,
                             style: {
-                                fill: 'black'
+                                fill: '#0d6efd'
                             }
                         }
                     ]
@@ -60,6 +61,8 @@ let option = {
         ]
     }
 };
+
+console.log(coordinateConversion([107.999600, 34.244340]));
 
 </script>
 

@@ -23,12 +23,13 @@ const result1 = ecStat.regression('linear', data1);
 const result2 = ecStat.regression('linear', data2);
 
 const newLinearRegressionOption = {
+    color: ["#d32d3c", "#0d6efd", "#8e212b", "#074696"],
     title: {
         text: '线性回归数据',
         left: 'center'
     },
     legend: {
-        top:'7%'
+        top: '7%'
     },
     tooltip: {
         trigger: 'axis',
@@ -39,8 +40,9 @@ const newLinearRegressionOption = {
     toolbox: {
         show: true,
         feature: {
-            dataView: { readOnly: true },
-            magicType: { type: ['line', 'bar'] },
+            dataView: {readOnly: true},
+            magicType: { type: ['bar', 'line'] },
+            saveAsImage: {},
             restore: {},
         }
     },
@@ -65,10 +67,10 @@ const newLinearRegressionOption = {
         }
     ],
     grad: {
-        containLabel:true
+        containLabel: true
     },
     series: [{
-        name: 'CO₂ Data',
+        name: 'CO₂ 数据',
         type: 'scatter',
         data: data1
     }, {

@@ -11,7 +11,7 @@ const useEquipmentStore = defineStore('equipment', () => {
     })
 
     const getSwitchData = () => {
-        axios.get('school/items').then(response => {
+        axios.get('new/master01/items').then(response => {
             switchData.lid = response.data['lid'];
             switchData.radiotube = response.data['radiotube'];
             switchData.fan = response.data['fan'];
@@ -26,21 +26,6 @@ const useEquipmentStore = defineStore('equipment', () => {
     }
 })
 
-const useServicesStore = defineStore('services', () => {
-    const localService = 'xu';
-    const cloudService = 'online';
-    const schoolService = 'school';
-    const currentService = schoolService;
-
-    return{
-        localService,
-        cloudService,
-        schoolService,
-        currentService
-    }
-})
-
 export {
     useEquipmentStore,
-    useServicesStore
 }

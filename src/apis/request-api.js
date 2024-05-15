@@ -2,11 +2,13 @@ import axios from "axios";
 
 const LocalService = 'xu';
 const cloudService = 'online';
-const schoolService = 'school';
-const currentService = schoolService;
+const newService = 'new';
+const currentService = newService;
 
-const getSensorData = (slaveNum) => {
-    let url = `${currentService}/real_time_data`;
+let midVar = "master01"
+
+const getSensorData = (slaveNum, masterNum) => {
+    let url = `${currentService}/${masterNum}/real_time_data`;
     return axios({
         url: url,
         method: 'post',
@@ -19,8 +21,8 @@ const getSensorData = (slaveNum) => {
 
 //获取一个站点的传感器数据
 //slave_num为从站编号
-const getSoilData = (slaveNum) => {
-    let url = `${currentService}/soil`
+const getSoilData = (slaveNum, masterNum) => {
+    let url = `${currentService}/${masterNum}/soil`
     return axios({
         url: url,
         method: 'post',
@@ -31,26 +33,18 @@ const getSoilData = (slaveNum) => {
 }
 
 
-const getAPData = () => {
-    let url = `${currentService}/air_pressure`
+const getAPData = (masterNum) => {
+    let url = `${currentService}/${masterNum}/air_pressure`
     return axios({
         url: url,
         method: 'get'
     })
 }
 
-const getStationStatus = () => {
-    let url = `${currentService}/equipment`
-    return axios({
-        url: url,
-        method: 'get'
-    })
-}
-
-
+//数据分析
 const getAnalysisData = (masterNum, slaveNum, timeRange, boxVolume, boxBottomArea) => {
-    let url = `${currentService}/data_analysis`
-    // let url = `${LocalServices}/data_analysis`
+    let url = `${currentService}/${midVar}/data_analysis`
+    // let url = `xu/data_analysis`
     return axios({
         url: url,
         method: 'post',
@@ -66,7 +60,7 @@ const getAnalysisData = (masterNum, slaveNum, timeRange, boxVolume, boxBottomAre
 
 
 const getHistoryData = (masterNum, tabList, timeRange) => {
-    let url = `${currentService}/range_query`
+    let url = `${currentService}/${masterNum}/range_query`
     return axios({
         url: url,
         method: 'post',
@@ -80,16 +74,7 @@ const getHistoryData = (masterNum, tabList, timeRange) => {
 
 
 const getMeteorologicalData = () =>{
-    let url = `${currentService}/meteorological_station`
-    return axios({
-        url: url,
-        method: 'get'
-    })
-}
-
-
-const getMeteorologicalHistory = () =>{
-    let url = `${currentService}/meteorological_station_history`
+    let url = `${currentService}/${midVar}/meteorological_station`
     return axios({
         url: url,
         method: 'get'
@@ -98,7 +83,7 @@ const getMeteorologicalHistory = () =>{
 
 
 const getDataList = (selected, timeRange) => {
-    let url = `${currentService}/data_display`
+    let url = `${currentService}/${midVar}/data_display`
     return axios({
         url: url,
         method: 'post',
@@ -109,15 +94,31 @@ const getDataList = (selected, timeRange) => {
     })
 }
 
+const getRunningEquipment = () =>{
+    let url = `${currentService}/${midVar}/equipment`
+    return axios({
+        url: url,
+        method: "get",
+    })
+}
+
+const getWeatherData = () => {
+    let url = 'weather/real_time_data';
+    return axios({
+        url: url,
+        method: 'get',
+    })
+}
+
 
 export {
     getSensorData,
     getAnalysisData,
-    getStationStatus,
     getSoilData,
     getAPData,
     getHistoryData,
     getMeteorologicalData,
-    getMeteorologicalHistory,
     getDataList,
+    getRunningEquipment,
+    getWeatherData
 }

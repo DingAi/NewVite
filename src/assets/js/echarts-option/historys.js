@@ -1,11 +1,12 @@
 const historyAreaOption = {
     tooltip: {
+        // backgroundColor: '#ffffff',
         trigger: 'axis',
     },
-    title: {
-        left: 'center',
-        text: '历史图像'
-    },
+    // title: {
+    //     left: 'center',
+    //     text: '历史图像'
+    // },
     toolbox: {
         show: true,
         feature: {

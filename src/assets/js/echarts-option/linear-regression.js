@@ -207,6 +207,7 @@ const regressionData = [
 // let theRegression = ecStat.regression("linear", data, 1);
 
 const linearRegressionOption = {
+    color:["#0d6efd", "#d32d3c", "#074696", "#8e212b",],
     dataset: [
         {
             source: []

@@ -11,13 +11,14 @@ const apHistoryOption = {
         }
     },
     legend: {
-        top: '7%',
+        top: '9%',
         data: ['正气压', '负气压'],
     },
     toolbox: {
         feature: {
+            dataView: {readOnly: true},
+            saveAsImage: {},
             restore: {},
-
         }
     },
     axisPointer: {
