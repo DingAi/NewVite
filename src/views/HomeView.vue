@@ -62,8 +62,6 @@ let option = {
     }
 };
 
-console.log(coordinateConversion([107.999600, 34.244340]));
-
 </script>
 
 <template>

@@ -433,28 +433,23 @@ const soilSensorTable = [
     {
         layer: '1',
         state: true,
-        value: "10000"
     },
     {
         layer: '2',
         state: true,
-        value: "01000"
     },
     {
         layer: '3',
         state: true,
-        value: "00100"
         
     },
     {
         layer: '4',
         state: true,
-        value: "00010"
     },
     {
         layer: '5',
         state: true,
-        value: "00001"
     },
 ]
 

@@ -44,6 +44,7 @@ const sendData = async (slaveList, sensorsList, time) => {
         }
         let masterStr = masterValue.value.toString();
         try {
+            // const response = await getHistoryData(masterStr, dataList, time)
             const response = await getHistoryData(masterStr, dataList, time)
             historyData.value = response.data;
             if (historyData.value.length !== 0) {
@@ -137,7 +138,7 @@ onMounted(() => {
                         <p>主站选择</p>
                         <el-select v-model="masterValue" placeholder="Select" default-first-option>
                             <el-option label="主站 01" value="master01"/>
-                            <el-option label="主站 02" value="master02" disabled/>
+                            <el-option label="主站 02" value="master02"/>
                             <el-option label="主站 03" value="master03" disabled/>
                         </el-select>
                     </div>
@@ -187,11 +188,11 @@ onMounted(() => {
         <el-col :span="24" class="p-2">
             <div class="base-div">
                 <!--                <h1>数据图表</h1>-->
-                <!--                <h1>{{ masterValue }}</h1>-->
-                <!--                            <h1>{{ slaveStations }}</h1>-->
-                <!--                            <h1>{{ slaveValue }}</h1>-->
-                <!--                            <h1>{{ sensorValue }}</h1>-->
-                <!--                            <h1>{{ timeStr }}</h1>-->
+<!--                                <h1>{{ masterValue }}</h1>-->
+<!--                                            <h1>{{ slaveStations }}</h1>-->
+<!--                                            <h1>{{ slaveValue }}</h1>-->
+<!--                                            <h1>{{ sensorValue }}</h1>-->
+<!--                                            <h1>{{ timeStr }}</h1>-->
                 <!--                                            <h1>{{ historyData }}</h1>-->
                 <HistoryChart :historyData="historyData" :stations="slaveValue" :sensors="sensorValue"
                               v-if="isLoading"/>

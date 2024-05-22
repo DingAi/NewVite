@@ -60,7 +60,7 @@ const getAnalysisData = (masterNum, slaveNum, timeRange, boxVolume, boxBottomAre
 
 
 const getHistoryData = (masterNum, tabList, timeRange) => {
-    let url = `${currentService}/${masterNum}/range_query`
+    let url = `${currentService}/master01/range_query`
     return axios({
         url: url,
         method: 'post',
@@ -94,8 +94,8 @@ const getDataList = (selected, timeRange) => {
     })
 }
 
-const getRunningEquipment = () =>{
-    let url = `${currentService}/${midVar}/equipment`
+const getRunningEquipment = (masterNum) =>{
+    let url = `${currentService}/${masterNum}/equipment`
     return axios({
         url: url,
         method: "get",

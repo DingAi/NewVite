@@ -6,6 +6,7 @@ import {generateData} from "@/util/data-generator.js";
 import {timeSetNameList, trsnslateStationRunStep} from "@/assets/js/stations-data.js";
 import {getRunningEquipment} from "@/apis/request-api.js";
 
+const num = "master01"
 
 let switchData = reactive(generateData());
 let isAuto = ref(true);
@@ -20,7 +21,7 @@ const switchReserve = (switchValue) =>{
 }
 
 const equipmentRunStep = async () => {
-  const response = await getRunningEquipment();
+  const response = await getRunningEquipment(num);
   stationRunStep.value = trsnslateStationRunStep[response.data['step']];
   if(response.data['air']){
     airPumpStatus.value = '开启';
@@ -96,10 +97,10 @@ onMounted(()=>{
             <el-row class="equipment-page-h-80 p-2" id="master-div-2 ">
                 <div class="base-div chart-container">
                     <div class="left p-2">
-                        <CO2HistoryChart/>
+                        <CO2HistoryChart :masterNum="num"/>
                     </div>
                     <div class="right p-2">
-                        <APHistoryChart/>
+                        <APHistoryChart :masterNum="num"/>
                     </div>
                 </div>
             </el-row>

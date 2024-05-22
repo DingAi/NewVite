@@ -39,7 +39,7 @@ const handleSelect = (key, keyPath) => {
             <el-menu-item index="/workplace/workplace-1/master-1">
                 <el-text class="mx-1 nav-text" size="large">气体箱总站 01</el-text>
             </el-menu-item>
-            <el-menu-item index="/workplace/workplace-1/master-2" disabled>
+            <el-menu-item index="/workplace/workplace-2/master-2">
                 <el-text class="mx-1 nav-text" size="large">气体箱总站 02</el-text>
             </el-menu-item>
             <el-menu-item index="/workplace/workplace-1/master-3" disabled>

@@ -14,20 +14,21 @@ import {getHistoryData} from "@/apis/request-api.js";
 
 let co2Data = ref([]);
 
+
+const props = defineProps({
+    masterNum: String,
+})
+
 const refreshCO2History = async (dom) => {
     try {
         let co2s = ['co211', 'co212', 'co213', 'co214', 'co215', 'co216', 'co217', 'co218', ];
-        const response = await getHistoryData('master01', co2s, getTimeRange(6))
+        const response = await getHistoryData(props.masterNum, co2s, getTimeRange(6))
         co2Data.value = response.data;
         refresh(dom, co2Data.value);
     } catch (error) {
         console.error(error);
     }
 }
-
-const props = defineProps({
-    co2Data: Array,
-})
 
 let option = co2Option
 

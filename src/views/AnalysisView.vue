@@ -200,7 +200,7 @@ onMounted(() => {
                         <p>主站选择</p>
                         <el-select v-model="masterValue" placeholder="Select">
                             <el-option label="主站 01" value="master01"/>
-                            <el-option label="主站 02" value="master02" disabled/>
+                            <el-option label="主站 02" value="master02"/>
                             <el-option label="主站 03" value="master03" disabled/>
                         </el-select>
                     </div>

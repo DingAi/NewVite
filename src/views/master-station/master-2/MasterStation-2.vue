@@ -1,80 +1,147 @@
 <script setup>
-import {reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
+import APHistoryChart from "@/components/echarts/APHistoryChart.vue";
+import CO2HistoryChart from "@/components/echarts/CO2HistoryChart.vue";
 import {generateData} from "@/util/data-generator.js";
+import {timeSetNameList, trsnslateStationRunStep} from "@/assets/js/stations-data.js";
+import {getRunningEquipment} from "@/apis/request-api.js";
 
+
+const num = "master02"
 
 let switchData = reactive(generateData());
-const soilData = ref([
-    { name: '土壤含水量', value: Math.random().toFixed(2), unit: '%' },
-    { name: '土壤温度', value: Math.floor(Math.random() * (40 - 10 + 1) + 10), unit: '℃' },
-    { name: '土壤电导率', value: Math.random().toFixed(2), unit: 'dS/m' },
-    { name: '土壤PH', value: Math.random().toFixed(1), unit: '' },
-    { name: '土壤氮含量', value: Math.random().toFixed(2), unit: 'mg/kg' },
-    { name: '土壤磷含量', value: Math.random().toFixed(2), unit: 'mg/kg' },
-    { name: '土壤钾含量', value: Math.random().toFixed(2), unit: 'mg/kg' },
-    { name: '土壤盐度', value: Math.random().toFixed(2), unit: '%' },
-    { name: '土壤TDS', value: Math.floor(Math.random() * (2000 - 500 + 1) + 500), unit: 'ppm' },
-    { name: '风速', value: Math.random().toFixed(2), unit: 'm/s' }
-]);
+let isAuto = ref(true);
+let openPopup = ref(false);
 
-const weatherData = ref([
-    { name: '温度', value: Math.floor(Math.random() * (40 - 10 + 1) + 10), unit: '℃' },
-    { name: 'CO₂', value: Math.floor(Math.random() * (1000 - 300 + 1) + 300), unit: 'ppm' },
-    { name: '大气压力', value: Math.floor(Math.random() * (1050 - 950 + 1) + 950), unit: 'hPa' },
-    { name: '湿度', value: Math.random().toFixed(2) * 100, unit: '%' },
-    { name: '净辐射', value: Math.random().toFixed(2), unit: 'W/m²' },
-    { name: '光照', value: Math.floor(Math.random() * (1000 - 100 + 1) + 100), unit: 'lux' }
-]);
+let stationRunStep = ref('')
+let airPumpStatus = ref('')
+let runningStationNum = ref('')
 
-const solarData = ref([
-    { name: '光伏板电压', value: Math.random().toFixed(2), unit: 'V' },
-    { name: '光伏板电流', value: Math.random().toFixed(2), unit: 'A' },
-    { name: '光伏板发电功率', value: (Math.random() * 100).toFixed(2), unit: 'W' },
-    { name: '输出电压', value: Math.random().toFixed(2), unit: 'V' },
-    { name: '输出功率', value: (Math.random() * 1000).toFixed(2), unit: 'W' },
-    { name: '电池电压', value: (Math.random() * 12).toFixed(2), unit: 'V' },
-    { name: '电池电流', value: Math.random().toFixed(2), unit: 'A' },
-    { name: '输出电流', value: Math.random().toFixed(2), unit: 'A' }
-]);
+const switchReserve = (switchValue) =>{
+    switchValue = !switchValue;
+}
 
+const equipmentRunStep = async () => {
+    const response = await getRunningEquipment(num);
+    stationRunStep.value = trsnslateStationRunStep[response.data['step']];
+    if(response.data['air']){
+        airPumpStatus.value = '开启';
+    }else {
+        airPumpStatus.value = '关闭';
+    }
+    runningStationNum.value = '从站：0' + response.data['box'].toString();
+}
+
+onMounted(()=>{
+    equipmentRunStep()
+    setInterval(equipmentRunStep, 3000);
+})
 </script>
 
 <template>
-    <el-row class="z-0 full" :gutter="20">
-        <el-col :span="6">
-            <el-descriptions title="土壤数据"
-                             direction="vertical"
-                             :column="4"
-                             :size="'large'"
-                             border>
-                <el-descriptions-item v-for="item in soilData" :label="item.name" :key="item.name">
-                    {{ item.value }}{{ item.unit }}
-                </el-descriptions-item>
-            </el-descriptions>
-            <el-descriptions title="天气数据"
-                             direction="vertical"
-                             :column="4"
-                             :size="'large'"
-                             border>
-                <el-descriptions-item v-for="item in weatherData" :label="item.name" :key="item.name">
-                    {{ item.value }}{{ item.unit }}
-                </el-descriptions-item>
-            </el-descriptions>
-            <el-descriptions title="光伏设备"
-                             direction="vertical"
-                             :column="4"
-                             :size="'large'"
-                             border>
-                <el-descriptions-item v-for="item in solarData" :label="item.name" :key="item.name">
-                    {{ item.value }}{{ item.unit }}
-                </el-descriptions-item>
-            </el-descriptions>
+    <el-row class="z-0 full">
+        <el-col :span="18" :xs="24" class="full">
+            <el-row class="equipment-page-h-20 p-2" id="master-div-1">
+                <div class="base-div items">
+                    <div class="item">
+                        <div class="text-center">
+                            <h4>站点电量</h4>
+                            <el-progress :text-inside="true" :stroke-width="26" :percentage="70"/>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="text-center">
+                            <h4>模式切换</h4>
+                            <el-switch v-model="isAuto" class="ml-2" inline-prompt size="large"
+                                       style="--el-switch-on-color: #0d6efd; --el-switch-off-color: #1894ff"
+                                       active-text="自动模式" inactive-text="手动模式"/>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="text-center">
+                            <el-statistic title="正在运行的从站" :value="runningStationNum"/>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="text-center">
+                            <el-statistic title="运行步骤" :value="stationRunStep"/>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="text-center">
+                            <el-statistic title="气泵状态" :value="airPumpStatus"/>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <el-button @click="openPopup = true" round>时间设置</el-button>
+                        <div v-if="openPopup" class="popup-container z-1">
+                            <div v-if="openPopup" class="popup z-2">
+                                <h2>时间设置</h2>
+                                <div class="items" v-for="nameList in timeSetNameList">
+                                    <div class="item" v-for="name in nameList">
+                                        <div>
+                                            <p>{{ name }}</p>
+                                            <el-time-select v-model="value" style="width: 240px"
+                                                            start="00:00" step="00:10" end="10:00"
+                                                            placeholder="Select time"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <el-icon class="close-button" color="#a7a8aa" size="30" @click="openPopup = false">
+                                    <CloseBold/>
+                                </el-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </el-row>
+            <el-row class="equipment-page-h-80 p-2" id="master-div-2 ">
+                <div class="base-div chart-container">
+                    <div class="left p-2">
+                        <CO2HistoryChart :masterNum="num"/>
+                    </div>
+                    <div class="right p-2">
+                        <APHistoryChart :masterNum="num"/>
+                    </div>
+                </div>
+            </el-row>
         </el-col>
-        <el-col :span="12" class="base-div">
+        <el-col :span="6" :xs="24" class="p-2" id="switch">
+            <div class="base-div" style="max-height: 100%">
+                <div class="switch-group-container">
+                    <!--                    自动模式-->
+                    <div class="switch_group re-text" v-for="(group, index) in switchData" v-if="isAuto">
+                        <div class="station-name  text-center p-2">
+                            <el-text class="mx-1 text-primary" type="primary" size="large" style="font-weight: bold;">
+                                Slave Station : {{ index + 1 }}
+                            </el-text>
+                        </div>
+                        <div class="switchs">
+                            <div class="switch text-center" v-for="(item, key) in group" :key="key">
+                                <p class="text-color-1">{{ item.name }}</p>
+                                <el-tag type="primary" v-if="item.value" >运行</el-tag>
+                                <el-tag type="info" v-else >停止</el-tag>
+                            </div>
+                        </div>
+                    </div>
 
-        </el-col>
-        <el-col :span="6" class="base-div">
-
+                    <!--                    手动模式-->
+                    <div class="switch_group re-text" v-for="(group, index) in switchData" v-else>
+                        <div class="station-name  text-center p-2">
+                            <el-text class="mx-1 text-primary" type="primary" size="large">
+                                Slave Station : {{ index + 1 }}
+                            </el-text>
+                        </div>
+                        <div class="switchs text-center">
+                            <div class="switch" v-for="item in group">
+                                <p class="text-color-2">{{ item.name }}</p>
+                                <el-button size="small" type="default" round v-if="item.value" @click="switchReserve(item.value)">Close</el-button>
+                                <el-button size="small" type="primary" round v-else @click="switchReserve(item.value)">Open</el-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </el-col>
     </el-row>
 </template>
@@ -83,11 +150,12 @@ const solarData = ref([
 @import "@/assets/css/master-style";
 
 .text-color-1 {
-  color: #babbbc;
-  font-size: 1rem;
+    color: #8e8e8f;
+    font-size: 1rem;
 }
 
 .text-color-2 {
-  font-size: 1rem;
+    font-size: 1rem;
 }
+
 </style>

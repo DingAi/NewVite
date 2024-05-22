@@ -15,9 +15,13 @@ import {getHistoryData} from "@/apis/request-api.js";
 let option = apHistoryOption;
 let apHistoryData = ref([]);
 
+const props = defineProps({
+    masterNum: String,
+})
+
 const refreshAPHistory = async (dom, option) => {
   try {
-    const response = await getHistoryData('master01', ['qy11'], getTimeRange(6))
+    const response = await getHistoryData(props.masterNum, ['qy11'], getTimeRange(6))
     apHistoryData.value = response.data;
     refresh(dom, apHistoryData.value, option);
   } catch (error) {
