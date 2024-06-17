@@ -15,8 +15,10 @@ const historyAreaOption = {
             restore: {},
         }
     },
+    legend:{},
     grad: {
-        containLabel:true
+        // left: "5%",
+        // right: "5%",
     },
     xAxis: {
         type: 'category',

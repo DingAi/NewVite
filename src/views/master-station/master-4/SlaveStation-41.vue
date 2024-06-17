@@ -46,7 +46,7 @@ import {tiemstampHandle, timeHandle} from "@/util/data-generator.js";
 
 const page_name = ref('Master 01 : Slave01');
 const slaveNum = 1;
-const masterNum = 'master03'
+const masterNum = 'master04'
 const use_switch = useEquipmentStore();
 const switchData = use_switch.getSwitchData();
 let sensorData = reactive({});

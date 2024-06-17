@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiClient from './apis'
 
 const LocalService = 'xu';
 const cloudService = 'online';
@@ -7,9 +8,20 @@ const currentService = newService;
 
 let midVar = "master01"
 
-const getSensorData = (slaveNum, masterNum) => {
-    let url = `${currentService}/${masterNum}/real_time_data`;
+const userLogin = (credentials) =>{
+    let url = "new/user/user/dl";
     return axios({
+        url: url,
+        method: "POST",
+        data: {
+            credentials: credentials
+        }
+    })
+}
+
+const getSensorData = (slaveNum, masterNum) => {
+    let url = `/${masterNum}/real_time_data`;
+    return apiClient({
         url: url,
         method: 'post',
         data: {
@@ -22,8 +34,8 @@ const getSensorData = (slaveNum, masterNum) => {
 //获取一个站点的传感器数据
 //slave_num为从站编号
 const getSoilData = (slaveNum, masterNum) => {
-    let url = `${currentService}/${masterNum}/soil`
-    return axios({
+    let url = `/${masterNum}/soil`
+    return apiClient({
         url: url,
         method: 'post',
         data: {
@@ -34,8 +46,8 @@ const getSoilData = (slaveNum, masterNum) => {
 
 
 const getAPData = (masterNum) => {
-    let url = `${currentService}/${masterNum}/air_pressure`
-    return axios({
+    let url = `/${masterNum}/air_pressure`
+    return apiClient({
         url: url,
         method: 'get'
     })
@@ -43,9 +55,9 @@ const getAPData = (masterNum) => {
 
 //数据分析
 const getAnalysisData = (masterNum, slaveNum, timeRange, boxVolume, boxBottomArea) => {
-    let url = `${currentService}/${midVar}/data_analysis`
+    let url = `/${midVar}/data_analysis`
     // let url = `xu/data_analysis`
-    return axios({
+    return apiClient({
         url: url,
         method: 'post',
         data: {
@@ -60,8 +72,8 @@ const getAnalysisData = (masterNum, slaveNum, timeRange, boxVolume, boxBottomAre
 
 
 const getHistoryData = (masterNum, tabList, timeRange) => {
-    let url = `${currentService}/master01/range_query`
-    return axios({
+    let url = `/master01/range_query`
+    return apiClient({
         url: url,
         method: 'post',
         data: {
@@ -74,8 +86,8 @@ const getHistoryData = (masterNum, tabList, timeRange) => {
 
 
 const getMeteorologicalData = () =>{
-    let url = `${currentService}/${midVar}/meteorological_station`
-    return axios({
+    let url = `/${midVar}/meteorological_station`
+    return apiClient({
         url: url,
         method: 'get'
     })
@@ -95,18 +107,69 @@ const getDataList = (selected, timeRange) => {
 }
 
 const getRunningEquipment = (masterNum) =>{
-    let url = `${currentService}/${masterNum}/equipment`
-    return axios({
+    let url = `/${masterNum}/equipment`
+    return apiClient({
         url: url,
         method: "get",
     })
 }
 
-const getWeatherData = () => {
-    let url = 'weather/real_time_data';
+const getWeatherMasterData = (urlStr) => {
+    let url = `mqtt/${urlStr}`;
     return axios({
         url: url,
         method: 'get',
+    })
+}
+
+// 获取气象主站的开关状态数据
+const getWeatherMasterSwitchData = (masterNum) => {
+    let url = 'mswitch/disposable_switch';
+    return axios({
+        url: url,
+        method: 'post',
+        data: {
+            masterNum: masterNum
+        },
+    })
+}
+
+// 气象主站的开关控制
+const weatherSwitch = (hexString, masterNum) => {
+    let url = 'mswitch/switch_station';
+    return axios({
+        url: url,
+        method: 'post',
+        data: {
+            masterNum: masterNum,
+            hexString: hexString,
+        }
+        
+    })
+}
+
+// 气象主站的ECharts数据
+const getWeatherOtherData = (timeRange) => {
+    let url = `${currentService}/master01/weather_other_data`
+    return axios({
+        url: url,
+        method: 'post',
+        data: {
+            timeRange: timeRange,
+        },
+    })
+}
+
+const getWeatherTimeControl = (masterNum, index, timeValue) => {
+    let url = `mswitch/control_time`
+    return axios({
+        url: url,
+        method: 'post',
+        data: {
+            masterNum: masterNum,
+            index: index,
+            timeValue: timeValue,
+        },
     })
 }
 
@@ -120,5 +183,10 @@ export {
     getMeteorologicalData,
     getDataList,
     getRunningEquipment,
-    getWeatherData
+    getWeatherMasterData,
+    getWeatherMasterSwitchData,
+    userLogin,
+    getWeatherOtherData,
+    weatherSwitch,
+    getWeatherTimeControl,
 }

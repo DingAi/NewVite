@@ -3,7 +3,8 @@
         <el-row :gutter="20" class="base-row">
             <el-col :span="18" :xs="24" class="line-div p-2">
                 <div class="base-div">
-                    <LineChart :CO2="sensorData['carbon_dioxide']" :time="sensorData['time']" :pageName="page_name" :linesData="sensorData"/>
+                    <LineChart :CO2="sensorData['carbon_dioxide']" :time="sensorData['time']" :pageName="page_name"
+                               :linesData="sensorData"/>
                 </div>
             </el-col>
             <el-col :span="6" :xs="24" class="p-2">
@@ -14,14 +15,14 @@
         </el-row>
         <el-row :gutter="20" class="base-row">
             <el-col :span="12" :xs="24" class="area-div p-2">
-                <!--                这里的area-div类要写在外侧-->
                 <div class="base-div">
-                    <AreaChart :illumination="sensorData['illumination']" :time="sensorData['time']" :pageName="page_name"/>
+                    <AreaChart :illumination="sensorData['illumination']" :time="sensorData['time']"
+                               :pageName="page_name"/>
                 </div>
             </el-col>
             <el-col :span="6" :xs="24" class="gauge-div p-2">
                 <div class="base-div">
-                    <GaugeChart :ap="{'uap':apData['uap'], 'dap':apData['dap']}"/>
+                    <GaugeChart :ap="{ uap: apData.uap, dap: apData.dap }"/>
                 </div>
             </el-col>
             <el-col :span="6" :xs="24" class="p-2">
@@ -34,68 +35,77 @@
 </template>
 
 <script setup>
+import {ref, reactive, onMounted, onUnmounted} from "vue";
 import LineChart from "@/components/echarts/LineChart.vue";
-import {onMounted, reactive, ref} from "vue";
-import { useEquipmentStore } from "@/store/stations.js";
-import GaugeChart from "@/components/echarts/GaugeChart.vue";
-import {getAPData, getSensorData, getSoilData} from '@/apis/request-api.js'
 import AreaChart from "@/components/echarts/AreaChart.vue";
+import GaugeChart from "@/components/echarts/GaugeChart.vue";
 import EquipmentsSwitch from "@/components/slave-station/EquipmentsSwitch.vue";
 import SoilSensors from "@/components/slave-station/SoilSensors.vue";
-import {tiemstampHandle, timeHandle} from "@/util/data-generator.js";
+import {useEquipmentStore} from "@/store/stations.js";
+import {getAPData, getSensorData, getSoilData} from '@/apis/request-api.js';
+import {tiemstampHandle} from "@/util/data-generator.js";
 
 const page_name = ref('Master 01 : Slave01');
 const slaveNum = 1;
-const masterNum = 'master01'
+const masterNum = 'master01';
 const use_switch = useEquipmentStore();
 const switchData = use_switch.getSwitchData();
-let sensorData = reactive({});
-let apData = reactive({})
+const sensorData = reactive({});
+const apData = reactive({});
 const soilData = reactive({});
 
 const refresh = async () => {
     try {
-        const response = await getSensorData(slaveNum, masterNum);
-        sensorData.in_temperature = response.data['inTemperature'];
-        sensorData.ex_temperature = response.data['exTemperature'];
-        sensorData.in_humidity = response.data['inHumidity'];
-        sensorData.ex_humidity = response.data['exHumidity'];
-        sensorData.illumination = response.data['illumination'];
-        sensorData.time = tiemstampHandle(response.data['time']);
-
+        const sensorResponse = await getSensorData(slaveNum, masterNum);
+        Object.assign(sensorData, {
+            in_temperature: sensorResponse.data['inTemperature'],
+            ex_temperature: sensorResponse.data['exTemperature'],
+            in_humidity: sensorResponse.data['inHumidity'],
+            ex_humidity: sensorResponse.data['exHumidity'],
+            illumination: sensorResponse.data['illumination'],
+            time: tiemstampHandle(sensorResponse.data['time']),
+            carbon_dioxide: sensorResponse.data['carbonDioxide'],
+        });
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching sensor data:', error);
     }
 
     try {
-        const response = await getSoilData(slaveNum, masterNum);
-        soilData.layer1 = response.data['layer01'];
-        soilData.layer2 = response.data['layer02'];
-        soilData.layer3 = response.data['layer03'];
-        soilData.layer4 = response.data['layer04'];
-        soilData.layer5 = response.data['layer05'];
+        const soilResponse = await getSoilData(slaveNum, masterNum);
+        Object.assign(soilData, {
+            layer1: soilResponse.data['layer01'],
+            layer2: soilResponse.data['layer02'],
+            layer3: soilResponse.data['layer03'],
+            layer4: soilResponse.data['layer04'],
+            layer5: soilResponse.data['layer05'],
+        });
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching soil data:', error);
     }
 
     try {
-        const response = await getAPData(masterNum);
-        apData.uap = response.data['UAP']
-        apData.dap = response.data['DAP']
+        const apResponse = await getAPData(masterNum);
+        Object.assign(apData, {
+            uap: apResponse.data['UAP'],
+            dap: apResponse.data['DAP'],
+        });
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching AP data:', error);
     }
-}
+};
 
-refresh();
+let intervalId;
 
-onMounted(() =>{
-    setInterval(() => {
-        refresh();
-    }, 5000);
+onMounted(() => {
+    refresh();
+    intervalId = setInterval(refresh, 5000);
+});
+
+onUnmounted(() => {
+    clearInterval(intervalId);
 });
 </script>
 
 <style scoped>
-
+/* Add your styles here */
 </style>

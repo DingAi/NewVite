@@ -1,21 +1,15 @@
 <script setup>
 import {useUserStore} from "@/store/user.js";
 
-
 const userStore = useUserStore();
-
-const handleSelect = (key, keyPath) => {
-    console.log(key, keyPath)
-}
-
 </script>
 
 <template>
     <el-menu :default-active="$route.path"
              mode="horizontal"
              :router="true"
-             active-text-color="#ffc107"
              background-color="#005eeb"
+             active-text-color="#ffc107"
              text-color="#fff"
     >
         <el-sub-menu index="1">
@@ -42,14 +36,28 @@ const handleSelect = (key, keyPath) => {
             <el-menu-item index="/workplace/workplace-2/master-2">
                 <el-text class="mx-1 nav-text" size="large">气体箱总站 02</el-text>
             </el-menu-item>
-            <el-menu-item index="/workplace/workplace-1/master-3" disabled>
+            <el-menu-item index="/workplace/workplace-3/master-3">
                 <el-text class="mx-1 nav-text" size="large">气体箱总站 03</el-text>
+            </el-menu-item>
+            <el-menu-item index="/workplace/workplace-4/master-4">
+                <el-text class="mx-1 nav-text" size="large">气体箱总站 04</el-text>
             </el-menu-item>
             <el-menu-item index="/meteorological">
                 <el-text class="mx-1 nav-text" size="large">气象站</el-text>
             </el-menu-item>
-            <el-menu-item index="/spatial">
-                <el-text class="mx-1 nav-text" size="large">空间碳通量检测</el-text>
+            <!--            <el-menu-item index="/spatial">-->
+            <!--                <el-text class="mx-1 nav-text" size="large">空间碳通量检测</el-text>-->
+            <!--            </el-menu-item>-->
+        </el-sub-menu>
+        <el-sub-menu index="3">
+            <template #title>
+                <el-text class="mx-1 nav-text" size="large">气象主站</el-text>
+            </template>
+            <el-menu-item index="/weather-1">
+                <el-text class="mx-1 nav-text" size="large">气象主站 01</el-text>
+            </el-menu-item>
+            <el-menu-item index="/weather-2">
+                <el-text class="mx-1 nav-text" size="large">气象主站 02</el-text>
             </el-menu-item>
         </el-sub-menu>
         <el-menu-item index="/history">
@@ -58,15 +66,15 @@ const handleSelect = (key, keyPath) => {
         <el-menu-item index="/analysis">
             <el-text class="mx-1 nav-text" size="large">数据分析</el-text>
         </el-menu-item>
-        <el-menu-item index="/weather">
-            <el-text class="mx-1 nav-text" size="large">Weather</el-text>
-        </el-menu-item>
         <el-menu-item index="/map">
             <el-text class="mx-1 nav-text" size="large">2D 地图</el-text>
         </el-menu-item>
         <el-menu-item index="/map-3d">
             <el-text class="mx-1 nav-text" size="large">3D 地图</el-text>
         </el-menu-item>
+        <!--        <el-menu-item index="/sub-station">-->
+        <!--            <el-text class="mx-1 nav-text" size="large">SubStations</el-text>-->
+        <!--        </el-menu-item>-->
         <!--        <el-menu-item index="/data-list">数据列表</el-menu-item>-->
     </el-menu>
 </template>
@@ -76,8 +84,10 @@ const handleSelect = (key, keyPath) => {
     flex-grow: 1;
 }
 
-.nav-text{
-    color: white;
+.nav-text {
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'SmileySans', sans-serif;
 }
 
 </style>

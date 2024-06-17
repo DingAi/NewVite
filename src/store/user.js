@@ -2,7 +2,16 @@ import { defineStore } from 'pinia';
 import { ref } from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
-import { ElNotification } from 'element-plus'
+import {ElMessage, ElNotification} from 'element-plus'
+
+const openVn = () => {
+    ElMessage({
+        message: h('p', { style: 'line-height: 1; font-size: 14px' }, [
+            h('span', null, 'Message can be '),
+            h('i', { style: 'color: teal' }, 'VNode'),
+        ]),
+    })
+}
 
 export const useUserStore = defineStore('user', () => {
     const isAuthenticated = ref(false);
@@ -13,8 +22,7 @@ export const useUserStore = defineStore('user', () => {
         return token.value;
     };
 
-    const login = (credentials) => {
-        // 可以替换为实际的登录逻辑
+    const login = async (credentials) => {
         axios.post('new/user/user/dl', {credentials}).then(response => {
             isAuthenticated.value = response.data.isAuthenticated;
             if (isAuthenticated.value) {
@@ -22,6 +30,7 @@ export const useUserStore = defineStore('user', () => {
                     title: 'Success',
                     message: '登录成功！',
                     type: 'success',
+                    offset: 100
                 })
                 user.value = credentials.value.username
                 token.value = response.data.token;
@@ -32,6 +41,7 @@ export const useUserStore = defineStore('user', () => {
                     title: 'Error',
                     message: '登录失败！',
                     type: 'error',
+                    offset: 100
                 })
             }
         }).catch(error => {

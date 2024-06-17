@@ -49,7 +49,7 @@ const routes = [
     {
         path: '/test',
         name: 'Test',
-        component: () => import('../views/Test.vue'),
+        component: () => import('../views/test/Test.vue'),
         meta: {
             isShowNav: true
         }
@@ -73,15 +73,23 @@ const routes = [
     {
         path: '/spatial',
         name: 'Spatial',
-        component: () => import('../views/SpatialDataCollectionView.vue'),
+        component: () => import('../views/test/SpatialDataCollectionView.vue'),
         meta: {
             isShowNav: true
         }
     },
     {
-        path: '/weather',
-        name: 'Weather',
-        component: () => import('../views/WeatherView.vue'),
+        path: '/weather-1',
+        name: 'Weather-1',
+        component: () => import('../views/master-station/weather-master/WeatherMasterView-1.vue'),
+        meta: {
+            isShowNav: true
+        }
+    },
+    {
+        path: '/weather-2',
+        name: 'Weather-2',
+        component: () => import('../views/master-station/weather-master/WeatherMasterView-2.vue'),
         meta: {
             isShowNav: true
         }
@@ -97,7 +105,15 @@ const routes = [
     {
         path: '/other',
         name: 'Other',
-        component: () => import('../views/Tiles.vue'),
+        component: () => import('../views/test/Tiles.vue'),
+        meta: {
+            isShowNav: true
+        }
+    },
+    {
+        path: '/sub-station',
+        name: 'SubStations',
+        component: () => import('../views/test/SubStations.vue'),
         meta: {
             isShowNav: true
         }
@@ -224,6 +240,98 @@ const routes = [
                         path: 'master-3',
                         name: 'MasterStation-3',
                         component: () => import('../views/master-station/master-3/MasterStation-3.vue'),
+                    },
+                    {
+                        path: 'slave-3-1',
+                        name: 'SlaveStation-3-1',
+                        component: () => import('../views/master-station/master-3/SlaveStation-31.vue'),
+                    },
+                    {
+                        path: 'slave-3-2',
+                        name: 'SlaveStation-3-2',
+                        component: () => import('../views/master-station/master-3/SlaveStation-32.vue'),
+                    },
+                    {
+                        path: 'slave-3-3',
+                        name: 'SlaveStation-3-3',
+                        component: () => import('../views/master-station/master-3/SlaveStation-33.vue'),
+                    },
+                    {
+                        path: 'slave-3-4',
+                        name: 'SlaveStation-3-4',
+                        component: () => import('../views/master-station/master-3/SlaveStation-34.vue'),
+                    },
+                    {
+                        path: 'slave-3-5',
+                        name: 'SlaveStation-3-5',
+                        component: () => import('../views/master-station/master-3/SlaveStation-35.vue'),
+                    },
+                    {
+                        path: 'slave-3-6',
+                        name: 'SlaveStation-3-6',
+                        component: () => import('../views/master-station/master-3/SlaveStation-36.vue'),
+                    },
+                    {
+                        path: 'slave-3-7',
+                        name: 'SlaveStation-3-7',
+                        component: () => import('../views/master-station/master-3/SlaveStation-37.vue'),
+                    },
+                    {
+                        path: 'slave-3-8',
+                        name: 'SlaveStation-3-8',
+                        component: () => import('../views/master-station/master-3/SlaveStation-38.vue'),
+                    },
+                ],
+            },
+            {
+                path: 'workplace-4',
+                name: 'Workplace-4',
+                component: () => import('../views/master-station/master-4/Workplace-4.vue'),
+                children: [
+                    {
+                        path: 'master-4',
+                        name: 'MasterStation-4',
+                        component: () => import('../views/master-station/master-4/MasterStation-4.vue'),
+                    },
+                    {
+                        path: 'slave-4-1',
+                        name: 'SlaveStation-4-1',
+                        component: () => import('../views/master-station/master-4/SlaveStation-41.vue'),
+                    },
+                    {
+                        path: 'slave-4-2',
+                        name: 'SlaveStation-4-2',
+                        component: () => import('../views/master-station/master-4/SlaveStation-42.vue'),
+                    },
+                    {
+                        path: 'slave-4-3',
+                        name: 'SlaveStation-4-3',
+                        component: () => import('../views/master-station/master-4/SlaveStation-43.vue'),
+                    },
+                    {
+                        path: 'slave-4-4',
+                        name: 'SlaveStation-4-4',
+                        component: () => import('../views/master-station/master-4/SlaveStation-44.vue'),
+                    },
+                    {
+                        path: 'slave-4-5',
+                        name: 'SlaveStation-4-5',
+                        component: () => import('../views/master-station/master-4/SlaveStation-45.vue'),
+                    },
+                    {
+                        path: 'slave-4-6',
+                        name: 'SlaveStation-4-6',
+                        component: () => import('../views/master-station/master-4/SlaveStation-46.vue'),
+                    },
+                    {
+                        path: 'slave-4-7',
+                        name: 'SlaveStation-4-7',
+                        component: () => import('../views/master-station/master-4/SlaveStation-47.vue'),
+                    },
+                    {
+                        path: 'slave-4-8',
+                        name: 'SlaveStation-4-8',
+                        component: () => import('../views/master-station/master-4/SlaveStation-48.vue'),
                     },
                 ],
             },

@@ -1,61 +1,45 @@
 <script setup>
-import {ref} from "vue";
+import {reactive} from "vue";
 
 const props = defineProps({
     soil_data: Object,
 });
-let sensorName = ref(['VWC', 'ST', 'SDC'])
-let chineseName = ref(['体积含水量', '土壤温度', '土壤介电常数'])
+
+const sensorNames = reactive([
+    {name: "VWC", tooltip: "体积含水量"},
+    {name: "ST", tooltip: "土壤温度"},
+    {name: "SDC", tooltip: "土壤介电常数"},
+]);
 </script>
+
 
 <template>
     <table class="table table-borderless full re-text">
         <thead>
         <tr>
             <th scope="col">Layer</th>
-            <th scope="col">
-                <el-tooltip content="体积含水量" placement="top">
-                    {{ sensorName[0] }}
-                </el-tooltip>
-            </th>
-            <th scope="col">
-                <el-tooltip content="土壤温度" placement="top">
-                    {{ sensorName[1] }}
-                </el-tooltip>
-            </th>
-            <th scope="col">
-                <el-tooltip content="土壤介电常数" placement="top">
-                    {{ sensorName[2] }}
+            <th v-for="(sensor, index) in sensorNames" :key="index" scope="col">
+                <el-tooltip :content="sensor.tooltip" placement="top">
+                    {{ sensor.name }}
                 </el-tooltip>
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(item, index) in soil_data" :key="item">
+        <tr v-for="(item, index) in soil_data" :key="index">
             <th scope="row">
-                    <span class="badge bg-dark">
-                        {{ index }}
-                    </span>
+                <span class="badge bg-dark">{{ index }}</span>
             </th>
-            <td>
-                    <span class="badge bg-warning">
-                        {{ item.sensor03 }}%
-                    </span>
-            </td>
-            <td>
-                    <span class="badge bg-warning">
-                        {{ item.sensor02 }}℃
-                    </span>
-            </td>
-            <td>
-                    <span class="badge bg-warning">
-                        {{ item.sensor01 }}μs
-                    </span>
+            <td v-for="(sensor, i) in ['sensor03', 'sensor02', 'sensor01']" :key="i">
+          <span class="badge bg-warning">
+            {{ item[sensor] }}{{ i === 0 ? ' %' : i === 1 ? ' ℃' : ' μs' }}
+          </span>
             </td>
         </tr>
         </tbody>
     </table>
 </template>
+
 
 <style scoped>
 .table {

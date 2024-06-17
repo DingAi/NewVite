@@ -1,8 +1,5 @@
 <script setup>
-
-// let slave_num = reactive(1);
 import {ref} from "vue";
-import Sidebar from "@/components/Sidebar.vue";
 
 //抽屉收放状态码
 const drawer = ref(false)

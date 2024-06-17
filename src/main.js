@@ -20,7 +20,7 @@ import 'element-plus/dist/index.css'
 import ElementPlus from 'element-plus'
 //Element plus国际化-中文
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import {useUserStore} from "@/store/user.js";
+
 app.use(ElementPlus, {
     locale: zhCn,
 })
@@ -36,7 +36,3 @@ app.config.globalProperties.$routerG = router;
 app.mount('#app')
 
 
-// window.addEventListener('beforeunload', () => {
-//     const userStore = useUserStore();
-//     userStore.logout()
-// });

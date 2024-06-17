@@ -1,3 +1,26 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+header {
+    height: auto;
+    @media (min-width: 768px) {
+        height: 4vh !important;  // 在电脑端的属性
+    }
+}
+
+
+main {
+    height: auto;
+    background: #FAFCFF;
+    //background: white;
+
+    @media (min-width: 768px) {
+        height: 96vh  // 在电脑端的属性
+    }
+}
+
+
 @blur-radius: 10px; // 模糊半径
 @glass-color: rgba(255, 255, 255, 0.5); // 玻璃颜色
 
@@ -7,6 +30,12 @@
 //桌面端的高度变量
 @desktop-h-50: 50%;
 
+@font-face {
+    font-family: 'SmileySans';
+    src: url('~@/assets/font/SmileySans-Oblique.ttf.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
 #app {
     min-height: 100vh;
@@ -14,6 +43,9 @@
 
 .b-temp {
     background: skyblue;
+}
+.bg-base-blue {
+    background: #0d6efd;
 }
 
 .content-center {
@@ -71,28 +103,15 @@
     }
 }
 
-header {
-    height: auto;
-    @media (min-width: 768px) {
-        height: 4vh !important;  // 在电脑端的属性
-    }
-}
-
-
-main {
-    height: auto;
-
-    @media (min-width: 768px) {
-        height: 96vh  // 在电脑端的属性
-    }
-}
-
 .base-div {
     width: 100%;
     height: 100%;
-    box-shadow: rgba(83, 100, 110, 0.08) 0px 4px 12px;
-    //border-radius: 0.5rem;
+    //box-shadow: rgba(83, 100, 110, 0.08) 0px 4px 12px;
+    //box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    border-radius: 0.5rem;
     padding: 1.5rem;
+    background: white;
 
     &:after {
         content: "";
@@ -133,7 +152,7 @@ main {
 }
 
 .history-chart {
-    height: 600px;
+    height: 700px;
 
     @media (min-width: 768px) {
         height: 80%;  // 在电脑端的属性
@@ -195,33 +214,38 @@ main {
 
 body {
     background: #0d6efd;
+    font-family: 'SmileySans', sans-serif;
 }
 
 .data-container {
     display: flex;
     width: 100%;
     height: 100%;
+    //gap: 1rem;
+    .left-3, .right-3  {
+        flex: 1;
+    }
 
     .left {
         flex: 30%;
         max-height: 100%;
         overflow: hidden;
+        //box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+        //border-radius: 0.5rem;
+
 
         .timeline-div {
             overflow-y: auto;
             max-height: 100%;
         }
-
-        //.timeline-div::-webkit-scrollbar {
-        //  display: none;
-        //}
     }
 
     .right {
         flex: 70%;
         width: 100%;
         max-height: 100%;
-        //background-color: lightblue;
+        //box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+        //border-radius: 0.5rem;
     }
 
     .right2 {
@@ -288,7 +312,7 @@ body {
     display: flex;
     flex-direction: column;
 
-    div{
+    div {
         width: 100%;
         flex: 1;
     }

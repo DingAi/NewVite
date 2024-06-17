@@ -1,7 +1,7 @@
 <script setup>
 import * as echarts from 'echarts';
 import {onMounted} from "vue";
-import {coordinateConversion} from "@/util/data-generator.js";
+
 
 onMounted(() => {
     let chartDom = document.getElementById('home');
@@ -21,8 +21,8 @@ let option = {
                 top: 'center',
                 style: {
                     // text: 'Home page is building',
-                    text: '春眠不觉晓',
-                    fontSize: 80,
+                    text: '阴山下，敕勒川',
+                    fontSize: 100,
                     fontWeight: 'bold',
                     lineDash: [0, 200],
                     lineDashOffset: 0,
@@ -65,11 +65,10 @@ let option = {
 </script>
 
 <template>
-    <div class="full" id="home">
-        <!--  <h1>-->
-        <!--    主页面正在施工-->
-        <!--  </h1>-->
-    </div>
+    <el-row class="full">
+        <div class="base-div" id="home"></div>
+    </el-row>
+
 </template>
 
 <style scoped>
@@ -77,7 +76,7 @@ let option = {
     /*在手机端的属性*/
     @media (max-width: 769px) {
         width: 100%;
-        height: 600px;
+        height: 100vh;
     }
 }
 

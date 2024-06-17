@@ -12,6 +12,7 @@ export default defineConfig({
   plugins: [
     vue(),
     cesium(),
+    // assetsInclude: ['**/*.woff', '**/*.woff2', '**/*.ttf', '**/*.eot'],
     AutoImport({
       // 这里除了引入 vue 以外还可以引入pinia、vue-router、vueuse等，
       // 甚至你还可以使用自定义的配置规则，见 https://github.com/antfu/unplugin-auto-import#configuration
@@ -64,7 +65,7 @@ export default defineConfig({
     https: false,
     proxy: {
       "/fastapi": {
-        target: "http://127.0.0.1:8000/",
+        target: "http://192.168.28.33:8000/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/fastapi/, ""),
       },
@@ -85,10 +86,21 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/new/, ""),
       },
-      "/weather": {
-        target: "http://47.92.170.190:9000",
+      "/mqtt": {
+        target: "http://192.168.30.119:6001",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/weather/, ""),
+        rewrite: (path) => path.replace(/^\/mqtt/, ""),
+      },
+      "/mswitch": {
+        target: "http://192.168.30.119:9900",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/mswitch/, ""),
+      },
+      "/my": {
+        target: "ws://127.0.0.1:8000",
+        changeOrigin: true,
+        ws:true,
+        rewrite: (path) => path.replace(/^\/my/, ""),
       },
     },
   },

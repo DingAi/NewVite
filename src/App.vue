@@ -1,16 +1,5 @@
 <script setup>
 import NavBar from "./components/NavBar.vue";
-// import {useUserStore} from "@/store/user.js";
-
-
-// window.addEventListener('beforeunload', () => {
-
-// });
-//
-// onBeforeUnmount(()=>{
-//     const userStore = useUserStore();
-//     userStore.logout()
-// })
 </script>
 
 <template>
@@ -21,5 +10,7 @@ import NavBar from "./components/NavBar.vue";
 </template>
 
 <style scoped>
-
+:deep(.el-header ){
+    --el-header-padding: 0;
+}
 </style>

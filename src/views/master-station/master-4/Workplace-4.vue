@@ -1,8 +1,5 @@
 <script setup>
-
-// let slave_num = reactive(1);
 import {ref} from "vue";
-import Sidebar from "@/components/Sidebar.vue";
 
 //抽屉收放状态码
 const drawer = ref(false)
@@ -23,56 +20,56 @@ const switch_drawer = () => {
             </el-button>
         </el-affix>
         <el-drawer v-model="drawer" :with-header="false" :direction="'ltr'" :size="180">
-            <el-menu default-active="/workplace/workplace-3/master-1" :router="true">
-                <el-menu-item index="/workplace/workplace-3/master-1" @click="switch_drawer">
+            <el-menu default-active="/workplace/workplace-4/master-4" :router="true">
+                <el-menu-item index="/workplace/workplace-4/master-4" @click="switch_drawer">
                     <el-icon>
                         <Platform/>
                     </el-icon>
                     <span> 主站 02 概览</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-3/slave-1-1" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-4/slave-4-1" @click="switch_drawer">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
                     <span>从站 01</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-3/slave-1-3" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-4/slave-4-2" @click="switch_drawer">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
                     <span>从站 02</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-3/slave-1-3" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-4/slave-4-3" @click="switch_drawer">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
                     <span>从站 03</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-3/slave-1-4" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-4/slave-4-4" @click="switch_drawer">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
                     <span>从站 04</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-3/slave-1-5" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-4/slave-4-5" @click="switch_drawer">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
                     <span>从站 05</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-3/slave-1-6" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-4/slave-4-6" @click="switch_drawer">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
                     <span>从站 06</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-3/slave-1-7" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-4/slave-4-7" @click="switch_drawer">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
                     <span>从站 07</span>
                 </el-menu-item>
-                <el-menu-item index="/workplace/workplace-3/slave-1-8" @click="switch_drawer">
+                <el-menu-item index="/workplace/workplace-4/slave-4-8" @click="switch_drawer">
                     <el-icon>
                         <Monitor/>
                     </el-icon>
@@ -82,57 +79,57 @@ const switch_drawer = () => {
         </el-drawer>
         <el-row class="full">
             <el-col :span="3" :xs="0" class="hidden-on-mobile p-2">
-                <el-menu default-active="/workplace/workplace-3/master-3" :router="true"
+                <el-menu default-active="/workplace/workplace-4/master-4" :router="true"
                          active-text-color="#0d6efd">
-                    <el-menu-item index="/workplace/workplace-3/master-3">
+                    <el-menu-item index="/workplace/workplace-4/master-4">
                         <el-icon>
                             <Platform/>
                         </el-icon>
-                        <span class="text-style">主站 03 概览</span>
+                        <span class="text-style">主站 04 概览</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-3/slave-3-1">
+                    <el-menu-item index="/workplace/workplace-4/slave-4-1">
                         <el-icon>
                             <Monitor/>
                         </el-icon>
                         <span class="text-style">从站 01</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-3/slave-3-3">
+                    <el-menu-item index="/workplace/workplace-4/slave-4-2">
                         <el-icon>
                             <Monitor/>
                         </el-icon>
                         <span class="text-style">从站 02</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-3/slave-3-3">
+                    <el-menu-item index="/workplace/workplace-4/slave-4-3">
                         <el-icon>
                             <Monitor/>
                         </el-icon>
                         <span class="text-style">从站 03</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-3/slave-3-4">
+                    <el-menu-item index="/workplace/workplace-4/slave-4-4">
                         <el-icon>
                             <Monitor/>
                         </el-icon>
                         <span class="text-style">从站 04</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-3/slave-3-5">
+                    <el-menu-item index="/workplace/workplace-4/slave-4-5">
                         <el-icon>
                             <Monitor/>
                         </el-icon>
                         <span class="text-style">从站 05</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-3/slave-3-6">
+                    <el-menu-item index="/workplace/workplace-4/slave-4-6">
                         <el-icon>
                             <Monitor/>
                         </el-icon>
                         <span class="text-style">从站 06</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-3/slave-3-7">
+                    <el-menu-item index="/workplace/workplace-4/slave-4-7">
                         <el-icon>
                             <Monitor/>
                         </el-icon>
                         <span class="text-style">从站 07</span>
                     </el-menu-item>
-                    <el-menu-item index="/workplace/workplace-3/slave-3-8">
+                    <el-menu-item index="/workplace/workplace-4/slave-4-8">
                         <el-icon>
                             <Monitor/>
                         </el-icon>

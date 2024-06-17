@@ -38,9 +38,8 @@ const refresh = async (dom) => {
         dataList01 = response.data['values_list'][0]
         dataList02 = response.data['values_list'][1]
         let tempTimeList = response.data['values_list'][2]
-        console.log(timeList)
         for (let item of tempTimeList){
-            timeList.push(moment(item).format('YYYY-MM-DD HH:mm:ss'));
+            timeList.push(moment.utc(item).format('YYYY-MM-DD HH:mm:ss'));
         }
         let optionData01 = {
             ...optionData,

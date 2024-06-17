@@ -17,8 +17,8 @@ const machiningFun = (data) =>{
 let processedData = ref([])
 
 const sensorNames = reactive([
-    {name: "ST", tooltip: "土壤温度", field: "sensor01", unit: "℃"},
     {name: "SM", tooltip: "土壤含水率", field: "sensor02", unit: "%"},
+    {name: "ST", tooltip: "土壤温度", field: "sensor01", unit: "℃"},
     {name: "SEC", tooltip: "土壤电导率", field: "sensor04", unit: "μs/cm"},
     {name: "SS", tooltip: "土壤盐度", field: "sensor03", unit: "‰"}
 ]);

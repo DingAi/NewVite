@@ -5,6 +5,7 @@ import CO2HistoryChart from "@/components/echarts/CO2HistoryChart.vue";
 import {generateData} from "@/util/data-generator.js";
 import {timeSetNameList, trsnslateStationRunStep} from "@/assets/js/stations-data.js";
 import {getRunningEquipment} from "@/apis/request-api.js";
+import {CloseBold} from "@element-plus/icons-vue";
 
 const num = "master01"
 
@@ -44,13 +45,13 @@ onMounted(()=>{
                 <div class="base-div items">
                     <div class="item">
                         <div class="text-center">
-                            <h4>站点电量</h4>
+                            <el-text>站点电量</el-text>
                             <el-progress :text-inside="true" :stroke-width="26" :percentage="70"/>
                         </div>
                     </div>
                     <div class="item">
                         <div class="text-center">
-                            <h4>模式切换</h4>
+                            <h6>模式切换</h6>
                             <el-switch v-model="isAuto" class="ml-2" inline-prompt size="large"
                                        style="--el-switch-on-color: #0d6efd; --el-switch-off-color: #1894ff"
                                        active-text="自动模式" inactive-text="手动模式"/>
@@ -134,8 +135,8 @@ onMounted(()=>{
                         <div class="switchs text-center">
                             <div class="switch" v-for="item in group">
                                 <p class="text-color-2">{{ item.name }}</p>
-                                <el-button size="small" type="default" round v-if="item.value" @click="switchReserve(item.value)">Close</el-button>
-                                <el-button size="small" type="primary" round v-else @click="switchReserve(item.value)">Open</el-button>
+                                <el-button size="small" type="default" round v-if="item.value">Close</el-button>
+                                <el-button size="small" type="primary" round v-else>Open</el-button>
                             </div>
                         </div>
                     </div>

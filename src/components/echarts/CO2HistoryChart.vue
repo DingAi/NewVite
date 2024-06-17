@@ -13,13 +13,11 @@ import {getHistoryData} from "@/apis/request-api.js";
 
 
 let co2Data = ref([]);
-
-
 const props = defineProps({
     masterNum: String,
 })
 
-const refreshCO2History = async (dom) => {
+const getCO2History = async (dom) => {
     try {
         let co2s = ['co211', 'co212', 'co213', 'co214', 'co215', 'co216', 'co217', 'co218', ];
         const response = await getHistoryData(props.masterNum, co2s, getTimeRange(6))
@@ -61,7 +59,7 @@ function refresh(dom, co2Data) {
 onMounted(() => {
     let dom = IdInitEcharts('co2-dom');
     dom.showLoading();
-    refreshCO2History(dom)
+    getCO2History(dom)
     window.addEventListener('resize', function () {
         dom.resize();
     });

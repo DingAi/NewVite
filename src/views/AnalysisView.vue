@@ -12,7 +12,7 @@ import {ElNotification} from "element-plus";
 
 
 //主站、从站、时间范围选择（已经包括了一部分缺省值）
-const masterValue = ref('master01')
+const masterValue = ref('master02')
 const slaveValue = ref('11')
 let slaveStationList = ref([]) //用来做匹配的列表
 const timeRangeStr = ref(getTimeRange(12)) //设置最初显示多少小时的数据
@@ -122,6 +122,11 @@ const getLoadData = async (masterValue, slaveValue, timeRangeStr, boxVolume, box
 
 
 const fluxDataDownload = (fluxData) => {
+    function listAlign(standardList, targetList) {
+        return Array(standardList.length - targetList.length).fill(null).concat(targetList);
+        // log(Array(standardList.length - targetList.length).fill(null).concat(targetList))
+    }
+
     if (slaveValue && timeRangeStr) {
         try {
             let tabHeader = ['CO2 flux', 'H2O flux', 'CO2 K', 'CO2 RS', 'H2O K', 'H2O RS',
@@ -131,8 +136,10 @@ const fluxDataDownload = (fluxData) => {
                 'Layer2 VolumetricMoistureContent', 'Layer2 Soil Temperature', 'Time',];
             let totalData = [fluxData.ec, fluxData.ew, fluxData.ck, fluxData.cr, fluxData.hk, fluxData.hr,
                 fluxData.inTemperatureAve, fluxData.inHumidityAve, fluxData.exTemperatureAve, fluxData.exHumidityAve, fluxData.CO2Ave, fluxData.VPDAve,
-                fluxData.mAveCO2, fluxData.mAveTemperature, fluxData.mAveHumidity, fluxData.mAveAP, fluxData.mAveWindSheep,
-                fluxData.mAveRadiation, fluxData.mAveIllumination, fluxData.volumetricMoistureContent1,
+                listAlign(fluxData.timeList, fluxData.mAveCO2), listAlign(fluxData.timeList, fluxData.mAveTemperature),
+                listAlign(fluxData.timeList, fluxData.mAveHumidity), listAlign(fluxData.timeList, fluxData.mAveAP),
+                listAlign(fluxData.timeList, fluxData.mAveWindSheep), listAlign(fluxData.timeList, fluxData.mAveRadiation),
+                listAlign(fluxData.timeList, fluxData.mAveIllumination), fluxData.volumetricMoistureContent1,
                 fluxData.soilTemperature1, fluxData.volumetricMoistureContent2, fluxData.soilTemperature2,
                 timeDataTransform(fluxData.timeList),];
 
@@ -198,17 +205,18 @@ onMounted(() => {
                 <div class="item">
                     <div class="text-center" style="width: 240px">
                         <p>主站选择</p>
-                        <el-select v-model="masterValue" placeholder="Select">
-                            <el-option label="主站 01" value="master01"/>
-                            <el-option label="主站 02" value="master02"/>
-                            <el-option label="主站 03" value="master03" disabled/>
+                        <el-select v-model="masterValue" placeholder="Select" size="large">
+                            <el-option label="气体箱主站 01" value="master01"/>
+                            <el-option label="气体箱主站 02" value="master02"/>
+                            <el-option label="气体箱主站 03" value="master03" disabled/>
+                            <el-option label="气体箱主站 04" value="master04" disabled/>
                         </el-select>
                     </div>
                 </div>
                 <div class="item">
                     <div class="text-center" style="width: 240px">
                         <p>从站选择</p>
-                        <el-select v-model="slaveValue" collapse-tags placeholder="Select">
+                        <el-select v-model="slaveValue" collapse-tags placeholder="Select" size="large">
                             <el-option v-for="item in slaveStationList" :label="item.label" :key="item"
                                        :value="item.value"/>
                         </el-select>
@@ -220,6 +228,7 @@ onMounted(() => {
                         <el-date-picker style="width:320px"
                                         v-model="timeRangeStr"
                                         type="datetimerange"
+                                        size="large"
                                         value-format="YYYY-MM-DD HH:mm:ss" start-placeholder="开始时间"
                                         end-placeholder="结束时间"
                                         :shortcuts="shortcuts"/>
@@ -227,8 +236,8 @@ onMounted(() => {
                 </div>
                 <div class="item">
                     <div>
-                        <el-button
-                            @click="getLoadData(masterValue, slaveValue, timeRangeStr, boxVolume, boxBottomArea)">
+                        <el-button size="large"
+                                   @click="getLoadData(masterValue, slaveValue, timeRangeStr, boxVolume, boxBottomArea)">
                             图表加载
                         </el-button>
                     </div>
@@ -255,11 +264,22 @@ onMounted(() => {
                                             </el-text>
                                         </div>
                                         <h4>
-                                            <span class="badge open-color-auto m-1 text-bg-danger">K<sub>(CO<sub>2</sub>) </sub>：{{item[1].toFixed(4) }}</span>
+                                            <span class="badge open-color-auto m-1 text-bg-danger">K<sub>(CO<sub>2</sub>) </sub>：{{
+                                                    item[1].toFixed(6)
+                                                }}</span>
                                             <span class="badge open-color-auto m-1 text-bg-danger"></span>
-                                            <span class="badge open-color-auto m-1 bg-secondary">R<sup>2</sup><sub>(CO<sub>2</sub>)</sub>：{{item[2].toFixed(4) }}</span>
-                                            <span class="badge open-color-auto m-1 bg-primary">K<sub>(H<sub>2</sub>O)</sub>：{{item[4].toFixed(4) }}</span>
-                                            <span class="badge open-color-auto m-1 bg-secondary">R<sup>2</sup><sub>(H<sub>2</sub>O)</sub>：{{item[5].toFixed(4) }}</span>
+                                            <span
+                                                class="badge open-color-auto m-1 bg-secondary">R<sup>2</sup><sub>(CO<sub>2</sub>)</sub>：{{
+                                                    item[2].toFixed(6)
+                                                }}</span>
+                                            <span
+                                                class="badge open-color-auto m-1 bg-primary">K<sub>(H<sub>2</sub>O)</sub>：{{
+                                                    item[4].toFixed(6)
+                                                }}</span>
+                                            <span
+                                                class="badge open-color-auto m-1 bg-secondary">R<sup>2</sup><sub>(H<sub>2</sub>O)</sub>：{{
+                                                    item[5].toFixed(6)
+                                                }}</span>
                                         </h4>
                                         <el-collapse accordion>
                                             <el-collapse-item>
@@ -329,7 +349,8 @@ onMounted(() => {
                     </div>
                 </div>
                 <div class="item" v-if="isLoading">
-                    <el-button type="primary" plain @click="fluxDataDownload(fluxData)">通量数据下载</el-button>
+                    <el-button size="large" type="primary" plain @click="fluxDataDownload(fluxData)">通量数据下载
+                    </el-button>
                 </div>
             </div>
         </el-col>

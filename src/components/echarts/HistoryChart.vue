@@ -4,16 +4,16 @@
 
 <script setup>
 import {historyAreaOption} from '@/assets/js/echarts-option/historys.js'
-import {onMounted, watch} from "vue";
+import {onMounted, onUnmounted, watch} from "vue";
 import {IdInitEcharts} from "@/assets/js/echarts-package.js";
-import {trsnslateSlave, translate} from '@/assets/js/stations-data.js'
+import {trsnslateSlave, translate, unitJSon} from '@/assets/js/stations-data.js'
 import {timeHandle} from "@/util/data-generator.js";
 
 const props = defineProps({
     historyData: Array,
     stations: Array,
     sensors: Array,
-})
+});
 
 let historyLineOption = historyAreaOption;
 
@@ -23,11 +23,18 @@ const refresh = (dom, option, historyData, slaveList, sensorsList) => {
     let sensorNameIndex = 0;
     let slaveNameIndex = 0;
     for (let sensor of historyData) {
-        let newData = {name: '', type: 'line', symbol: 'none', data: [], smooth: false,};
+        let newData = {
+            name: '',
+            type: 'line',
+            symbol: 'none',
+            data: [],
+            smooth: false,
+
+        };
         let dataList = [];
         let timeList = [];
 
-        let slaveName = trsnslateSlave[slaveList[slaveNameIndex]]
+        let slaveName = trsnslateSlave[slaveList[slaveNameIndex]];
         let sensorName = translate[sensorsList[sensorNameIndex]];
 
         sensorNameIndex = (sensorNameIndex + 1) % sensorsList.length;
@@ -40,39 +47,45 @@ const refresh = (dom, option, historyData, slaveList, sensorsList) => {
 
         newData.name = slaveName + sensorName;
         newData.data = dataList;
+        newData.unit = unitJSon[sensorName]; // 设置单位
+
 
         option.series.push(newData);
+        console.log(option)
         option.xAxis.data = timeList;
     }
 
     dom.setOption(option, true);
     dom.hideLoading();
-}
+};
 
 onMounted(() => {
     let dom = IdInitEcharts('history-line');
-    window.addEventListener('resize', function () {
+    const handleResize = () => {
         dom.resize();
+    };
+
+    window.addEventListener('resize', handleResize);
+    onUnmounted(() => {
+        window.removeEventListener('resize', handleResize);
     });
-    if(props.historyData.length > 0){
+
+    if (props.historyData.length > 0) {
         dom.showLoading();
         refresh(dom, historyLineOption, props.historyData, props.stations, props.sensors);
     }
+
     watch(
         () => props.historyData,
         () => {
-
-            window.addEventListener('resize', function () {
-                dom.resize();
-            });
             if (props.historyData) {
                 dom.showLoading();
                 refresh(dom, historyLineOption, props.historyData, props.stations, props.sensors);
             }
         },
         {deep: true}
-    )
-})
+    );
+});
 </script>
 
 <style scoped>

@@ -35,23 +35,13 @@
 </template>
 
 <script setup>
-import {ref, reactive} from "vue";
+import {ref} from "vue";
 import {useUserStore} from "@/store/user.js";
 
 const loginData = ref({
     username: "",
     password: "",
 })
-
-// const ruleFormRef = ref()
-// const loginData = reactive({
-//     pass: '',
-//     username: '',
-// })
-// const rules = reactive({
-//     password: [{ validator: validatePass, trigger: 'blur' }],
-//     username: [{ validator: validateUsername, trigger: 'blur' }],
-// })
 
 
 let responseData = ref('')
@@ -60,26 +50,6 @@ const useUser = useUserStore()
 function login() {
     useUser.login(loginData)
 }
-//
-// const validateUsername = (rule, value, callback) => {
-//     if (value === '') {
-//         callback(new Error('请输入用户名;'))
-//     } else {
-//         callback()
-//     }
-// }
-//
-// const validatePass = (rule, value, callback) => {
-//     if (value === '') {
-//         callback(new Error('请输入密码;'))
-//     } else {
-//         if (loginData.value.username !== '') {
-//             if (!ruleFormRef.value) return
-//             ruleFormRef.value.validateField('checkPass', () => null)
-//         }
-//         callback()
-//     }
-// }
 
 </script>
 
@@ -89,6 +59,11 @@ function login() {
     justify-content: center;
     align-items: center;
     height: 100%;
+    /*在手机端的属性*/
+    @media (max-width: 769px) {
+        width: 100%;
+        height: 100vh;
+    }
 }
 
 .login-card {
