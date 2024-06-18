@@ -21,7 +21,7 @@ let option = {
                 top: 'center',
                 style: {
                     // text: 'Home page is building',
-                    text: '阴山下，敕勒川',
+                    text: '春眠不觉晓',
                     fontSize: 100,
                     fontWeight: 'bold',
                     lineDash: [0, 200],

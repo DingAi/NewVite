@@ -92,7 +92,7 @@
                     <el-divider/>
                     <template #header>
                         <span :class="{'highlight': index === 0}">
-                            {{ index === 0 ? '主站数据' : `子站 ${index + 1} 数据` }}
+                            {{ index === 0 ? '主站数据' : `子站 ${index} 数据` }}
                         </span>
                     </template>
                     <MeteorologicalSoilTab :soil_data="machiningFun(item)"/>
@@ -149,6 +149,7 @@ const machiningFun = (data) => {
     for (let i = 0; i < 5; i++) {
         result.push(data.slice(i * 4, (i + 1) * 4));
     }
+    result = result.map(row => row.map(num => num / 100));
     return result;
 }
 
@@ -162,7 +163,7 @@ const refresh = async () => {
         masterDataValueList.value.push(parseFloat(response.data[0][1]) / 100);
         masterDataValueList.value.push(response.data[0][6]);
         masterDataValueList.value.push(response.data[0][7]/1000);
-        masterDataValueList.value.push(response.data[0][4]/1000);
+        masterDataValueList.value.push(response.data[0][4]/100000);
         masterDataValueList.value.push(response.data[0][5]/1000);
         seriesData.value = response.data;
         gpsProcess(response.data[0].reverse())
@@ -270,7 +271,7 @@ onMounted(() => {
 .el-statistic {
     --el-statistic-content-font-size: 25px;
     --el-statistic-title-font-size: 15px;
-    --el-statistic-content-color: rgb(170, 201, 251);
+    --el-statistic-content-color: rgb(255, 190, 45);
 }
 
 .phone-h {
