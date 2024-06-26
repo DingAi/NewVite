@@ -164,11 +164,12 @@ const refresh = async () => {
         masterDataValueList.value.push(response.data[0][6]);
         masterDataValueList.value.push(response.data[0][7]/1000);
         masterDataValueList.value.push(response.data[0][4]/100000);
-        masterDataValueList.value.push(response.data[0][5]/1000);
+        masterDataValueList.value.push(response.data[0][5]/10000);
         seriesData.value = response.data;
         gpsProcess(response.data[0].reverse())
-        // 移除第一和最后一个元素
+        // 移除第一和最后两个元素
         seriesData.value.shift();
+        seriesData.value.pop();
         seriesData.value.pop();
     } catch (error) {
         // 弹出错误提示框

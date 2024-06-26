@@ -43,7 +43,7 @@ onMounted(()=>{
         <tbody>
         <tr v-for="(items, index) in soil_data" :key="index">
             <th scope="row">
-                <span class="badge bg-black">{{ index }}</span>
+                <span class="badge bg-black">{{ index + 1 }}</span>
             </th>
             <td v-for="(sensor, i) in sensorNames" :key="i">
           <span class="badge bg-warning">
